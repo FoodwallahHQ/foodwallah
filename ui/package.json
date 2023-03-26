@@ -1,0 +1,51 @@
+{
+  "name": "kalico",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "local": "cp .env-local .env && next",
+    "dev": "cp .env-dev .env && next",
+    "prod": "cp .env-prod .env && next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.10.5",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.0",
+    "@react-pdf/renderer": "^3.1.4",
+    "axios": "^1.2.1",
+    "file-saver": "^2.0.5",
+    "firebase": "^9.15.0",
+    "firebase-admin": "^11.5.0",
+    "hls.js": "^1.2.9",
+    "html2canvas": "^1.4.1",
+    "image-extensions": "^1.1.0",
+    "is-url": "^1.2.4",
+    "lodash": "^4.17.21",
+    "material-ui-search-bar": "^1.0.0",
+    "mobx": "^6.7.0",
+    "mobx-react": "^7.6.0",
+    "moment": "^2.29.4",
+    "next": "latest",
+    "notistack": "^2.0.8",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-dropzone": "^14.2.3",
+    "react-social-login-buttons": "^3.6.1",
+    "react-toastify": "^9.1.1",
+    "slate": "^0.88.1",
+    "slate-history": "^0.86.0",
+    "slate-react": "^0.88.2"
+  },
+  "devDependencies": {
+    "@types/node": "17.0.35",
+    "@types/react": "^18.0.17",
+    "@types/react-dom": "^18.0.6",
+    "typescript": "4.7.2"
+  }
+}

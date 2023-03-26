@@ -1,0 +1,18 @@
+version: "3.3"
+services:
+  kalico_ui:
+    image: 537408061242.dkr.ecr.us-east-2.amazonaws.com/kalico:ui
+    container_name: kalico_ui
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kalico_ui.rule=Host(`kalico.ai`, `www.kalico.ai`)"
+      - "traefik.http.routers.kalico_ui.service=kalico_ui"
+      - "traefik.http.services.kalico_ui.loadbalancer.server.port=3000"
+    networks:
+      - traefik_network
+
+networks:
+    traefik_network:
+      external: true
+

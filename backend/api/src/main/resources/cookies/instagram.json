@@ -1,0 +1,16 @@
+{
+  "b.i.instagram.com": [],
+  "i.instagram.com": [
+    {
+      "path": "/",
+      "domain": "instagram.com",
+      "hostOnly": false,
+      "name": "sessionid",
+      "httpOnly": true,
+      "persistent": true,
+      "secure": true,
+      "value": "57072150343%3AyT2wTVg0i0soNs%3A24%3AAYcLg47VtVIuNtcTiBu7-vP1X66CAxgkqBc2XVS6gA",
+      "expiresAt": 1704221553874
+    }
+  ]
+}

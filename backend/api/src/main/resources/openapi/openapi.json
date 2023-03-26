@@ -1,0 +1,1371 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Kalico API",
+    "description": "REST API for Kalico backend services",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://api.kalico.ai",
+      "description": "Prod"
+    },
+    {
+      "url": "http://localhost:8080",
+      "description": "Dev"
+    }
+  ],
+  "paths": {
+    "/campaigns/all": {
+      "get": {
+        "tags": [
+          "lead"
+        ],
+        "summary": "Get email campaign metrics",
+        "description": "Get email campaign metrics",
+        "operationId": "getEmailCampaignMetrics",
+        "responses": {
+          "200": {
+            "description": "Campaign metrics response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EmailCampaignMetrics"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/campaigns/create": {
+      "post": {
+        "tags": [
+          "lead"
+        ],
+        "summary": "Create an email campaign",
+        "description": "Create an email campaign",
+        "operationId": "createEmailCampaign",
+        "requestBody": {
+          "required": true,
+          "description": "Create campaign request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateEmailCampaignRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Create campaign response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Get user profile",
+        "description": "Get user profile or create one if it doesn't exist",
+        "operationId": "getUserprofile",
+        "responses": {
+          "200": {
+            "description": "Get user profile response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProfileResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lead/youtube/channels": {
+      "get": {
+        "tags": [
+          "lead"
+        ],
+        "summary": "Get YouTube channel info",
+        "operationId": "getChannelInfo",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Channel info response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ChannelPageableResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/create": {
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Create a new project",
+        "description":"Create a new project and start content processing",
+        "operationId": "createProject",
+        "requestBody": {
+          "required": true,
+          "description": "Create project request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateProjectRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Process video response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateProjectResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/update": {
+      "post": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Update content",
+        "description":"Update content",
+        "operationId": "updateProjectContent",
+        "requestBody": {
+          "required": true,
+          "description": "Update content request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProjectContentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update content response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/all": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get all projects",
+        "description": "Get a list of projects",
+        "operationId": "getAllProjects",
+        "responses": {
+          "200": {
+            "description": "All projects response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/users/all": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get all user projects",
+        "description": "Get a list of user projects",
+        "operationId": "getAllUserProjects",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 2147483647
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All user projects response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserProjectsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/content/preview": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get OpenGraph preview of a video or audio link",
+        "description": "Get OpenGraph preview of a video or audio link",
+        "operationId": "getContentPreview",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Content preview response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ContentPreviewResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/delete/{project_id}": {
+      "delete": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Delete a project",
+        "operationId": "deleteProject",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Delete project response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/detail/{project_id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get a project by ID",
+        "description": "Get a project by ID",
+        "operationId": "getProjectById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project detail response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/job-status/{project_id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get the progress of a pending job",
+        "description": "Get the progress of a pending job",
+        "operationId": "getProjectJobStatus",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Project job status response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProjectJobStatus"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/sampled-images/{project_id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get video sampled images",
+        "description": "Get video sampled images",
+        "operationId": "getSampledImages",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sampled image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/project/media-content/{project_id}": {
+      "get": {
+        "tags": [
+          "project"
+        ],
+        "summary": "Get full media content metadata",
+        "description": "Get full media content metadata",
+        "operationId": "getMediaContent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "project_id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Media content response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaContent"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lead/image/{image_hash}": {
+      "get": {
+        "tags": [
+          "lead"
+        ],
+        "summary": "Get user image",
+        "description": "Get user image",
+        "operationId": "getUserEmailImage",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "image_hash",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string",
+                  "format": "byte"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe/create": {
+      "post": {
+        "tags": [
+          "recipe"
+        ],
+        "summary": "Create a new recipe",
+        "description":"Create a new recipe from a url",
+        "operationId": "createRecipe",
+        "requestBody": {
+          "required": true,
+          "description": "Create recipe request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StringDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe/all": {
+      "get": {
+        "tags": [
+          "recipe"
+        ],
+        "summary": "Get all recipes",
+        "description": "Get a paginated list of recipes",
+        "operationId": "getAllRecipes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All recipe response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe/most-recent": {
+      "get": {
+        "tags": [
+          "recipe"
+        ],
+        "summary": "Get most recent recipes",
+        "description": "Get get most recent recipes",
+        "operationId": "getMostRecentRecipes",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Most recent response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/recipe/single/{slug}": {
+      "get": {
+        "tags": [
+          "recipe"
+        ],
+        "summary": "Get full recipe",
+        "description": "Get full recipe by slug",
+        "operationId": "getFullRecipe",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Full recipe response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeFull"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "CreateEmailCampaignRequest": {
+        "type": "object",
+        "properties": {
+          "subject": {
+            "type": "string"
+          },
+          "num_emails_sent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "template": {
+            "type": "string"
+          },
+          "personalized_by_name": {
+            "type": "boolean"
+          },
+          "personalized_by_other": {
+            "type": "boolean"
+          }
+        }
+      },
+      "EmailCampaignMetrics": {
+        "type": "object",
+        "properties": {
+          "campaigns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailCampaign"
+            }
+          }
+        }
+      },
+      "EmailCampaign": {
+        "type": "object",
+        "properties": {
+          "campaign_id": {
+            "type": "string"
+          },
+          "subject": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string"
+          },
+          "num_emails_sent": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "open_rate": {
+            "type": "number"
+          },
+          "date_created": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "personalized_by_name": {
+            "type": "boolean"
+          },
+          "personalized_by_other": {
+            "type": "boolean"
+          },
+          "email_metric": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EmailMetric"
+            }
+          }
+        }
+      },
+      "EmailMetric": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "num_opened": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "last_opened_at": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "ContentPreviewResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "string"
+          },
+          "duration_minutes": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "thumbnail": {
+            "type": "string"
+          }
+        }
+      },
+      "ProjectJobStatus": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/JobStatus"
+          },
+          "message": {
+            "type": "string"
+          },
+          "percent_complete": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "estimated_time": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateProjectResponse": {
+        "type": "object",
+        "properties": {
+          "project_id": {
+            "type": "string"
+          },
+          "project_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateProjectRequest": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string",
+            "nullable": true,
+            "default": "Untitled"
+          },
+          "content_link": {
+            "type": "string",
+            "nullable": true
+          },
+          "content_type": {
+            "$ref": "#/components/schemas/KalicoContentType"
+          },
+          "paraphrase": {
+            "type": "boolean",
+            "nullable": true,
+            "default": false
+          },
+          "get_raw_transcript": {
+            "type": "boolean",
+            "nullable": false,
+            "default": false
+          },
+          "embed_images": {
+            "type": "boolean",
+            "nullable": true,
+            "default": false
+          },
+          "file": {
+            "type": "string",
+            "format": "base64",
+            "nullable": true
+          },
+          "file_extension": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "KalicoContentType": {
+        "type": "string",
+        "nullable": true,
+        "enum": [
+          "DIY",
+          "FOOD_RECIPE",
+          "INTERVIEW",
+          "LECTURE",
+          "PODCAST",
+          "OTHER"
+        ]
+      },
+      "JobStatus": {
+        "type": "string",
+        "nullable": true,
+        "enum": [
+          "IN_PROGRESS",
+          "COMPLETE",
+          "FAILED",
+          "PROJECT_NOT_FOUND"
+        ]
+      },
+      "UpdateProjectContentRequest": {
+        "type": "object",
+        "properties": {
+          "project_uid": {
+            "type": "string",
+            "nullable": false
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentItem"
+            }
+          }
+        }
+      },
+      "GenericResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "error": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UserProject": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "content_url": {
+            "type": "string"
+          },
+          "user_full_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "registered_on": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "project_created_at": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "Project": {
+        "type": "object",
+        "properties": {
+          "project_name": {
+            "type": "string"
+          },
+          "project_uid": {
+            "type": "string"
+          }
+        }
+      },
+      "ProjectDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "raw_transcript": {
+            "type": "boolean",
+            "nullable": false
+          },
+          "date_created": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentItem"
+            }
+          }
+        }
+      },
+      "ContentItem": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "checked": {
+            "type": "boolean"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ContentItemChildren"
+            }
+          }
+        }
+      },
+      "ContentItemChildren": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "MediaContent": {
+        "type": "object",
+        "required": [
+          "media_id",
+          "project_id",
+          "permalink",
+          "title",
+          "description",
+          "transcript"
+        ],
+        "properties": {
+          "media_id": {
+            "type": "string"
+          },
+          "project_id": {
+            "type": "string"
+          },
+          "permalink": {
+            "type": "string"
+          },
+          "transcript": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        }
+      },
+      "GifRequest": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "number",
+            "format": "float"
+          },
+          "end": {
+            "type": "number",
+            "format": "float"
+          },
+          "project_id": {
+            "type": "string"
+          }
+        }
+      },
+      "GifResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
+      },
+      "UserProfileResponse":  {
+        "type": "object",
+        "required": [
+          "error",
+          "profile"
+        ],
+        "properties": {
+          "error": {
+            "type": "string"
+          },
+          "profile": {
+            "$ref": "#/components/schemas/UserProfile"
+          }
+        }
+      },
+      "UserProfile":  {
+        "type": "object",
+        "required": [
+          "firebase_id",
+          "name",
+          "email",
+          "picture",
+          "roles",
+          "is_authorized"
+        ],
+        "properties": {
+          "firebase_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "picture": {
+            "type": "string"
+          },
+          "roles": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "is_authorized": {
+            "type": "boolean"
+          }
+        }
+      },
+      "VideoMetadata": {
+        "type": "object",
+        "nullable": true,
+        "required": [
+          "cdn_url",
+          "like_count",
+          "share_count",
+          "caption",
+          "creator_avatar",
+          "creator_handle",
+          "original_source",
+          "cover_image"
+        ],
+        "properties": {
+          "cdn_url": {
+            "type": "string"
+          },
+          "like_count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "share_count": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "caption": {
+            "type": "string",
+            "nullable": true
+          },
+          "creator_avatar": {
+            "type": "string",
+            "nullable": true
+          },
+          "creator_handle": {
+            "type": "string",
+            "nullable": true
+          },
+          "original_source": {
+            "type": "string"
+          },
+          "cover_image": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "UserProjectsResponse": {
+        "type": "object",
+        "required": [
+          "num_users",
+          "total_records",
+          "num_pages",
+          "records"
+        ],
+        "properties": {
+          "num_users": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "total_records": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "num_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/UserProject"
+            }
+          }
+        }
+      },
+      "PageableResponse": {
+        "type": "object",
+        "required": [
+          "total_records",
+          "num_pages",
+          "records"
+        ],
+        "properties": {
+          "total_records": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "num_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Project"
+            }
+          }
+        }
+      },
+      "ChannelPageableResponse": {
+        "type": "object",
+        "required": [
+          "count",
+          "records"
+        ],
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/YouTubeChannelDetail"
+            }
+          }
+        }
+      },
+      "YouTubeChannelDetail": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "facebook": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "keywords": {
+            "type": "string"
+          },
+          "channel_url": {
+            "type": "string"
+          },
+          "channel_name": {
+            "type": "string"
+          },
+          "channel_handle": {
+            "type": "string"
+          },
+          "subscribers": {
+            "type": "string"
+          },
+          "subscribers_value": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "instagram": {
+            "type": "string"
+          },
+          "twitter": {
+            "type": "string"
+          },
+          "website": {
+            "type": "string"
+          },
+          "blog": {
+            "type": "string"
+          },
+          "snap_chat": {
+            "type": "string"
+          },
+          "discord": {
+            "type": "string"
+          },
+          "tiktok": {
+            "type": "string"
+          },
+          "pinterest": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateRecipeResponse": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      },
+      "StringDto": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        }
+      },
+      "PageableRecipeResponse": {
+        "type": "object",
+        "required": [
+          "total_records",
+          "num_pages",
+          "records"
+        ],
+        "properties": {
+          "total_records": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "num_pages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "records": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RecipeLite"
+            }
+          }
+        }
+      },
+      "RecipeLite": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string"
+          },
+          "created_at": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "title": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "thumbnail": {
+            "type": "string"
+          },
+          "num_ingredients": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "num_steps": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cooking_time": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "RecipeFull": {
+        "type": "object",
+        "properties": {
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "instructions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "recipe_lite": {
+            "$ref": "#/components/schemas/RecipeLite"
+          }
+        }
+      }
+    }
+  }
+}
