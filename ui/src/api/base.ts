@@ -20,7 +20,7 @@ import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
 let path = "http://localhost:8080"
 if ( process.env.NODE_ENV === 'production') {
-    path = "https://api.kalico.ai";
+    path = "https://api.foodwallah.com";
 }
 export const BASE_PATH = path
 
