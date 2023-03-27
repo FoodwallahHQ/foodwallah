@@ -4,7 +4,7 @@
 name: Foodwallah UI | Prod
 on:
   pull_request:
-    branches: [ recipe ]
+    branches: [ main ]
     types: [closed]
     paths:
       - "ui/**"
