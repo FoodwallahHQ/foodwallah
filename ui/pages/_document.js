@@ -3,19 +3,24 @@ import Script from "next/script";
 import {SITE_IMAGE_URL} from "../src/utils/constants";
 
 export default function Document() {
-  const title = 'Kalico AI | Audio and Video Repurposing for Content Creators'
-  const description = 'Kalico is an AI assistant that helps you instantly create captivating articles from your videos and podcasts.'
+  const title = 'Foodwallah | All the Best Recipes from YouTube'
+  const description = 'Foodwallah instantly turns YouTube food videos into step-by-step cooking instructions and ingredients'
   const siteImage = SITE_IMAGE_URL
-  const url = 'https://kalico.ai'
+  const url = 'https://foodwallah.com'
       return (
       <Html lang="en">
         <Head>
-          <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico" />
-          <link rel='shortcut icon' href='/favicon.ico' />
-          {/*<link rel="manifest" href="/manifest.json" />*/}
+          <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
+          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+          <link rel="manifest" href="/site.webmanifest"/>
+          <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"/>
+          <meta name="msapplication-TileColor" content="#da532c"/>
+          <meta name="theme-color" content="#ffffff"/>
+
           <meta
             name="description"
-            content="Kalico"
+            content="Foodwallah"
           />
           <meta name="description" content={description}/>
 
