@@ -22,6 +22,20 @@ const RecipeDetailIndex: FC<RecipeDetailProps> =  (props) => {
       <>
         <Head>
           <title>{props.post?.recipe_lite?.title}</title>
+          <meta property="og:title" content={props.post?.recipe_lite?.title} />
+          <meta
+              name="description"
+              content={props.post?.recipe_lite?.summary}
+              key="desc"
+          />
+          <meta
+              property="og:description"
+              content={props.post?.recipe_lite?.summary}
+          />
+          <meta
+              property="og:image"
+              content={props.post?.recipe_lite?.thumbnail}
+          />
         </Head>
         <main>
           <DetailView post={props.post}/>
