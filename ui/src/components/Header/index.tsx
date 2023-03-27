@@ -12,7 +12,7 @@ const HeaderNav: FC<HeaderNavProps> = observer((_props) => {
         <nav className="navbar navbar-expand-lg menu_three sticky-nav">
           <div className="container-fluid">
             <Link className="navbar-brand header_logo" href={PATHS.HOME}>
-              <img className="main_logo" src="/assets/images/kalico.png" alt="logo"/>
+              <img className="main_logo" src="/assets/images/foodwallah.png" alt="logo"/>
             </Link>
             <button
                 className="navbar-toggler collapsed"

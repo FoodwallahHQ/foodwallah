@@ -15,22 +15,22 @@ const DetailView: FC<DetailViewProps> =  (props) => {
         <Grid container className="recipe-detail-top">
           <Grid item md={6} sm={12}>
             <Box className="primary-thumbnail">
-              <img src={props.post.recipe_lite.thumbnail} alt={props.post.recipe_lite.title}/>
+              <img src={props.post?.recipe_lite?.thumbnail} alt={props.post?.recipe_lite?.title}/>
             </Box>
           </Grid>
           <Grid item md={6} sm={12} sx={{p: 3}}>
             <Box className="title">
-              <h3 >{props.post.recipe_lite.title}</h3>
+              <h3 >{props.post?.recipe_lite?.title}</h3>
             </Box>
-            <SummaryComponent steps={props.post.recipe_lite.num_steps}
-                              ingredients={props.post.recipe_lite.num_ingredients}
-                              time={props.post.recipe_lite.cooking_time}/>
+            <SummaryComponent steps={props.post?.recipe_lite?.num_steps}
+                              ingredients={props.post?.recipe_lite?.num_ingredients}
+                              time={props.post?.recipe_lite?.cooking_time}/>
           </Grid>
         </Grid>
         <Divider><RestaurantMenuIcon/></Divider>
         <Box className="recipe-detail-bottom">
           <Box className="summary">
-            <p>{props.post.recipe_lite.summary}</p>
+            <p>{props.post?.recipe_lite?.summary}</p>
           </Box>
           <Box className="ingredients">
             <h3>Ingredients</h3>

@@ -1,4 +1,4 @@
-export const SITE_IMAGE_URL = 'https://d229njkjc1dgnt.cloudfront.net/image/kalico/site_image2.png'
+export const SITE_IMAGE_URL = 'https://d229njkjc1dgnt.cloudfront.net/image/foodwallah-site-img.png'
 export const PATHS = {
   HOME: '/',
   LOGIN: '/account/sign-in',
