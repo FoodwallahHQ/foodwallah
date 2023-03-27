@@ -30,5 +30,4 @@ const RecipeDetailIndex: FC<RecipeDetailProps> =  (props) => {
       </>
   );
 }
-
 export default RecipeDetailIndex
