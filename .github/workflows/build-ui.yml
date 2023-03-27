@@ -13,9 +13,9 @@ env:
   AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   AWS_REGION_US: 'us-east-2'
   AWS_ECR_REGISTRY: '537408061242.dkr.ecr.us-east-2.amazonaws.com'
-  AWS_ECR_REPO: 'kalico'
+  AWS_ECR_REPO: 'foodwallah'
   IMAGE_TAG: 'ui'
-  ARTIFACT_PATH: 'kalico_ui/build'
+  ARTIFACT_PATH: 'foodwallah_ui/build'
   PROJECT_NAME: 'ui'
 
 jobs:

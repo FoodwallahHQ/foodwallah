@@ -1,15 +1,15 @@
 version: '3.8'
 services:
-  postgres_kalico:
+  postgres_foodwallah:
     image: postgres
     command: postgres -c 'max_connections=2000'
-    container_name: postgres_kalico
+    container_name: postgres_foodwallah
     restart: always
     environment:
       - DATABASE_HOST=127.0.0.1
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=kalico
+      - POSTGRES_DB=foodwallah
     ports:
       - "8432:5432"
     volumes:

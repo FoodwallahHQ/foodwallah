@@ -18,8 +18,8 @@ services:
       --entrypoints.websecure.address=:443
       --entrypoints.websecure.http.tls=true
       --entrypoints.websecure.http.tls.certResolver=letsencrypt
-      --entrypoints.websecure.http.tls.domains[0].main=kalico.ai
-      --entrypoints.websecure.http.tls.domains[0].sans=*.kalico.ai
+      --entrypoints.websecure.http.tls.domains[0].main=foodwallah.com
+      --entrypoints.websecure.http.tls.domains[0].sans=*.foodwallah.com
 
       --certificatesresolvers.letsencrypt.acme.dnschallenge=true
       --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=lightsail
@@ -34,7 +34,7 @@ services:
     environment:
       - "AWS_ACCESS_KEY_ID="
       - "AWS_SECRET_ACCESS_KEY="
-      - "DNS_ZONE=kalico.ai"
+      - "DNS_ZONE=foodwallah.com"
     ports:
       - "80:80"
       - "443:443"
@@ -51,7 +51,7 @@ services:
       - traefik.enable=true
       # Redirect all HTTP traffic to HTTPS
       - traefik.http.routers.api.entryPoints=traefik
-      - traefik.http.routers.traefik.rule=Host(`dashboard.kalico.ai`)
+      - traefik.http.routers.traefik.rule=Host(`dashboard.foodwallah.com`)
       - traefik.http.routers.traefik.middlewares=auth
       - traefik.http.routers.traefik.service=api@internal
       - traefik.http.routers.traefik.tls=true

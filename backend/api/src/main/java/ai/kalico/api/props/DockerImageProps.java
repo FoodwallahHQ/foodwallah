@@ -18,5 +18,5 @@ public class DockerImageProps {
     private String tesseract = "tesseractshadow/tesseract4re:latest";
     private String imageMagick = "dpokidov/imagemagick:latest";
     private String ffmpeg = "jrottenberg/ffmpeg:latest";
-    private String whisper = "537408061242.dkr.ecr.us-east-2.amazonaws.com/mere-recipes:whisperai";
+    private String whisper = "537408061242.dkr.ecr.us-east-2.amazonaws.com/whisperai:latest";
 }

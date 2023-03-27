@@ -6,5 +6,5 @@ docker-compose pull
 docker pull jrottenberg/ffmpeg
 docker pull tesseractshadow/tesseract4re
 docker pull dpokidov/imagemagick
-docker pull 537408061242.dkr.ecr.us-east-2.amazonaws.com/mere-recipes:whisperai
+docker pull 537408061242.dkr.ecr.us-east-2.amazonaws.com/whisperai:latest
 docker-compose up --force-recreate --build -d

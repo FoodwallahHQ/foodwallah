@@ -12,7 +12,7 @@ on:
 env:
   AWS_REGION_US: 'us-east-2'
   AWS_ECR_REGISTRY: '537408061242.dkr.ecr.us-east-2.amazonaws.com'
-  AWS_ECR_REPO: 'kalico'
+  AWS_ECR_REPO: 'foodwallah'
   IMAGE_TAG: 'backend'
   PROJECT_NAME: 'api'
   PROJECT_ROOT: 'backend'
@@ -20,13 +20,13 @@ env:
   AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
   MR_GH_USERNAME: ${{ secrets.MR_GH_USERNAME }}
   MR_GH_TOKEN: ${{ secrets.MR_GH_TOKEN }}
-  SPRING_APPLICATION_NAME: 'kalico'
+  SPRING_APPLICATION_NAME: 'foodwallah'
   SPRING_PROFILES_ACTIVE: 'prod'
   TEST_SPRING_PROFILES_ACTIVE: 'test'
-  TEST_DB_NAME: 'kalico'
+  TEST_DB_NAME: 'foodwallah'
   TEST_DB_PASSWORD: 'root'
   TEST_DB_USERNAME: 'root'
-  ARTIFACT_PATH: 'kalico-api/build'
+  ARTIFACT_PATH: 'foodwallah-api/build'
 jobs:
   test:
     runs-on: ubuntu-latest
