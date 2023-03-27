@@ -1,0 +1,47 @@
+#**********************************************************************
+# Build WhisperAI Image
+#**********************************************************************
+
+name: WhisperAI Image
+on:
+  pull_request:
+    branches: [ main ]
+    types: [closed]
+    paths:
+      - "dev-ops/whisper/**"
+env:
+  AWS_REGION_US: 'us-east-2'
+  AWS_ECR_REGISTRY: '537408061242.dkr.ecr.us-east-2.amazonaws.com'
+  AWS_ECR_REPO: 'whisperai'
+  IMAGE_TAG: 'latest'
+jobs:
+  build:
+    needs: test
+    if: ${{ github.event.pull_request.merged }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_KEY }}
+          aws-region: ${{ env.AWS_REGION_US }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ env.AWS_ECR_REGISTRY }}
+          ECR_REPOSITORY: ${{ env.AWS_ECR_REPO }}
+          IMAGE_TAG: ${{ env.IMAGE_TAG }}
+        run: |
+          cd ${{ env.PROJECT_ROOT }}
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
