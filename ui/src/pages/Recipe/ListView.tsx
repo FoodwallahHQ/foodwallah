@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Grid} from "@mui/material";
+import {Box, Divider, Grid} from "@mui/material";
 import Link from "next/link";
 import SummaryComponent from "@/pages/Recipe/SummaryComponent";
 import {RecipeLite} from "@/api";
@@ -13,12 +13,12 @@ export interface ListViewProps {
 const ListView: FC<ListViewProps> =  (props) => {
   return (
       <main className="recipe-container">
-        <Grid container className="list-items" spacing={3}>
+        <Box className="list-items">
           {
             props.posts?.map((it, index) => {
               const url = '/recipe/' + it.slug
               return (
-                  <Grid container spacing={6} className="list-item-card" key={index}>
+                  <Grid container className="list-item-card" key={index} spacing={2}>
                     <Grid item md={6} sm={12} className="center">
                       <Box>
                         <a href={url} aria-hidden="true">
@@ -47,14 +47,13 @@ const ListView: FC<ListViewProps> =  (props) => {
                           </Link>
                         </Box>
                       </Box>
-
+                      {index < props.posts.length - 1 && <Divider>{'<>'}</Divider>}
                     </Grid>
                   </Grid>
-
               )
             })
           }
-        </Grid>
+        </Box>
 
       </main>
   );
