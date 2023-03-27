@@ -16,7 +16,6 @@ env:
   IMAGE_TAG: 'latest'
 jobs:
   build:
-    needs: test
     if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     steps:

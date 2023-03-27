@@ -8,4 +8,3 @@ RUN apt-get update && \
 RUN python3 -m pip install --upgrade pip
 RUN python -m pip install regex tqdm Pillow
 RUN pip install git+https://github.com/openai/whisper.git
-
