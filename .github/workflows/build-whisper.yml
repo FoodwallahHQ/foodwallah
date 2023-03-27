@@ -15,7 +15,8 @@ env:
   AWS_ECR_REPO: 'whisperai'
   IMAGE_TAG: 'latest'
   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  AWS_SECRET_KEY:
+  PROJECT_ROOT: 'dev-ops/whisper'
 jobs:
   build:
     if: ${{ github.event.pull_request.merged }}
