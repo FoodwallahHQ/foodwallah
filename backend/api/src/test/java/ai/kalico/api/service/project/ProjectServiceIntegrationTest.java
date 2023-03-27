@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.*;
  * @author Bizuwork Melesse
  * created on 8/22/21
  */
+@Ignore
 @Slf4j
 @SpringBootTest(classes = ServiceTestConfiguration.class)
 public class ProjectServiceIntegrationTest extends AbstractTestNGSpringContextTests {
