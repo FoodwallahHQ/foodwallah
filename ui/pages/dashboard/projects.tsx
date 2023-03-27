@@ -39,7 +39,7 @@ const ProjectsIndex: FC<ProjectIndexProps> =  (_props) => {
     return (
         <>
           <Head>
-            <title>Kalico | My Projects</title>
+            <title>Foodwallah | My Projects</title>
           </Head>
           <main>
             <section className="container">

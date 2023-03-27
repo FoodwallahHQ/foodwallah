@@ -8,7 +8,7 @@ function SignInConfirmationIndex() {
   return (
     <>
       <Head>
-        <title>Kalico | Sign In Confirmation</title>
+        <title>Foodwallah | Sign In Confirmation</title>
       </Head>
       <SignInConfirmation/>
     </>

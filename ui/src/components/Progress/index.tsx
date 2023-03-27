@@ -8,7 +8,7 @@ function Progress() {
             <div className="spinner"></div>
             <div className="text">
               <img className="mx-auto" src="/assets/images/spinner_logo.svg" alt=""/>
-              <h4><span>Kalico</span></h4>
+              <h4><span>Foodwallah</span></h4>
             </div>
           </div>
           <h2 className="head">Did You Know?</h2>

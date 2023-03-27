@@ -22,7 +22,7 @@ const RecipeList: FC<RecipeListProps> =  (props) => {
   return (
       <>
         <Head>
-          <title>Kalico All Recipes</title>
+          <title>Foodwallah | All the Best Recipes from YouTube</title>
         </Head>
         <main>
             <ListView posts={props.posts}/>

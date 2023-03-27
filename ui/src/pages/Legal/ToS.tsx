@@ -32,7 +32,7 @@ function ToS(props: LegalProps) {
                       <span className="legal-updated-date">Last updated: February 03, 2023</span>
                       <h4 className="legal-title">1. AGREEMENT TO TERMS</h4>
                       <p className="text">
-                        These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and Kalico AI, Inc. ("Company", “we”, “us”, or “our”), concerning your access to and use of the https://www.kalico.ai website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). We are registered in __________, United States and have our registered office at __________, __________. You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms of Service. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF SERVICE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.
+                        These Terms of Service constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and Foodwallah, Inc. ("Company", “we”, “us”, or “our”), concerning your access to and use of the https://www.foodwallah.com website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). We are registered in __________, United States and have our registered office at __________, __________. You agree that by accessing the Site, you have read, understood, and agree to be bound by all of these Terms of Service. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF SERVICE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY.
                         </p>
                       <p className="text">
                         Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Service at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of these Terms of Service, and you waive any right to receive specific notice of each such change. Please ensure that you check the applicable Terms every time you use our Site so that you understand which Terms apply. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms of Service by your continued use of the Site after the date such revised Terms of Service are posted.
@@ -87,7 +87,7 @@ function ToS(props: LegalProps) {
                         All purchases are non-refundable. You can cancel your subscription at any time by contacting us using the contact information provided below. Your cancellation will take effect at the end of the current paid term.
                       </p>
                       <p>
-                        If you are unsatisfied with our services, please email us at [account: getkalicoai domain: gmail.com]
+                        If you are unsatisfied with our services, please email us at
                       </p>
                       <h4 className="legal-title"> 7. PROHIBITED ACTIVITIES</h4>
                       <p className="text">
@@ -258,7 +258,7 @@ function ToS(props: LegalProps) {
                         In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:
                       </p>
                       <p>
-                        Kalico AI, Inc.
+                        Foodwallah, Inc.
                         United States
                       </p>
                     </div>

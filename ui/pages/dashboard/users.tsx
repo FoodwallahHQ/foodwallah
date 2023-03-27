@@ -44,7 +44,7 @@ const UsersIndex: FC<ProjectIndexProps> =  (_props) => {
     return (
         <>
           <Head>
-            <title>Kalico | Users</title>
+            <title>Foodwallah | Users</title>
           </Head>
             <div className="user-projects-container">
               <UserProjects userProjects={userProjects} user={user}/>

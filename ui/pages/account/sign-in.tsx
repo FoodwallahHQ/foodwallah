@@ -14,7 +14,7 @@ function SignInIndex(props) {
   return (
     <>
       <Head>
-        <title>Kalico | Sign In</title>
+        <title>Foodwallah | Sign In</title>
       </Head>
       <SignIn confirmationFailed={props.confirmationFailed}/>
     </>

@@ -11,7 +11,7 @@ const Footer = () => {
           <a href={PATHS.PRIVACY}>Privacy Policy</a>
         </Box>
         <Box className="footer-right">
-          <p>Copyright © 2023 Kalico</p>
+          <p>Copyright © 2023 Foodwallah</p>
         </Box>
       </footer>
   );

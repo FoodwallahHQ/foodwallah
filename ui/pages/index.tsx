@@ -22,7 +22,7 @@ const Index: FC<IndexProps> =  (props) => {
   return (
     <>
       <Head>
-        <title>Kalico | Recipe from YouTube</title>
+        <title>Foodwallah | All the Best Recipe from YouTube</title>
       </Head>
       <RecipeLanding posts={props.posts}/>
     </>

@@ -20,7 +20,7 @@ type NextPageWithLayout = NextPage & {
 export const getServerSideProps = () => {
   return {
     props: {
-      title: "Kalico AI | Video and Audio Content Re-purposing",
+      title: "Foodwallah | All the Best Recipes from YouTube",
     }
   }
 }
