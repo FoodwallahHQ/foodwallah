@@ -30,5 +30,4 @@ const RecipeList: FC<RecipeListProps> =  (props) => {
       </>
   );
 }
-
 export default RecipeList
