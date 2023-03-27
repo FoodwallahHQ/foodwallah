@@ -1,14 +1,14 @@
 version: "3.3"
 services:
-  kalico_backend:
-    image: 537408061242.dkr.ecr.us-east-2.amazonaws.com/kalico:backend
-    container_name: kalico_backend
+  foodwallah_backend:
+    image: 537408061242.dkr.ecr.us-east-2.amazonaws.com/foodwallah:backend
+    container_name: foodwallah_backend
     restart: always
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.kalico_backend.rule=Host(`api.kalico.ai`)"
-      - "traefik.http.routers.kalico_backend.service=kalico_backend"
-      - "traefik.http.services.kalico_backend.loadbalancer.server.port=8080"
+      - "traefik.http.routers.foodwallah_backend.rule=Host(`api.foodwallah.com`)"
+      - "traefik.http.routers.foodwallah_backend.service=foodwallah_backend"
+      - "traefik.http.services.foodwallah_backend.loadbalancer.server.port=8080"
     networks:
       - traefik_network
     volumes:
