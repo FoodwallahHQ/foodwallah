@@ -675,6 +675,12 @@ export interface RecipeFull {
     instructions?: Array<string>;
     /**
      * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
+    source?: string;
+    /**
+     * 
      * @type {RecipeLite}
      * @memberof RecipeFull
      */

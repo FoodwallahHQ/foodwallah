@@ -125,6 +125,7 @@ public class RecipeServiceImpl implements RecipeService {
     if (entityOpt.isPresent()) {
       RecipeEntity entity = entityOpt.get();
       return new RecipeFull()
+          .source(entity.getCanonicalUrl())
           .ingredients(stringToList(entity.getIngredients()))
           .instructions(stringToList(entity.getInstructions()))
           .recipeLite(getLiteRecipe(entity));

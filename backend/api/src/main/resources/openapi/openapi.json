@@ -1361,6 +1361,9 @@
               "type": "string"
             }
           },
+          "source": {
+            "type": "string"
+          },
           "recipe_lite": {
             "$ref": "#/components/schemas/RecipeLite"
           }
