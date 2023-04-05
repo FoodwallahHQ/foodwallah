@@ -3,10 +3,9 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "local": "cp .env-local .env && next",
-    "dev": "cp .env-dev .env && next",
+    "dev": "cp .env-local .env && next",
     "prod": "cp .env-prod .env && next",
-    "build": "next build",
+    "build": "cp .env-prod .env && next build",
     "start": "next start"
   },
   "dependencies": {
