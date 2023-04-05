@@ -194,12 +194,22 @@ public class LanguageServiceImpl implements LanguageService {
   @Override
   public RecipeGptResponse extractRecipeGptResponse(GptResponse recipeGptCompletion) {
     String text = recipeGptCompletion.getCompletionChoices().get(0).getText();
+    log.info("LanguageServiceImpl.extractRecipeGptResponse Extracting content from completion text: {}",
+        text);
     if (text != null) {
       var lines = new ArrayList<>(List.of(text.split("\n")));
       var title = extractTitle(lines);
       var summary = extractSummary(lines);
       var ingredients = extractIngredients(lines);
       var instructions = extractInstructions(lines);
+      log.info("LanguageServiceImpl.extractRecipeGptResponse Extracted title: {}",
+          title);
+      log.info("LanguageServiceImpl.extractRecipeGptResponse Extracted summary: {}",
+          summary);
+      log.info("LanguageServiceImpl.extractRecipeGptResponse Extracted ingredients: {}",
+          String.join("\n", ingredients));
+      log.info("LanguageServiceImpl.extractRecipeGptResponse Extracted instructions: {}",
+          String.join("\n", instructions));
       return new RecipeGptResponse(title, summary, ingredients, instructions);
     }
     return new RecipeGptResponse("", "", new ArrayList<>(), new ArrayList<>());
@@ -333,7 +343,7 @@ public class LanguageServiceImpl implements LanguageService {
         }
         recipeEntity.setIngredients(objectMapper.writeValueAsString(ingredients));
       } catch (JsonProcessingException e) {
-        log.error("LanguageServiceImpl.saveRecipeContent {}", e.getLocalizedMessage());
+        log.error("LanguageServiceImpl.save {}", e.getLocalizedMessage());
         processed = false;
         reasonFailed = "Failed to extract ingredients";
       }
@@ -354,11 +364,13 @@ public class LanguageServiceImpl implements LanguageService {
         recipeEntity.setProcessed(false);
         recipeEntity.setFailed(true);
         recipeEntity.setReasonFailed(reasonFailed);
+        log.error("LanguageServiceImpl.save {} for contentId = {}", reasonFailed, contentId);
       } else {
         recipeEntity.setProcessed(true);
       }
       recipeEntity.setUpdatedAt(LocalDateTime.now());
       recipeRepo.save(recipeEntity);
+      log.info("LanguageServiceImpl.save Finished processing for contentId = {}", contentId);
     }
   }
 
@@ -678,6 +690,8 @@ public class LanguageServiceImpl implements LanguageService {
     int retried = 0;
     while (retried < openAiProps.getNumRetries()) {
       try {
+        log.info("LanguageServiceImpl.recipeGptCompletion Making GPT completion request for prompt '{}",
+            prompt);
         return new GptResponse(0, openAiService.createCompletion(completionRequest).getChoices(), null);
       } catch (Exception e) {
         // Catch network timeout errors and retry
