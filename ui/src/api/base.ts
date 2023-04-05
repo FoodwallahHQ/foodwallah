@@ -18,11 +18,7 @@ import { Configuration } from "./configuration";
 // @ts-ignore
 import globalAxios, { AxiosPromise, AxiosInstance } from 'axios';
 
-let path = "http://localhost:8080"
-if ( process.env.NODE_ENV === 'production') {
-    path = "https://api.foodwallah.com";
-}
-export const BASE_PATH = path
+export const BASE_PATH = process.env.REACT_APP_SERVER_URL
 
 /**
  *
