@@ -83,6 +83,7 @@ public class CustomSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     "/actuator/health**",
                     "/lead/**",
+                    "/sitemap/**",
                     "/project/content/preview/**",
                     "/recipe/**")
           .permitAll()

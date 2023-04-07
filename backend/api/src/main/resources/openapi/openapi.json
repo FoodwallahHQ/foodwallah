@@ -16,6 +16,28 @@
     }
   ],
   "paths": {
+    "/sitemap": {
+      "get": {
+        "tags": [
+          "seo"
+        ],
+        "summary": "Get full sitemap",
+        "description": "Get full sitemap",
+        "operationId": "getSitemap",
+        "responses": {
+          "200": {
+            "description": "Sitemap Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/campaigns/all": {
       "get": {
         "tags": [

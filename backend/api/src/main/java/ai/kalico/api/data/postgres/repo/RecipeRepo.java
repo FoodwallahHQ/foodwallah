@@ -2,6 +2,7 @@ package ai.kalico.api.data.postgres.repo;
 
 import ai.kalico.api.data.postgres.entity.ProjectEntity;
 import ai.kalico.api.data.postgres.entity.RecipeEntity;
+import ai.kalico.api.data.postgres.projection.RecipeMetaProjection;
 import ai.kalico.api.data.postgres.projection.UserProjectProjection;
 import java.util.List;
 import java.util.Optional;
@@ -26,4 +27,10 @@ public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
   @Query(value = "SELECT * FROM public.recipe WHERE processed = true",
       nativeQuery = true)
   Page<RecipeEntity> findAllRecipes(Pageable pageable);
+
+  @Query(value = "SELECT slug, title, updated_at as updatedAt "
+      + "FROM public.recipe "
+      + "ORDER BY updated_at ASC",
+      nativeQuery = true)
+  List<RecipeMetaProjection> findAllSlugs();
 }

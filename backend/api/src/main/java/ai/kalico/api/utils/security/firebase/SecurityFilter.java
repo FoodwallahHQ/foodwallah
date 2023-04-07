@@ -65,6 +65,7 @@ public class SecurityFilter extends OncePerRequestFilter {
     boolean uriExcluded = Stream.of(
         "/actuator/health",
             "/lead",
+            "/sitemap",
             "/project/content/preview",
             "/recipe")
       .anyMatch(uri -> httpServletRequest.getRequestURI().toLowerCase().contains(uri));

@@ -29,5 +29,6 @@ public class ProjectProps {
     private Double fps;
     private String urlNotSupportedMessage;
     private String defaultRecipeThumbnail;
+    private String siteUrl = "https://foodwallah.com";
 
 }

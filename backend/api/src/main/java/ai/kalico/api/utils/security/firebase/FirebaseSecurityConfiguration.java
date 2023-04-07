@@ -82,6 +82,7 @@ public class FirebaseSecurityConfiguration extends WebSecurityConfigurerAdapter 
                 .antMatchers(
                     "/actuator/health**",
                     "/lead/**",
+                    "/sitemap/**",
                     "/project/content/preview/**",
                     "/recipe/**"
                 ).permitAll()

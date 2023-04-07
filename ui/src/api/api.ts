@@ -2458,6 +2458,104 @@ export class RecipeApi extends BaseAPI {
 
 
 /**
+ * SeoApi - axios parameter creator
+ * @export
+ */
+export const SeoApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSitemap: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/sitemap`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SeoApi - functional programming interface
+ * @export
+ */
+export const SeoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SeoApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSitemap(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSitemap(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SeoApi - factory interface
+ * @export
+ */
+export const SeoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SeoApiFp(configuration)
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSitemap(options?: any): AxiosPromise<string> {
+            return localVarFp.getSitemap(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SeoApi - object-oriented interface
+ * @export
+ * @class SeoApi
+ * @extends {BaseAPI}
+ */
+export class SeoApi extends BaseAPI {
+    /**
+     * Get full sitemap
+     * @summary Get full sitemap
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SeoApi
+     */
+    public getSitemap(options?: any) {
+        return SeoApiFp(this.configuration).getSitemap(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * UserApi - axios parameter creator
  * @export
  */
