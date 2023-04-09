@@ -730,7 +730,7 @@ public class LanguageServiceImpl implements LanguageService {
           .replace("\"", "")
           .replaceFirst("^([\\w+\\s*\\d*\s]+:\\s*)", "")
           .replace("\n", " ")
-          .replaceAll("[^A-Za-z0-9\s\'\\.-]", "")
+          .replaceAll("[^A-Za-z0-9,:!\s\'\\.-]", "")
           .trim();
     }
     return input;
