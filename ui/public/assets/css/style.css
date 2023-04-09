@@ -3289,7 +3289,8 @@ textarea:focus {
 .navbar .right-nav {
   display: flex;
   align-items: center;
-  margin-left: 1.25rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
 }
 .navbar .right-nav .language-bar span:not(.active) {
   color: #a0a1a3;
