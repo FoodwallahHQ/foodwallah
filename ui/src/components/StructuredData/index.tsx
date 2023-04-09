@@ -74,7 +74,7 @@ function StructuredData(props: StructuredDataProps) {
   }
   return (
       <Head>
-        <title>Party Coffee Cake</title>
+        <title>{props.post?.recipe_lite?.title}</title>
           <script
               key="structured-data"
               type="application/ld+json"
