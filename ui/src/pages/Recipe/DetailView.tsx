@@ -57,6 +57,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
           </Box>
           {props.post?.source &&
               <Box className="citation">
+                <p>Disclaimer: This recipe was written using automated means. Please let us know if you have comments or concerns.</p>
                 <p>Source: {props.post?.source}</p>
               </Box>
           }

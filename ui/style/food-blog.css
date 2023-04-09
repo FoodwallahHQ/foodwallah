@@ -120,6 +120,10 @@ input:focus, textarea:focus {
 .citation {
   margin-top: 5rem;
 }
+.citation p {
+  line-height: 18px;
+  padding-top: 5px;
+}
 .ingredients ol li::before {
   counter-increment: orderedlist;
   content: counter(orderedlist);

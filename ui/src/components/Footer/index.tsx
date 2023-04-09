@@ -11,6 +11,7 @@ const Footer = () => {
           <a href={PATHS.PRIVACY}>Privacy Policy</a>
         </Box>
         <Box className="footer-right">
+          <a href="https://twitter.com/getfoodwallah">Twitter</a>
           <p>Copyright © 2023 Foodwallah</p>
         </Box>
       </footer>
