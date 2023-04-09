@@ -3,6 +3,7 @@ import {Box, Divider, Grid} from "@mui/material";
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SummaryComponent from "@/pages/Recipe/SummaryComponent";
 import {RecipeFull} from "@/api";
+import StructuredData from "@/components/StructuredData";
 
 
 export interface DetailViewProps {
@@ -11,6 +12,8 @@ export interface DetailViewProps {
 
 const DetailView: FC<DetailViewProps> =  (props) => {
   return (
+      <>
+        <StructuredData post={props.post}/>
       <article className="recipe-container recipe-detail">
         <Grid container className="recipe-detail-top">
           <Grid item md={6} sm={12}>
@@ -60,6 +63,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
         </Box>
 
       </article>
+      </>
   );
 }
 
