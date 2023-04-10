@@ -39,6 +39,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Base64;
 import java.util.Optional;
 import java.util.StringJoiner;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
@@ -71,6 +72,7 @@ public class AVServiceImpl implements AVService {
   private final UserRepo userRepo;
   private final ObjectMapper objectMapper;
   private final RecipeRepo recipeRepo;
+  private final ConcurrentHashMap<String, VideoInfoDto> videoInfoCache = new ConcurrentHashMap<>();
 
 
   // Refer to https://gist.github.com/sidneys/7095afe4da4ae58694d128b1034e01e2 for YouTube
@@ -196,6 +198,9 @@ public class AVServiceImpl implements AVService {
    */
   @Override
   public VideoInfoDto getContent(String url) {
+    if (videoInfoCache.containsKey(url)) {
+      return videoInfoCache.get(url);
+    }
       Platform platform = KALUtils.getPlatform(url);
       log.info("Fetching content metadata for {}", url);
       VideoInfoDto videoInfoDto  = null;
@@ -210,6 +215,7 @@ public class AVServiceImpl implements AVService {
       }
       if (videoInfoDto != null) {
         videoInfoDto.setPermalink(url);
+        videoInfoCache.put(url, videoInfoDto);
       }
       return videoInfoDto;
   }

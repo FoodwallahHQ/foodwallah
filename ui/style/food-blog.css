@@ -120,6 +120,23 @@ input:focus, textarea:focus {
 .citation {
   margin-top: 5rem;
 }
+.citation p {
+  line-height: 18px;
+  padding-top: 5px;
+  font-size: 12px;
+}
+.iframe-container {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.iframe-container iframe {
+  margin: 0 auto;
+  max-width: 560px;
+  width: 100%;
+}
 .ingredients ol li::before {
   counter-increment: orderedlist;
   content: counter(orderedlist);
@@ -173,6 +190,10 @@ input:focus, textarea:focus {
   padding: 20px;
 
 }
+.other-recent-recipes {
+  margin-top: 4rem;
+}
+
 .grid-items .entry-title {
   font-size: 26px;
   line-height: 1.3;

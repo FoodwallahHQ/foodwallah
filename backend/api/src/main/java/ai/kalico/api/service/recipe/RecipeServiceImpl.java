@@ -6,6 +6,7 @@ import ai.kalico.api.data.postgres.repo.RecipeRepo;
 import ai.kalico.api.dto.VideoInfoDto;
 import ai.kalico.api.props.AWSProps;
 import ai.kalico.api.service.av.AVService;
+import ai.kalico.api.service.language.LanguageService;
 import ai.kalico.api.service.utils.KALUtils;
 import ai.kalico.api.service.utils.Platform;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,6 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
   private final ObjectMapper objectMapper;
   private final AVService avService;
   private final AWSProps awsProps;
+  private final LanguageService languageService;
   
   @Override
   public CreateRecipeResponse createRecipe(StringDto stringDto) {
@@ -124,11 +126,15 @@ public class RecipeServiceImpl implements RecipeService {
     Optional<RecipeEntity> entityOpt = recipeRepo.findBySlug(slug);
     if (entityOpt.isPresent()) {
       RecipeEntity entity = entityOpt.get();
+      RecipeEntity prev = recipeRepo.findPrev(entity.getCreatedAt(), entity.getId());
+      RecipeEntity next = recipeRepo.findNext(entity.getCreatedAt(), entity.getId());
       return new RecipeFull()
           .source(entity.getCanonicalUrl())
           .ingredients(stringToList(entity.getIngredients()))
           .instructions(stringToList(entity.getInstructions()))
-          .recipeLite(getLiteRecipe(entity));
+          .recipeLite(getLiteRecipe(entity))
+          .prev(getLiteRecipe(prev))
+          .next(getLiteRecipe(next));
     }
     return null;
   }
@@ -148,7 +154,18 @@ public class RecipeServiceImpl implements RecipeService {
     return getAllRecipes(page, size);
   }
 
+  @Override
+  public CreateRecipeResponse regenerateRecipe(StringDto stringDto) {
+    Optional<RecipeEntity> recipeEntityOpt = recipeRepo.findBySlug(stringDto.getValue());
+    recipeEntityOpt.ifPresent(
+        entity -> languageService.generateContent(null, entity.getContentId(), true));
+    return new CreateRecipeResponse().status("Regeneration in progress");
+  }
+
   private RecipeLite getLiteRecipe(RecipeEntity entity) {
+    if (entity == null) {
+      return null;
+    }
     return new RecipeLite()
         .cookingTime(entity.getCookingTimeMinutes())
         .summary(entity.getSummary())

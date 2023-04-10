@@ -37,7 +37,6 @@ const GridView: FC<GridViewProps> =  (props) => {
           }
 
         </Grid>
-
       </main>
   );
 }
