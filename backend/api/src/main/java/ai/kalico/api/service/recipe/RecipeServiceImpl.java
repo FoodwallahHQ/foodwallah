@@ -6,6 +6,7 @@ import ai.kalico.api.data.postgres.repo.RecipeRepo;
 import ai.kalico.api.dto.VideoInfoDto;
 import ai.kalico.api.props.AWSProps;
 import ai.kalico.api.service.av.AVService;
+import ai.kalico.api.service.language.LanguageService;
 import ai.kalico.api.service.utils.KALUtils;
 import ai.kalico.api.service.utils.Platform;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -46,6 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
   private final ObjectMapper objectMapper;
   private final AVService avService;
   private final AWSProps awsProps;
+  private final LanguageService languageService;
   
   @Override
   public CreateRecipeResponse createRecipe(StringDto stringDto) {
@@ -150,6 +152,14 @@ public class RecipeServiceImpl implements RecipeService {
   @Override
   public PageableRecipeResponse getMostRecentRecipes(Integer page, Integer size) {
     return getAllRecipes(page, size);
+  }
+
+  @Override
+  public CreateRecipeResponse regenerateRecipe(StringDto stringDto) {
+    Optional<RecipeEntity> recipeEntityOpt = recipeRepo.findBySlug(stringDto.getValue());
+    recipeEntityOpt.ifPresent(
+        entity -> languageService.generateContent(null, entity.getContentId(), true));
+    return new CreateRecipeResponse().status("Regeneration in progress");
   }
 
   private RecipeLite getLiteRecipe(RecipeEntity entity) {

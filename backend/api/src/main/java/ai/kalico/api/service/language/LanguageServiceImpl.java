@@ -232,7 +232,8 @@ public class LanguageServiceImpl implements LanguageService {
               .collect(Collectors.toList());
         }
       } else if (ingredientHeaderFound && lower.startsWith("-")) {
-        ingredients.add(cleanup(lines.get(i).replace("-", "")));
+        ingredients.add(cleanup(lines.get(i)
+            .replace("-", "").replace(":", " -")));
       }
     }
     return ingredients;
@@ -367,6 +368,7 @@ public class LanguageServiceImpl implements LanguageService {
         log.error("LanguageServiceImpl.save {} for contentId = {}", reasonFailed, contentId);
       } else {
         recipeEntity.setProcessed(true);
+        recipeEntity.setFailed(false);
       }
       recipeEntity.setUpdatedAt(LocalDateTime.now());
       recipeRepo.save(recipeEntity);

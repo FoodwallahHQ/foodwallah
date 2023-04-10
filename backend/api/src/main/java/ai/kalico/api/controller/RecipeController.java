@@ -40,4 +40,9 @@ public class RecipeController implements RecipeApi {
   public ResponseEntity<PageableRecipeResponse> getMostRecentRecipes(Integer page, Integer size) {
     return ResponseEntity.ok(recipeService.getMostRecentRecipes(page, size));
   }
+
+  @Override
+  public ResponseEntity<CreateRecipeResponse> regenerateRecipe(StringDto stringDto) {
+    return ResponseEntity.ok(recipeService.regenerateRecipe(stringDto));
+  }
 }

@@ -505,6 +505,39 @@
         }
       }
     },
+    "/recipe/re-generate": {
+      "post": {
+        "tags": [
+          "recipe"
+        ],
+        "summary": "Regenerate a failed recipe",
+        "description":"Regenerate a failed recipe",
+        "operationId": "regenerateRecipe",
+        "requestBody": {
+          "required": true,
+          "description": "Regenerate Request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StringDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/recipe/create": {
       "post": {
         "tags": [

@@ -13,4 +13,6 @@ public interface RecipeService {
   PageableRecipeResponse getAllRecipes(Integer page, Integer size);
   RecipeFull getFullRecipe(String slug);
   PageableRecipeResponse getMostRecentRecipes(Integer page, Integer size);
+
+  CreateRecipeResponse regenerateRecipe(StringDto stringDto);
 }
