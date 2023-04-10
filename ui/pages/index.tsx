@@ -6,7 +6,7 @@ import {RecipeApi, RecipeLite} from "@/api";
 
 export async function getServerSideProps(_context) {
   const page = 0
-  const limit = 9
+  const limit = 5
   const response = await new RecipeApi().getMostRecentRecipes(page, limit)
   return {
     props: {

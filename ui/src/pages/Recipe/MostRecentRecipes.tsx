@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import {Container} from "@mui/system";
 import {Box} from "@mui/material";
-import GridView from "@/pages/Recipe/GridView";
 import {urls} from "@/utils/paths";
 import Link from "next/link";
 import {RecipeLite} from "@/api";
+import ListView from "@/pages/Recipe/ListView";
 
 export interface MostRecentRecipesProps {
   posts: RecipeLite[]
@@ -15,7 +15,7 @@ const MostRecentRecipes: FC<MostRecentRecipesProps> =  (props) => {
     <Box className="top-recipes-title">
       <h4>Most Recent Recipes</h4>
     </Box>
-    <GridView posts={props.posts}/>
+    <ListView posts={props.posts}/>
     <Box className="top-recipes-view-all">
       <Link href={urls.getAllRecipes}>
         <button

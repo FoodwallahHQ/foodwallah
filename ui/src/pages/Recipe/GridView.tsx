@@ -14,7 +14,7 @@ const GridView: FC<GridViewProps> =  (props) => {
             props.posts?.map((it, index) => {
               const url = '/recipe/' + it.slug
               return (
-                  <Grid item sm={4} key={index}>
+                  <Grid item md={6} sm={12} key={index}>
                     <article
                         className="grid-item-card"
                         aria-label={it.title}>
