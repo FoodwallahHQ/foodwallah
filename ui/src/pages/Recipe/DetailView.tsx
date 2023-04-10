@@ -11,6 +11,16 @@ export interface DetailViewProps {
 }
 
 const DetailView: FC<DetailViewProps> =  (props) => {
+  const url = props.post?.source
+  let videoId;
+  if (url) {
+    try {
+      const tokens = url.split("v=")
+      videoId = tokens[tokens.length - 1]
+    } catch (e) {
+      console.log(e)
+    }
+  }
   return (
       <>
         <StructuredData post={props.post}/>
@@ -31,6 +41,21 @@ const DetailView: FC<DetailViewProps> =  (props) => {
           </Grid>
         </Grid>
         <Divider><RestaurantMenuIcon/></Divider>
+        {videoId &&
+            <Grid container>
+              <Grid item sm={12} className="iframe-container">
+                <iframe height="315"
+                    // src={props.post?.source}
+                    // src="https://www.youtube.com/watch?v=PVycYj_PKgk"
+                        src={`https://www.youtube.com/embed/${videoId}`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen></iframe>
+              </Grid>
+            </Grid>
+        }
+
         <Box className="recipe-detail-bottom">
           <Box className="summary">
             <p>{props.post?.recipe_lite?.summary}</p>
@@ -58,7 +83,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
           {props.post?.source &&
               <Box className="citation">
                 <p>Disclaimer: This recipe was written using automated means. Please let us know if you have comments or concerns.</p>
-                <p>Source: {props.post?.source}</p>
+                {!videoId && <p>Source: {props.post?.source}</p>}
               </Box>
           }
         </Box>
