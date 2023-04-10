@@ -685,6 +685,18 @@ export interface RecipeFull {
      * @memberof RecipeFull
      */
     recipe_lite?: RecipeLite;
+    /**
+     * 
+     * @type {RecipeLite}
+     * @memberof RecipeFull
+     */
+    prev?: RecipeLite;
+    /**
+     * 
+     * @type {RecipeLite}
+     * @memberof RecipeFull
+     */
+    next?: RecipeLite;
 }
 /**
  * 

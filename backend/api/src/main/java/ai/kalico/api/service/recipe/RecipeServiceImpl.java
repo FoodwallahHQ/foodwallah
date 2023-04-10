@@ -124,11 +124,15 @@ public class RecipeServiceImpl implements RecipeService {
     Optional<RecipeEntity> entityOpt = recipeRepo.findBySlug(slug);
     if (entityOpt.isPresent()) {
       RecipeEntity entity = entityOpt.get();
+      RecipeEntity prev = recipeRepo.findPrev(entity.getCreatedAt(), entity.getId());
+      RecipeEntity next = recipeRepo.findNext(entity.getCreatedAt(), entity.getId());
       return new RecipeFull()
           .source(entity.getCanonicalUrl())
           .ingredients(stringToList(entity.getIngredients()))
           .instructions(stringToList(entity.getInstructions()))
-          .recipeLite(getLiteRecipe(entity));
+          .recipeLite(getLiteRecipe(entity))
+          .prev(getLiteRecipe(prev))
+          .next(getLiteRecipe(next));
     }
     return null;
   }
@@ -149,6 +153,9 @@ public class RecipeServiceImpl implements RecipeService {
   }
 
   private RecipeLite getLiteRecipe(RecipeEntity entity) {
+    if (entity == null) {
+      return null;
+    }
     return new RecipeLite()
         .cookingTime(entity.getCookingTimeMinutes())
         .summary(entity.getSummary())

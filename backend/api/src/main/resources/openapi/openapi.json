@@ -1388,6 +1388,12 @@
           },
           "recipe_lite": {
             "$ref": "#/components/schemas/RecipeLite"
+          },
+          "prev": {
+            "$ref": "#/components/schemas/RecipeLite"
+          },
+          "next": {
+            "$ref": "#/components/schemas/RecipeLite"
           }
         }
       }

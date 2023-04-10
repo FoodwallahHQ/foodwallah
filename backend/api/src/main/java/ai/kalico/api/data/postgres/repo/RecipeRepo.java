@@ -4,6 +4,7 @@ import ai.kalico.api.data.postgres.entity.ProjectEntity;
 import ai.kalico.api.data.postgres.entity.RecipeEntity;
 import ai.kalico.api.data.postgres.projection.RecipeMetaProjection;
 import ai.kalico.api.data.postgres.projection.UserProjectProjection;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -33,4 +34,18 @@ public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
       + "ORDER BY updated_at ASC",
       nativeQuery = true)
   List<RecipeMetaProjection> findAllSlugs();
+
+  @Query(value = "SELECT * "
+      + "FROM public.recipe WHERE created_at <= ?1 AND id != ?2 "
+      + "ORDER BY created_at DESC "
+      + "LIMIT 1",
+      nativeQuery = true)
+  RecipeEntity findPrev(LocalDateTime createdAt, Long id);
+
+  @Query(value = "SELECT * "
+      + "FROM public.recipe WHERE created_at >= ?1 AND id != ?2 "
+      + "ORDER BY created_at ASC "
+      + "LIMIT 1",
+      nativeQuery = true)
+  RecipeEntity findNext(LocalDateTime createdAt, Long id);
 }

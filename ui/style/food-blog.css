@@ -190,6 +190,10 @@ input:focus, textarea:focus {
   padding: 20px;
 
 }
+.other-recent-recipes {
+  margin-top: 4rem;
+}
+
 .grid-items .entry-title {
   font-size: 26px;
   line-height: 1.3;

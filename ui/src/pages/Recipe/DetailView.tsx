@@ -4,6 +4,7 @@ import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SummaryComponent from "@/pages/Recipe/SummaryComponent";
 import {RecipeFull} from "@/api";
 import StructuredData from "@/components/StructuredData";
+import {getFormattedDate} from "@/utils/utils";
 
 
 export interface DetailViewProps {
@@ -21,6 +22,8 @@ const DetailView: FC<DetailViewProps> =  (props) => {
       console.log(e)
     }
   }
+  const prevUrl = "/recipe/" + props.post?.prev?.slug
+  const nextUrl = "/recipe/" + props.post?.next?.slug
   return (
       <>
         <StructuredData post={props.post}/>
@@ -88,7 +91,59 @@ const DetailView: FC<DetailViewProps> =  (props) => {
           }
         </Box>
 
+        {(props.post?.prev || props.post?.next) &&
+            <Box className="other-recent-recipes">
+              <h4>Other Recent Recipes</h4>
+              <Grid container className="grid-items prev-next" spacing={6}>
+                {props.post?.prev &&
+                    <Grid item sm={6}>
+                      <p>Previous</p>
+                      <article
+                          className="grid-item-card"
+                          aria-label={props.post?.prev?.title}>
+                        <a href={prevUrl} className="alignnone" aria-hidden="true">
+                          <img width="600" height="850"
+                               src={props.post?.prev?.thumbnail}
+                               alt={props.post?.prev?.title}/>
+                        </a>
+                        <Box className="entry-header">
+                          <span className="entry-meta">
+                            <time
+                                className="entry-time">{getFormattedDate(props.post?.prev?.created_at)}</time>
+                          </span>
+                          <h2 className="entry-title"><a
+                              href={prevUrl}>{props.post?.prev?.title}</a></h2>
+                        </Box>
+                      </article>
+                    </Grid>
+                }
+                {props.post?.next &&
+                    <Grid item sm={6}>
+                      <p>Next</p>
+                      <article
+                          className="grid-item-card"
+                          aria-label={props.post?.next?.title}>
+                        <a href={nextUrl} className="alignnone" aria-hidden="true">
+                          <img width="600" height="850"
+                               src={props.post?.next?.thumbnail}
+                               alt={props.post?.next?.title}/>
+                        </a>
+                        <Box className="entry-header">
+                          <span className="entry-meta">
+                            <time
+                                className="entry-time">{getFormattedDate(props.post?.next?.created_at)}</time>
+                          </span>
+                          <h2 className="entry-title"><a
+                              href={nextUrl}>{props.post?.next?.title}</a></h2>
+                        </Box>
+                      </article>
+                    </Grid>
+                }
+              </Grid>
+            </Box>
+        }
       </article>
+
       </>
   );
 }
