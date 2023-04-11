@@ -220,7 +220,8 @@ public class LanguageServiceImpl implements LanguageService {
     boolean ingredientHeaderFound = false;
     for (int i = 0; i < lines.size(); i++) {
       var lower = lines.get(i).toLowerCase();
-      if (lower.startsWith("ingredient")) {
+      // TODO: find a less rigid way to extract the relevant parts
+      if (lower.startsWith("ingredient") || lower.startsWith("extract ingredient")) {
         ingredientHeaderFound = true;
         var text = cleanup(lines.get(i));
         if (!ObjectUtils.isEmpty(text)) {
