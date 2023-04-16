@@ -1,27 +1,16 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 
-const devConfig = {
-  apiKey: 'AIzaSyBPK8HxA8Ul-RDAVcrxdDsFL44mn4aUkR8',
-  authDomain: 'foodwallah-dev.firebaseapp.com',
-  projectId: 'foodwallah-dev',
-  storageBucket: 'foodwallah-dev.appspot.com',
-  messagingSenderId: '668448388734',
-  appId: '1:668448388734:web:d80ccea21f8c2309318a2f',
-  measurementId: 'G-BRLSYWQK53'
-}
-
-
-const prodConfig = {
-  apiKey: 'AIzaSyBPK8HxA8Ul-RDAVcrxdDsFL44mn4aUkR8',
-  authDomain: 'foodwallah-dev.firebaseapp.com',
-  projectId: 'foodwallah-dev',
-  storageBucket: 'foodwallah-dev.appspot.com',
-  messagingSenderId: '668448388734',
-  appId: '1:668448388734:web:d80ccea21f8c2309318a2f',
-  measurementId: 'G-BRLSYWQK53'
-}
+const firebaseConfig = {
+  apiKey: "AIzaSyDZ6jaMZ7rf0a8M97EsVHE_QtipgBAgn-U",
+  authDomain: "foodwallah-e32d6.firebaseapp.com",
+  projectId: "foodwallah-e32d6",
+  storageBucket: "foodwallah-e32d6.appspot.com",
+  messagingSenderId: "403777416588",
+  appId: "1:403777416588:web:0639fae02c2fef9dab3aa9",
+  measurementId: "G-JWLGCR92VV"
+};
 
 // Initialize Firebase
-const app = initializeApp(process.env.NODE_ENV === "production" ? prodConfig : devConfig);
+const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
