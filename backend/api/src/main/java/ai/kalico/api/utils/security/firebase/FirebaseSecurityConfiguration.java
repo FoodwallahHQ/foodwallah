@@ -50,6 +50,7 @@ import java.util.Map;
         ReactiveManagementWebSecurityAutoConfiguration.class,
         ReactiveSecurityAutoConfiguration.class
 })
+@ConditionalOnProperty(value = "security.firebase-enabled")
 @Import(FirewallConfiguration.class)
 @ComponentScan
 @RequiredArgsConstructor

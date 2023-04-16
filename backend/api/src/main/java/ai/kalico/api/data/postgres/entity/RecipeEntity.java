@@ -32,6 +32,18 @@ public class RecipeEntity {
     private String contentId;
 
     @Basic
+    @Column(name = "keywords")
+    private String keywords;
+
+    @Basic
+    @Column(name = "description")
+    private String description;
+
+    @Basic
+    @Column(name = "published")
+    private Boolean published = false;
+
+    @Basic
     @Column(name = "slug")
     private String slug;
 

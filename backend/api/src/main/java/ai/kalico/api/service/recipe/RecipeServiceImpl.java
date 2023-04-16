@@ -7,6 +7,7 @@ import ai.kalico.api.dto.VideoInfoDto;
 import ai.kalico.api.props.AWSProps;
 import ai.kalico.api.service.av.AVService;
 import ai.kalico.api.service.language.LanguageService;
+import ai.kalico.api.service.mapper.RecipeMapper;
 import ai.kalico.api.service.utils.KALUtils;
 import ai.kalico.api.service.utils.Platform;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -48,6 +49,7 @@ public class RecipeServiceImpl implements RecipeService {
   private final AVService avService;
   private final AWSProps awsProps;
   private final LanguageService languageService;
+  private final RecipeMapper recipeMapper;
   
   @Override
   public CreateRecipeResponse createRecipe(StringDto stringDto) {
@@ -116,7 +118,7 @@ public class RecipeServiceImpl implements RecipeService {
     response.setRecords(pageResult
         .getContent()
         .stream()
-        .map(this::getLiteRecipe)
+        .map(recipeMapper::map)
         .collect(Collectors.toList()));
     return response;
   }
@@ -130,24 +132,18 @@ public class RecipeServiceImpl implements RecipeService {
       RecipeEntity next = recipeRepo.findNext(entity.getCreatedAt(), entity.getId());
       return new RecipeFull()
           .source(entity.getCanonicalUrl())
-          .ingredients(stringToList(entity.getIngredients()))
-          .instructions(stringToList(entity.getInstructions()))
-          .recipeLite(getLiteRecipe(entity))
-          .prev(getLiteRecipe(prev))
-          .next(getLiteRecipe(next));
+          .summary(entity.getSummary())
+          .keywords(entity.getKeywords())
+          .ingredients(recipeMapper.mapIngredients(entity.getIngredients(), objectMapper))
+          .instructions(recipeMapper.mapRecipeSteps(entity.getInstructions(), objectMapper))
+          .recipeLite(recipeMapper.map(entity))
+          .prev(recipeMapper.map(prev))
+          .next(recipeMapper.map(next));
     }
     return null;
   }
 
-  private List<String> stringToList(String s) {
-    TypeReference<List<String>> typeRef = new TypeReference<>() {};
-    try {
-      return objectMapper.readValue(s, typeRef);
-    } catch (JsonProcessingException e) {
-      log.error(e.getLocalizedMessage());
-    }
-    return new ArrayList<>();
-  }
+
 
   @Override
   public PageableRecipeResponse getMostRecentRecipes(Integer page, Integer size) {
@@ -162,27 +158,27 @@ public class RecipeServiceImpl implements RecipeService {
     return new CreateRecipeResponse().status("Regeneration in progress");
   }
 
-  private RecipeLite getLiteRecipe(RecipeEntity entity) {
-    if (entity == null) {
-      return null;
-    }
-    return new RecipeLite()
-        .cookingTime(entity.getCookingTimeMinutes())
-        .summary(entity.getSummary())
-        .slug(entity.getSlug())
-        .numIngredients(entity.getNumIngredients())
-        .numSteps(entity.getNumSteps())
-        .title(entity.getTitle())
-        .thumbnail(entity.getThumbnail())
-        .createdAt(entity
-            .getCreatedAt()
-            .toEpochSecond(ZoneOffset.UTC));
-  }
+//  private RecipeLite getLiteRecipe(RecipeEntity entity) {
+//    if (entity == null) {
+//      return null;
+//    }
+//    return new RecipeLite()
+//        .cookingTime(entity.getCookingTimeMinutes())
+//        .summary(entity.getSummary())
+//        .slug(entity.getSlug())
+//        .numIngredients(entity.getNumIngredients())
+//        .numSteps(entity.getNumSteps())
+//        .title(entity.getTitle())
+//        .thumbnail(entity.getThumbnail())
+//        .createdAt(entity
+//            .getCreatedAt()
+//            .toEpochSecond(ZoneOffset.UTC));
+//  }
 
-  private List<String> toStringList(Object[] objects) {
-    return Arrays
-        .stream(objects)
-        .map(it -> (String) it)
-        .collect(Collectors.toList());
-  }
+//  private List<String> toStringList(Object[] objects) {
+//    return Arrays
+//        .stream(objects)
+//        .map(it -> (String) it)
+//        .collect(Collectors.toList());
+//  }
 }

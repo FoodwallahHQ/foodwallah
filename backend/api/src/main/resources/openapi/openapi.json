@@ -686,6 +686,114 @@
           }
         }
       }
+    },
+    "/cms/posts/all": {
+      "get": {
+        "tags": [
+          "cms"
+        ],
+        "summary": "Get list of posts",
+        "description": "Get a list of posts",
+        "operationId": "getAllPosts",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "in": "query",
+            "name": "size",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "All posts response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageableRecipeResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/posts/{id}": {
+      "get": {
+        "tags": [
+          "cms"
+        ],
+        "summary": "Get a post by id",
+        "description": "Get a post by id",
+        "operationId": "getPostById",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get single post response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RecipeFull"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cms/post/update": {
+      "post": {
+        "tags": [
+          "cms"
+        ],
+        "summary": "Update post",
+        "description":"Update post",
+        "operationId": "updatePost",
+        "requestBody": {
+          "required": true,
+          "description": "Update content request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecipeFull"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Update content response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GenericResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1371,6 +1479,13 @@
       "RecipeLite": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "published": {
+            "type": "boolean"
+          },
           "slug": {
             "type": "string"
           },
@@ -1381,7 +1496,7 @@
           "title": {
             "type": "string"
           },
-          "summary": {
+          "description": {
             "type": "string"
           },
           "thumbnail": {
@@ -1401,22 +1516,62 @@
           }
         }
       },
+      "RecipeStep": {
+        "type": "object",
+        "properties": {
+          "step_number": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "Ingredient": {
+        "type": "object",
+        "nullable": true,
+        "properties": {
+          "ingredient": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "number",
+            "format": "double"
+          },
+          "units": {
+            "type": "string"
+          }
+        }
+      },
       "RecipeFull": {
         "type": "object",
         "properties": {
           "ingredients": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/Ingredient"
             }
           },
           "instructions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "$ref": "#/components/schemas/RecipeStep"
             }
           },
           "source": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "keywords": {
             "type": "string"
           },
           "recipe_lite": {
@@ -1430,6 +1585,7 @@
           }
         }
       }
+
     }
   }
 }

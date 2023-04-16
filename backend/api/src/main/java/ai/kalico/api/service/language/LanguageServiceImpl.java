@@ -20,7 +20,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kalico.model.ContentItem;
 import com.kalico.model.ContentItemChildren;
+import com.kalico.model.Ingredient;
 import com.kalico.model.KalicoContentType;
+import com.kalico.model.RecipeStep;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -343,7 +345,11 @@ public class LanguageServiceImpl implements LanguageService {
           processed = false;
           reasonFailed = "There are no ingredients in the video submitted";
         }
-        recipeEntity.setIngredients(objectMapper.writeValueAsString(ingredients));
+        recipeEntity.setIngredients(objectMapper.writeValueAsString(ingredients
+            .stream()
+            .map(it -> new Ingredient()
+                .ingredient(it))
+            .collect(Collectors.toList())));
       } catch (JsonProcessingException e) {
         log.error("LanguageServiceImpl.save {}", e.getLocalizedMessage());
         processed = false;
@@ -356,7 +362,13 @@ public class LanguageServiceImpl implements LanguageService {
           processed = false;
           reasonFailed = "There are no recipe instructions in the video submitted";
         }
-        recipeEntity.setInstructions(objectMapper.writeValueAsString(instructions));
+        List<RecipeStep> steps = new ArrayList<>();
+        for (int i = 0; i < instructions.size(); i++) {
+          steps.add(new RecipeStep()
+              .stepNumber(i+1)
+              .text(instructions.get(i)));
+        }
+        recipeEntity.setInstructions(objectMapper.writeValueAsString(steps));
       } catch (JsonProcessingException e) {
         log.error("LanguageServiceImpl.saveRecipeContent {}", e.getLocalizedMessage());
         processed = false;

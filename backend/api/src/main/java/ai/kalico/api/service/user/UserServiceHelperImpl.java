@@ -2,6 +2,7 @@ package ai.kalico.api.service.user;
 
 import ai.kalico.api.data.postgres.entity.UserEntity;
 import ai.kalico.api.data.postgres.repo.UserRepo;
+import ai.kalico.api.props.AuthorizedUsersProps;
 import ai.kalico.api.service.utils.SeedData;
 import com.kalico.model.UserProfile;
 import lombok.RequiredArgsConstructor;
