@@ -1,5 +1,5 @@
 export interface IngredientListColumn {
-  id: 'id' | 'qt' | 'units' | 'description';
+  id: 'id' | 'qt' | 'units' | 'ingredient';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -10,11 +10,11 @@ export interface IngredientListData {
   id: number,
   qt: number;
   units: string,
-  description: string;
+  ingredient: string;
 }
 
 export interface RecipeStepListColumn {
-  id: 'step_number' | 'image_url' | 'description' | 'is_cover';
+  id: 'step_number' | 'images' | 'text';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -24,8 +24,8 @@ export interface RecipeStepListColumn {
 export interface RecipeStepListData {
   id: number,
   step_number: number,
-  image_url: string,
-  description: string;
+  images: string,
+  text: string;
 }
 
 export type DynamicTableColumn = IngredientListColumn | RecipeStepListColumn;

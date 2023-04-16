@@ -54,11 +54,11 @@ const DynamicTable: FC<DynamicTableProps> = (props) => {
                       let placeholder = '';
                       if (column.id === 'step_number') {
                         editable = false;
-                      } else if (column.id === 'image_url') {
+                      } else if (column.id === 'images') {
                         width = '50%'
                         multiline = true;
                         placeholder = 'Copy and paste image links here (one per line)'
-                      } else if (column.id === 'description') {
+                      } else if (column.id === 'text') {
                         width = '50%'
                         multiline = true;
                       }

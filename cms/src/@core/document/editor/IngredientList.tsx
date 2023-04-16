@@ -11,7 +11,7 @@ export interface IngredientListProps {
 const columns: readonly IngredientListColumn[] = [
   { id: 'qt', label: 'Amount', minWidth: 10 },
   { id: 'units', label: 'Units', minWidth: 40 },
-  { id: 'description', label: 'Recipe Description', minWidth: 600 }
+  { id: 'ingredient', label: 'Ingredient Name', minWidth: 600 }
 ];
 
 const IngredientList: FC<IngredientListProps> = (props) => {
@@ -24,7 +24,7 @@ const IngredientList: FC<IngredientListProps> = (props) => {
       id: data.length,
       qt: 0,
       units: '',
-      description: ''
+      ingredient: ''
     })
     setData(updatedRows);
     props.onIngredientChange(updatedRows)
@@ -49,7 +49,7 @@ const IngredientList: FC<IngredientListProps> = (props) => {
       id: index,
       qt: item.amount,
       units: item.units,
-      description: item.description
+      ingredient: item.ingredient
     }
   }
 

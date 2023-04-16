@@ -10,8 +10,8 @@ export interface RecipeStepListProps {
 
 const columns: readonly RecipeStepListColumn[] = [
   { id: 'step_number', label: 'Step Number', minWidth: 10 },
-  { id: 'image_url', label: 'Image URL', minWidth: 100 },
-  { id: 'description', label: 'Description', minWidth: 600 },
+  { id: 'images', label: 'Image URLs', minWidth: 300 },
+  { id: 'text', label: 'Description', minWidth: 400 },
 ];
 
 const RecipeStepList: FC<RecipeStepListProps> = (props) => {
@@ -24,8 +24,8 @@ const RecipeStepList: FC<RecipeStepListProps> = (props) => {
     updatedRows.push({
       id: data.length - 1,
       step_number: data.length,
-      image_url: '',
-      description: ''
+      images: '',
+      text: ''
     })
     setData(updatedRows);
     props.onRecipeStepChange(updatedRows)
@@ -48,9 +48,9 @@ const RecipeStepList: FC<RecipeStepListProps> = (props) => {
   const convertToData = (item: RecipeStep, index: number): DynamicTableData => {
     return {
       id: index,
-      step_number: item.step_number,
-      image_url: item.image_url,
-      description: item.description
+      step_number: index + 1,
+      images: item.images?.join("\n"),
+      text: item.text
     }
   }
 

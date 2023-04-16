@@ -9,11 +9,11 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Chip from "@mui/material/Chip";
-import {BlogPost} from "@/api";
+import {RecipeLite} from "@/api";
 import {getFormattedDate} from "@/utils/utils";
 
 interface Column {
-  id: 'doc_id' | 'title' | 'date_created' | 'status';
+  id: 'id' | 'title' | 'created_at' | 'published';
   label: string;
   minWidth?: number;
   align?: 'right';
@@ -21,14 +21,14 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-  { id: 'doc_id', label: 'ID', minWidth: 100 },
+  { id: 'id', label: 'ID', minWidth: 100 },
   { id: 'title', label: 'Title', minWidth: 170 },
-  { id: 'date_created', label: 'Created', minWidth: 170 },
-  { id: 'status', label: 'Status', minWidth: 170 },
+  { id: 'created_at', label: 'Created', minWidth: 170 },
+  { id: 'published', label: 'Published', minWidth: 170 },
 ];
 
 export interface RecentDocumentsProps {
-  documents?: BlogPost[]
+  documents?: RecipeLite[]
 }
 
 const RecentDocuments: FC<RecentDocumentsProps> = (props) => {
@@ -44,11 +44,8 @@ const RecentDocuments: FC<RecentDocumentsProps> = (props) => {
     setPage(0);
   };
 
-  const getStatusColor = (status: string): "info" | "success" => {
-    if (status === 'draft') {
-      return "info";
-    }
-    return "success";
+  const getStatusColor = (published: boolean): "error" | "success" => {
+    return published ? "success" : "error"
   }
 
   const openEditor = (docId: number): void => {
@@ -79,17 +76,16 @@ const RecentDocuments: FC<RecentDocumentsProps> = (props) => {
               .map((row) => {
                 return (
                   <TableRow hover key={row.slug} sx={{height: '4rem', cursor: 'pointer'}}
-                            onClick={() => openEditor(row.doc_id)}>
+                            onClick={() => openEditor(row.id)}>
                     {columns.map((column) => {
                       let value = row[column.id];
-                      const cellKey = row.slug + "_" + column.id;
-                      if(column.id === "status") {
+                      if(column.id === "published") {
                         // @ts-ignore
                         return (
-                          <TableCell key={cellKey}>
+                          <TableCell key={column.id}>
                             <Chip
                               label={value}
-                              color={getStatusColor(value as string)}
+                              color={getStatusColor(value as boolean)}
                               sx={{
                                 height: 24,
                                 fontSize: '0.75rem',
@@ -100,11 +96,11 @@ const RecentDocuments: FC<RecentDocumentsProps> = (props) => {
                           </TableCell>
                         )
                       }
-                      if (column.id === 'date_created') {
+                      if (column.id === 'created_at') {
                         value = getFormattedDate(value as number)
                       }
                       return (
-                        <TableCell key={cellKey} align={column.align}>
+                        <TableCell key={column.id} align={column.align}>
                           {value}
                         </TableCell>
                       )

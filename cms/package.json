@@ -36,8 +36,8 @@
     "themeselection"
   ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "cp .env-local .env && next dev",
+    "build": "cp .env-prod .env && next build",
     "start": "next start",
     "export": "next export",
     "lint": "eslint --fix \"src/**/*.{js,jsx,ts,tsx}\"",

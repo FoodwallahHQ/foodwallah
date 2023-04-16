@@ -58,7 +58,7 @@ const VerticalNavHeader = (props: Props) => {
         userVerticalNavMenuBranding(props)
       ) : (
         <Link href='/'>
-          <img width={160} alt='Foodwallah Logo' src='/images/foodwallah_logo.png' />
+          <img width={100} alt='Foodwallah Logo' src='/images/foodwallah.png' style={{marginTop: '10px'}}/>
           {/*<StyledLink>*/}
           {/*  <svg*/}
           {/*    width={30}*/}

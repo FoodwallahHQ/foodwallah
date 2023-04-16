@@ -5,6 +5,7 @@ export const setAuthState = (store: SessionDataStore, action: (boolean) => void)
   auth.onAuthStateChanged(user => {
     if (user) {
       action(true)
+      // @ts-ignore
       store.setUser(user)
     } else {
       action(false)

@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * Foodwallah API
- * REST API for Foodwallah backend services
+ * Kalico API
+ * REST API for Kalico backend services
  *
  * The version of the OpenAPI document: 1.0.0
  * 
@@ -24,242 +24,343 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
- * @interface BlogPost
+ * @interface ChannelPageableResponse
  */
-export interface BlogPost {
+export interface ChannelPageableResponse {
     /**
      * 
      * @type {number}
-     * @memberof BlogPost
+     * @memberof ChannelPageableResponse
      */
-    doc_id?: number;
+    count: number;
     /**
      * 
-     * @type {string}
-     * @memberof BlogPost
+     * @type {Array<YouTubeChannelDetail>}
+     * @memberof ChannelPageableResponse
      */
-    post_url?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    title?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    tags?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    summary?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    author?: string | null;
-    /**
-     * 
-     * @type {number}
-     * @memberof BlogPost
-     */
-    date_created?: number;
-    /**
-     * 
-     * @type {number}
-     * @memberof BlogPost
-     */
-    date_published?: number | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    status?: string;
-    /**
-     * 
-     * @type {boolean}
-     * @memberof BlogPost
-     */
-    is_featured?: boolean | null;
-    /**
-     * 
-     * @type {CompleteRecipe}
-     * @memberof BlogPost
-     */
-    recipe?: CompleteRecipe | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    slug?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof BlogPost
-     */
-    primary_thumbnail?: string | null;
-    /**
-     * 
-     * @type {VideoMetadata}
-     * @memberof BlogPost
-     */
-    video_metadata?: VideoMetadata | null;
+    records: Array<YouTubeChannelDetail>;
 }
 /**
  * 
  * @export
- * @interface BlogPostResponse
+ * @interface ContentItem
  */
-export interface BlogPostResponse {
-    /**
-     * 
-     * @type {BlogPost}
-     * @memberof BlogPostResponse
-     */
-    blog_post?: BlogPost;
+export interface ContentItem {
     /**
      * 
      * @type {string}
-     * @memberof BlogPostResponse
+     * @memberof ContentItem
+     */
+    type?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentItem
+     */
+    url?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ContentItem
+     */
+    checked?: boolean;
+    /**
+     * 
+     * @type {Array<ContentItemChildren>}
+     * @memberof ContentItem
+     */
+    children?: Array<ContentItemChildren>;
+}
+/**
+ * 
+ * @export
+ * @interface ContentItemChildren
+ */
+export interface ContentItemChildren {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentItemChildren
+     */
+    text?: string;
+}
+/**
+ * 
+ * @export
+ * @interface ContentPreviewResponse
+ */
+export interface ContentPreviewResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentPreviewResponse
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentPreviewResponse
+     */
+    duration?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ContentPreviewResponse
+     */
+    duration_minutes?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContentPreviewResponse
+     */
+    thumbnail?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateEmailCampaignRequest
+ */
+export interface CreateEmailCampaignRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateEmailCampaignRequest
+     */
+    subject?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateEmailCampaignRequest
+     */
+    num_emails_sent?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateEmailCampaignRequest
+     */
+    template?: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateEmailCampaignRequest
+     */
+    personalized_by_name?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateEmailCampaignRequest
+     */
+    personalized_by_other?: boolean;
+}
+/**
+ * 
+ * @export
+ * @interface CreateProjectRequest
+ */
+export interface CreateProjectRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectRequest
+     */
+    project_name?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectRequest
+     */
+    content_link?: string | null;
+    /**
+     * 
+     * @type {KalicoContentType}
+     * @memberof CreateProjectRequest
+     */
+    content_type?: KalicoContentType | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateProjectRequest
+     */
+    paraphrase?: boolean | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateProjectRequest
+     */
+    get_raw_transcript?: boolean;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof CreateProjectRequest
+     */
+    embed_images?: boolean | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectRequest
+     */
+    file?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectRequest
+     */
+    file_extension?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CreateProjectResponse
+ */
+export interface CreateProjectResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectResponse
+     */
+    project_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectResponse
+     */
+    project_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectResponse
+     */
+    status?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateProjectResponse
+     */
+    error?: string;
+}
+/**
+ * 
+ * @export
+ * @interface CreateRecipeResponse
+ */
+export interface CreateRecipeResponse {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateRecipeResponse
+     */
+    slug?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateRecipeResponse
      */
     error?: string;
     /**
      * 
      * @type {string}
-     * @memberof BlogPostResponse
+     * @memberof CreateRecipeResponse
      */
     status?: string;
 }
 /**
  * 
  * @export
- * @interface BlogVideoContent
+ * @interface EmailCampaign
  */
-export interface BlogVideoContent {
+export interface EmailCampaign {
     /**
      * 
      * @type {string}
-     * @memberof BlogVideoContent
+     * @memberof EmailCampaign
      */
-    url: string;
+    campaign_id?: string;
     /**
      * 
      * @type {string}
-     * @memberof BlogVideoContent
+     * @memberof EmailCampaign
      */
-    transcript: string;
-}
-/**
- * 
- * @export
- * @interface BookmarkRequest
- */
-export interface BookmarkRequest {
+    subject?: string;
     /**
      * 
      * @type {string}
-     * @memberof BookmarkRequest
+     * @memberof EmailCampaign
      */
-    user_id: string;
+    template?: string;
     /**
      * 
      * @type {number}
-     * @memberof BookmarkRequest
+     * @memberof EmailCampaign
      */
-    doc_id: number;
-}
-/**
- * 
- * @export
- * @interface CmsVideoContent
- */
-export interface CmsVideoContent {
+    num_emails_sent?: number;
     /**
      * 
      * @type {number}
-     * @memberof CmsVideoContent
+     * @memberof EmailCampaign
      */
-    doc_id: number;
+    open_rate?: number;
     /**
      * 
-     * @type {string}
-     * @memberof CmsVideoContent
+     * @type {number}
+     * @memberof EmailCampaign
      */
-    url: string;
+    date_created?: number;
     /**
      * 
-     * @type {string}
-     * @memberof CmsVideoContent
+     * @type {boolean}
+     * @memberof EmailCampaign
      */
-    raw_transcript?: string;
+    personalized_by_name?: boolean;
     /**
      * 
-     * @type {string}
-     * @memberof CmsVideoContent
+     * @type {boolean}
+     * @memberof EmailCampaign
      */
-    on_screen_text: string;
+    personalized_by_other?: boolean;
     /**
      * 
-     * @type {string}
-     * @memberof CmsVideoContent
+     * @type {Array<EmailMetric>}
+     * @memberof EmailCampaign
      */
-    description: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CmsVideoContent
-     */
-    caption: string | null;
+    email_metric?: Array<EmailMetric>;
 }
 /**
  * 
  * @export
- * @interface CompleteRecipe
+ * @interface EmailCampaignMetrics
  */
-export interface CompleteRecipe {
+export interface EmailCampaignMetrics {
+    /**
+     * 
+     * @type {Array<EmailCampaign>}
+     * @memberof EmailCampaignMetrics
+     */
+    campaigns?: Array<EmailCampaign>;
+}
+/**
+ * 
+ * @export
+ * @interface EmailMetric
+ */
+export interface EmailMetric {
     /**
      * 
      * @type {string}
-     * @memberof CompleteRecipe
+     * @memberof EmailMetric
      */
-    cuisine?: string | null;
+    email?: string;
     /**
      * 
-     * @type {string}
-     * @memberof CompleteRecipe
+     * @type {number}
+     * @memberof EmailMetric
      */
-    original_source?: string | null;
+    num_opened?: number;
     /**
      * 
-     * @type {string}
-     * @memberof CompleteRecipe
+     * @type {number}
+     * @memberof EmailMetric
      */
-    title?: string | null;
-    /**
-     * 
-     * @type {string}
-     * @memberof CompleteRecipe
-     */
-    prep_time?: string | null;
-    /**
-     * 
-     * @type {Array<Ingredient>}
-     * @memberof CompleteRecipe
-     */
-    ingredients?: Array<Ingredient>;
-    /**
-     * 
-     * @type {Array<RecipeStep>}
-     * @memberof CompleteRecipe
-     */
-    steps?: Array<RecipeStep>;
+    last_opened_at?: number;
 }
 /**
  * 
@@ -300,10 +401,10 @@ export interface GifRequest {
     end?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof GifRequest
      */
-    doc_id?: number;
+    project_id?: string;
 }
 /**
  * 
@@ -341,7 +442,7 @@ export interface Ingredient {
      * @type {string}
      * @memberof Ingredient
      */
-    description: string;
+    ingredient: string;
     /**
      * 
      * @type {number}
@@ -354,31 +455,100 @@ export interface Ingredient {
      * @memberof Ingredient
      */
     units: string;
-    /**
-     * 
-     * @type {number}
-     * @memberof Ingredient
-     */
-    sort_order: number;
 }
 /**
  * 
  * @export
- * @interface IngredientContent
+ * @enum {string}
  */
-export interface IngredientContent {
+export enum JobStatus {
+    InProgress = 'IN_PROGRESS',
+    Complete = 'COMPLETE',
+    Failed = 'FAILED',
+    ProjectNotFound = 'PROJECT_NOT_FOUND'
+}
+
+/**
+ * 
+ * @export
+ * @enum {string}
+ */
+export enum KalicoContentType {
+    Diy = 'DIY',
+    FoodRecipe = 'FOOD_RECIPE',
+    Interview = 'INTERVIEW',
+    Lecture = 'LECTURE',
+    Podcast = 'PODCAST',
+    Other = 'OTHER'
+}
+
+/**
+ * 
+ * @export
+ * @interface MediaContent
+ */
+export interface MediaContent {
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    media_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    project_id: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    permalink: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    transcript: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    description: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof MediaContent
+     */
+    title: string;
+}
+/**
+ * 
+ * @export
+ * @interface PageableRecipeResponse
+ */
+export interface PageableRecipeResponse {
     /**
      * 
      * @type {number}
-     * @memberof IngredientContent
+     * @memberof PageableRecipeResponse
      */
-    doc_id: number;
+    total_records: number;
     /**
      * 
-     * @type {Array<Ingredient>}
-     * @memberof IngredientContent
+     * @type {number}
+     * @memberof PageableRecipeResponse
      */
-    ingredients: Array<Ingredient>;
+    num_pages: number;
+    /**
+     * 
+     * @type {Array<RecipeLite>}
+     * @memberof PageableRecipeResponse
+     */
+    records: Array<RecipeLite>;
 }
 /**
  * 
@@ -400,60 +570,237 @@ export interface PageableResponse {
     num_pages: number;
     /**
      * 
-     * @type {Array<BlogPost>}
+     * @type {Array<Project>}
      * @memberof PageableResponse
      */
-    records: Array<BlogPost>;
+    records: Array<Project>;
 }
 /**
  * 
  * @export
- * @interface PostBody
+ * @interface Project
  */
-export interface PostBody {
-    /**
-     * 
-     * @type {number}
-     * @memberof PostBody
-     */
-    doc_id: number;
+export interface Project {
     /**
      * 
      * @type {string}
-     * @memberof PostBody
+     * @memberof Project
      */
-    body: string;
+    project_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Project
+     */
+    project_uid?: string;
 }
 /**
  * 
  * @export
- * @interface RecipeContent
+ * @interface ProjectDetail
  */
-export interface RecipeContent {
+export interface ProjectDetail {
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectDetail
+     */
+    id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectDetail
+     */
+    name?: string | null;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof ProjectDetail
+     */
+    raw_transcript?: boolean;
     /**
      * 
      * @type {number}
-     * @memberof RecipeContent
+     * @memberof ProjectDetail
      */
-    doc_id: number;
+    date_created?: number;
+    /**
+     * 
+     * @type {Array<ContentItem>}
+     * @memberof ProjectDetail
+     */
+    content?: Array<ContentItem>;
+}
+/**
+ * 
+ * @export
+ * @interface ProjectJobStatus
+ */
+export interface ProjectJobStatus {
     /**
      * 
      * @type {string}
-     * @memberof RecipeContent
+     * @memberof ProjectJobStatus
      */
-    sampling_rate: string;
+    project_name?: string;
     /**
      * 
      * @type {string}
-     * @memberof RecipeContent
+     * @memberof ProjectJobStatus
      */
-    primary_thumbnail: string;
+    project_id?: string;
+    /**
+     * 
+     * @type {JobStatus}
+     * @memberof ProjectJobStatus
+     */
+    status?: JobStatus | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectJobStatus
+     */
+    message?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof ProjectJobStatus
+     */
+    percent_complete?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectJobStatus
+     */
+    estimated_time?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ProjectJobStatus
+     */
+    error?: string;
+}
+/**
+ * 
+ * @export
+ * @interface RecipeFull
+ */
+export interface RecipeFull {
+    /**
+     * 
+     * @type {Array<Ingredient>}
+     * @memberof RecipeFull
+     */
+    ingredients?: Array<Ingredient>;
     /**
      * 
      * @type {Array<RecipeStep>}
-     * @memberof RecipeContent
+     * @memberof RecipeFull
      */
-    recipe_steps: Array<RecipeStep>;
+    instructions?: Array<RecipeStep>;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
+    source?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
+    summary?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
+    keywords?: string;
+    /**
+     * 
+     * @type {RecipeLite}
+     * @memberof RecipeFull
+     */
+    recipe_lite?: RecipeLite;
+    /**
+     * 
+     * @type {RecipeLite}
+     * @memberof RecipeFull
+     */
+    prev?: RecipeLite;
+    /**
+     * 
+     * @type {RecipeLite}
+     * @memberof RecipeFull
+     */
+    next?: RecipeLite;
+}
+/**
+ * 
+ * @export
+ * @interface RecipeLite
+ */
+export interface RecipeLite {
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeLite
+     */
+    id?: number;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof RecipeLite
+     */
+    published?: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeLite
+     */
+    slug?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeLite
+     */
+    created_at?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeLite
+     */
+    title?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeLite
+     */
+    description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeLite
+     */
+    thumbnail?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeLite
+     */
+    num_ingredients?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeLite
+     */
+    num_steps?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeLite
+     */
+    cooking_time?: number;
 }
 /**
  * 
@@ -466,32 +813,51 @@ export interface RecipeStep {
      * @type {number}
      * @memberof RecipeStep
      */
-    step_number: number;
+    step_number?: number;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof RecipeStep
+     */
+    images?: Array<string>;
     /**
      * 
      * @type {string}
      * @memberof RecipeStep
      */
-    image_url: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof RecipeStep
-     */
-    description: string;
+    text?: string;
 }
 /**
  * 
  * @export
- * @interface Slug
+ * @interface StringDto
  */
-export interface Slug {
+export interface StringDto {
     /**
      * 
      * @type {string}
-     * @memberof Slug
+     * @memberof StringDto
      */
-    slug?: string;
+    value?: string;
+}
+/**
+ * 
+ * @export
+ * @interface UpdateProjectContentRequest
+ */
+export interface UpdateProjectContentRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdateProjectContentRequest
+     */
+    project_uid?: string;
+    /**
+     * 
+     * @type {Array<ContentItem>}
+     * @memberof UpdateProjectContentRequest
+     */
+    content?: Array<ContentItem>;
 }
 /**
  * 
@@ -558,6 +924,86 @@ export interface UserProfileResponse {
 /**
  * 
  * @export
+ * @interface UserProject
+ */
+export interface UserProject {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserProject
+     */
+    project_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserProject
+     */
+    project_id?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserProject
+     */
+    content_url?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserProject
+     */
+    user_full_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserProject
+     */
+    email?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserProject
+     */
+    registered_on?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserProject
+     */
+    project_created_at?: number;
+}
+/**
+ * 
+ * @export
+ * @interface UserProjectsResponse
+ */
+export interface UserProjectsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof UserProjectsResponse
+     */
+    num_users: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserProjectsResponse
+     */
+    total_records: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof UserProjectsResponse
+     */
+    num_pages: number;
+    /**
+     * 
+     * @type {Array<UserProject>}
+     * @memberof UserProjectsResponse
+     */
+    records: Array<UserProject>;
+}
+/**
+ * 
+ * @export
  * @interface VideoMetadata
  */
 export interface VideoMetadata {
@@ -610,24 +1056,229 @@ export interface VideoMetadata {
      */
     cover_image: string | null;
 }
+/**
+ * 
+ * @export
+ * @interface YouTubeChannelDetail
+ */
+export interface YouTubeChannelDetail {
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    query?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    first_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    last_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    facebook?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    description?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    keywords?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    channel_url?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    channel_name?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    channel_handle?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    subscribers?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof YouTubeChannelDetail
+     */
+    subscribers_value?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    instagram?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    twitter?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    website?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    blog?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    snap_chat?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    discord?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    tiktok?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof YouTubeChannelDetail
+     */
+    pinterest?: string;
+}
 
 /**
- * BlogApi - axios parameter creator
+ * CmsApi - axios parameter creator
  * @export
  */
-export const BlogApiAxiosParamCreator = function (configuration?: Configuration) {
+export const CmsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Bookmark a post for a user
-         * @summary Bookmark a post for a user
-         * @param {Slug} slug Create bookmark request
+         * Get a list of posts
+         * @summary Get list of posts
+         * @param {number} page 
+         * @param {number} size 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBookmark: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('createBookmark', 'slug', slug)
-            const localVarPath = `/user/bookmark`;
+        getAllPosts: async (page: number, size: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'page' is not null or undefined
+            assertParamExists('getAllPosts', 'page', page)
+            // verify required parameter 'size' is not null or undefined
+            assertParamExists('getAllPosts', 'size', size)
+            const localVarPath = `/cms/posts/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a post by id
+         * @summary Get a post by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostById: async (id: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('getPostById', 'id', id)
+            const localVarPath = `/cms/posts/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Update post
+         * @summary Update post
+         * @param {RecipeFull} recipeFull Update content request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePost: async (recipeFull: RecipeFull, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'recipeFull' is not null or undefined
+            assertParamExists('updatePost', 'recipeFull', recipeFull)
+            const localVarPath = `/cms/post/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -646,7 +1297,183 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(recipeFull, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * CmsApi - functional programming interface
+ * @export
+ */
+export const CmsApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = CmsApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get a list of posts
+         * @summary Get list of posts
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllPosts(page: number, size: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageableRecipeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPosts(page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a post by id
+         * @summary Get a post by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getPostById(id: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecipeFull>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostById(id, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Update post
+         * @summary Update post
+         * @param {RecipeFull} recipeFull Update content request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async updatePost(recipeFull: RecipeFull, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updatePost(recipeFull, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * CmsApi - factory interface
+ * @export
+ */
+export const CmsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = CmsApiFp(configuration)
+    return {
+        /**
+         * Get a list of posts
+         * @summary Get list of posts
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllPosts(page: number, size: number, options?: any): AxiosPromise<PageableRecipeResponse> {
+            return localVarFp.getAllPosts(page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a post by id
+         * @summary Get a post by id
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getPostById(id: number, options?: any): AxiosPromise<RecipeFull> {
+            return localVarFp.getPostById(id, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Update post
+         * @summary Update post
+         * @param {RecipeFull} recipeFull Update content request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        updatePost(recipeFull: RecipeFull, options?: any): AxiosPromise<GenericResponse> {
+            return localVarFp.updatePost(recipeFull, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * CmsApi - object-oriented interface
+ * @export
+ * @class CmsApi
+ * @extends {BaseAPI}
+ */
+export class CmsApi extends BaseAPI {
+    /**
+     * Get a list of posts
+     * @summary Get list of posts
+     * @param {number} page 
+     * @param {number} size 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CmsApi
+     */
+    public getAllPosts(page: number, size: number, options?: any) {
+        return CmsApiFp(this.configuration).getAllPosts(page, size, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a post by id
+     * @summary Get a post by id
+     * @param {number} id 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CmsApi
+     */
+    public getPostById(id: number, options?: any) {
+        return CmsApiFp(this.configuration).getPostById(id, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Update post
+     * @summary Update post
+     * @param {RecipeFull} recipeFull Update content request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CmsApi
+     */
+    public updatePost(recipeFull: RecipeFull, options?: any) {
+        return CmsApiFp(this.configuration).updatePost(recipeFull, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * LeadApi - axios parameter creator
+ * @export
+ */
+export const LeadApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create an email campaign
+         * @summary Create an email campaign
+         * @param {CreateEmailCampaignRequest} createEmailCampaignRequest Create campaign request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailCampaign: async (createEmailCampaignRequest: CreateEmailCampaignRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createEmailCampaignRequest' is not null or undefined
+            assertParamExists('createEmailCampaign', 'createEmailCampaignRequest', createEmailCampaignRequest)
+            const localVarPath = `/campaigns/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createEmailCampaignRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -654,19 +1481,16 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get all published posts
-         * @summary Get all published posts
-         * @param {number} pageNumber 
-         * @param {number} limit 
+         * 
+         * @summary Get YouTube channel info
+         * @param {string} query 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPublishedPosts: async (pageNumber: number, limit: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'pageNumber' is not null or undefined
-            assertParamExists('getAllPublishedPosts', 'pageNumber', pageNumber)
-            // verify required parameter 'limit' is not null or undefined
-            assertParamExists('getAllPublishedPosts', 'limit', limit)
-            const localVarPath = `/blog/published`;
+        getChannelInfo: async (query: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'query' is not null or undefined
+            assertParamExists('getChannelInfo', 'query', query)
+            const localVarPath = `/lead/youtube/channels`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -678,8 +1502,379 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             const localVarHeaderParameter = {} as any;
             const localVarQueryParameter = {} as any;
 
-            if (pageNumber !== undefined) {
-                localVarQueryParameter['page_number'] = pageNumber;
+            if (query !== undefined) {
+                localVarQueryParameter['query'] = query;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get email campaign metrics
+         * @summary Get email campaign metrics
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailCampaignMetrics: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/campaigns/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get user image
+         * @summary Get user image
+         * @param {string} imageHash 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserEmailImage: async (imageHash: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'imageHash' is not null or undefined
+            assertParamExists('getUserEmailImage', 'imageHash', imageHash)
+            const localVarPath = `/lead/image/{image_hash}`
+                .replace(`{${"image_hash"}}`, encodeURIComponent(String(imageHash)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * LeadApi - functional programming interface
+ * @export
+ */
+export const LeadApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = LeadApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create an email campaign
+         * @summary Create an email campaign
+         * @param {CreateEmailCampaignRequest} createEmailCampaignRequest Create campaign request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createEmailCampaign(createEmailCampaignRequest: CreateEmailCampaignRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createEmailCampaign(createEmailCampaignRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get YouTube channel info
+         * @param {string} query 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getChannelInfo(query: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ChannelPageableResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getChannelInfo(query, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get email campaign metrics
+         * @summary Get email campaign metrics
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getEmailCampaignMetrics(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<EmailCampaignMetrics>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getEmailCampaignMetrics(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get user image
+         * @summary Get user image
+         * @param {string} imageHash 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUserEmailImage(imageHash: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserEmailImage(imageHash, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * LeadApi - factory interface
+ * @export
+ */
+export const LeadApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = LeadApiFp(configuration)
+    return {
+        /**
+         * Create an email campaign
+         * @summary Create an email campaign
+         * @param {CreateEmailCampaignRequest} createEmailCampaignRequest Create campaign request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createEmailCampaign(createEmailCampaignRequest: CreateEmailCampaignRequest, options?: any): AxiosPromise<GenericResponse> {
+            return localVarFp.createEmailCampaign(createEmailCampaignRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get YouTube channel info
+         * @param {string} query 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getChannelInfo(query: string, options?: any): AxiosPromise<ChannelPageableResponse> {
+            return localVarFp.getChannelInfo(query, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get email campaign metrics
+         * @summary Get email campaign metrics
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getEmailCampaignMetrics(options?: any): AxiosPromise<EmailCampaignMetrics> {
+            return localVarFp.getEmailCampaignMetrics(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get user image
+         * @summary Get user image
+         * @param {string} imageHash 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUserEmailImage(imageHash: string, options?: any): AxiosPromise<string> {
+            return localVarFp.getUserEmailImage(imageHash, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * LeadApi - object-oriented interface
+ * @export
+ * @class LeadApi
+ * @extends {BaseAPI}
+ */
+export class LeadApi extends BaseAPI {
+    /**
+     * Create an email campaign
+     * @summary Create an email campaign
+     * @param {CreateEmailCampaignRequest} createEmailCampaignRequest Create campaign request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LeadApi
+     */
+    public createEmailCampaign(createEmailCampaignRequest: CreateEmailCampaignRequest, options?: any) {
+        return LeadApiFp(this.configuration).createEmailCampaign(createEmailCampaignRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get YouTube channel info
+     * @param {string} query 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LeadApi
+     */
+    public getChannelInfo(query: string, options?: any) {
+        return LeadApiFp(this.configuration).getChannelInfo(query, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get email campaign metrics
+     * @summary Get email campaign metrics
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LeadApi
+     */
+    public getEmailCampaignMetrics(options?: any) {
+        return LeadApiFp(this.configuration).getEmailCampaignMetrics(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get user image
+     * @summary Get user image
+     * @param {string} imageHash 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof LeadApi
+     */
+    public getUserEmailImage(imageHash: string, options?: any) {
+        return LeadApiFp(this.configuration).getUserEmailImage(imageHash, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * ProjectApi - axios parameter creator
+ * @export
+ */
+export const ProjectApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new project and start content processing
+         * @summary Create a new project
+         * @param {CreateProjectRequest} createProjectRequest Create project request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createProject: async (createProjectRequest: CreateProjectRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createProjectRequest' is not null or undefined
+            assertParamExists('createProject', 'createProjectRequest', createProjectRequest)
+            const localVarPath = `/project/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createProjectRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Delete a project
+         * @param {string} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('deleteProject', 'projectId', projectId)
+            const localVarPath = `/project/delete/{project_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a list of projects
+         * @summary Get all projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProjects: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/project/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a list of user projects
+         * @summary Get all user projects
+         * @param {number} page 
+         * @param {number} limit 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllUserProjects: async (page: number, limit: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'page' is not null or undefined
+            assertParamExists('getAllUserProjects', 'page', page)
+            // verify required parameter 'limit' is not null or undefined
+            assertParamExists('getAllUserProjects', 'limit', limit)
+            const localVarPath = `/project/users/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
             }
 
             if (limit !== undefined) {
@@ -698,17 +1893,54 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {string} slug 
+         * Get OpenGraph preview of a video or audio link
+         * @summary Get OpenGraph preview of a video or audio link
+         * @param {string} url 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlogIngredients: async (slug: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('getBlogIngredients', 'slug', slug)
-            const localVarPath = `/blog/ingredients/{slug}`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+        getContentPreview: async (url: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'url' is not null or undefined
+            assertParamExists('getContentPreview', 'url', url)
+            const localVarPath = `/project/content/preview`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (url !== undefined) {
+                localVarQueryParameter['url'] = url;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get full media content metadata
+         * @summary Get full media content metadata
+         * @param {string} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMediaContent: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getMediaContent', 'projectId', projectId)
+            const localVarPath = `/project/media-content/{project_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -732,17 +1964,17 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {string} slug 
+         * Get a project by ID
+         * @summary Get a project by ID
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlogVideoContent: async (slug: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('getBlogVideoContent', 'slug', slug)
-            const localVarPath = `/blog/video-content/{slug}`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+        getProjectById: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getProjectById', 'projectId', projectId)
+            const localVarPath = `/project/detail/{project_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -766,50 +1998,17 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get all bookmarked posts
-         * @summary Get all bookmarked posts
-         * @param {string} userId 
+         * Get the progress of a pending job
+         * @summary Get the progress of a pending job
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBookmarkedPosts: async (userId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('getBookmarkedPosts', 'userId', userId)
-            const localVarPath = `/user/bookmark`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (userId !== undefined) {
-                localVarQueryParameter['user_id'] = userId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get all featured posts
-         * @summary Get all featured posts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getFeaturedPosts: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/blog/featured`;
+        getProjectJobStatus: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getProjectJobStatus', 'projectId', projectId)
+            const localVarPath = `/project/job-status/{project_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -833,17 +2032,17 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get full blog post by slug
-         * @summary Get full blog post by slug
-         * @param {string} slug 
+         * Get video sampled images
+         * @summary Get video sampled images
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFullBlogPost: async (slug: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('getFullBlogPost', 'slug', slug)
-            const localVarPath = `/blog/{slug}`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+        getSampledImages: async (projectId: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'projectId' is not null or undefined
+            assertParamExists('getSampledImages', 'projectId', projectId)
+            const localVarPath = `/project/sampled-images/{project_id}`
+                .replace(`{${"project_id"}}`, encodeURIComponent(String(projectId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -867,53 +2066,16 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * Get all submissions by user Id
-         * @summary Get all submissions by user Id
-         * @param {string} userId 
+         * Update content
+         * @summary Update content
+         * @param {UpdateProjectContentRequest} updateProjectContentRequest Update content request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserSubmissions: async (userId: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'userId' is not null or undefined
-            assertParamExists('getUserSubmissions', 'userId', userId)
-            const localVarPath = `/user/submissions`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            if (userId !== undefined) {
-                localVarQueryParameter['user_id'] = userId;
-            }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Increment share count
-         * @summary Increment share count
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        incrementShareCount: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('incrementShareCount', 'slug', slug)
-            const localVarPath = `/blog/post/share`;
+        updateProjectContent: async (updateProjectContentRequest: UpdateProjectContentRequest, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'updateProjectContentRequest' is not null or undefined
+            assertParamExists('updateProjectContent', 'updateProjectContentRequest', updateProjectContentRequest)
+            const localVarPath = `/project/update`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -932,115 +2094,7 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
             setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Like a post
-         * @summary Like a post
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        likePost: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('likePost', 'slug', slug)
-            const localVarPath = `/user/post/like`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Initiate recipe video processing
-         * @summary Initiate recipe video processing
-         * @param {Array<string>} requestBody Process video request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        processVideoRecipe: async (requestBody: Array<string>, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'requestBody' is not null or undefined
-            assertParamExists('processVideoRecipe', 'requestBody', requestBody)
-            const localVarPath = `/user/post/create`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(requestBody, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Remove an existing bookmark
-         * @summary Remove an existing bookmark
-         * @param {Slug} slug Remove bookmark request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeBookmark: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('removeBookmark', 'slug', slug)
-            const localVarPath = `/user/bookmark`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
+            localVarRequestOptions.data = serializeDataIfNeeded(updateProjectContentRequest, localVarRequestOptions, configuration)
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -1051,1411 +2105,861 @@ export const BlogApiAxiosParamCreator = function (configuration?: Configuration)
 };
 
 /**
- * BlogApi - functional programming interface
+ * ProjectApi - functional programming interface
  * @export
  */
-export const BlogApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = BlogApiAxiosParamCreator(configuration)
+export const ProjectApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = ProjectApiAxiosParamCreator(configuration)
     return {
         /**
-         * Bookmark a post for a user
-         * @summary Bookmark a post for a user
-         * @param {Slug} slug Create bookmark request
+         * Create a new project and start content processing
+         * @summary Create a new project
+         * @param {CreateProjectRequest} createProjectRequest Create project request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createBookmark(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createBookmark(slug, options);
+        async createProject(createProjectRequest: CreateProjectRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateProjectResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createProject(createProjectRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get all published posts
-         * @summary Get all published posts
-         * @param {number} pageNumber 
+         * 
+         * @summary Delete a project
+         * @param {string} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async deleteProject(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteProject(projectId, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a list of projects
+         * @summary Get all projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllProjects(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageableResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllProjects(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a list of user projects
+         * @summary Get all user projects
+         * @param {number} page 
          * @param {number} limit 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getAllPublishedPosts(pageNumber: number, limit: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageableResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPublishedPosts(pageNumber, limit, options);
+        async getAllUserProjects(page: number, limit: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserProjectsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllUserProjects(page, limit, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {string} slug 
+         * Get OpenGraph preview of a video or audio link
+         * @summary Get OpenGraph preview of a video or audio link
+         * @param {string} url 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlogIngredients(slug: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IngredientContent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBlogIngredients(slug, options);
+        async getContentPreview(url: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContentPreviewResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getContentPreview(url, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {string} slug 
+         * Get full media content metadata
+         * @summary Get full media content metadata
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBlogVideoContent(slug: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BlogVideoContent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBlogVideoContent(slug, options);
+        async getMediaContent(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<MediaContent>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMediaContent(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get all bookmarked posts
-         * @summary Get all bookmarked posts
-         * @param {string} userId 
+         * Get a project by ID
+         * @summary Get a project by ID
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getBookmarkedPosts(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BlogPost>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getBookmarkedPosts(userId, options);
+        async getProjectById(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectDetail>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectById(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get all featured posts
-         * @summary Get all featured posts
+         * Get the progress of a pending job
+         * @summary Get the progress of a pending job
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFeaturedPosts(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BlogPost>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFeaturedPosts(options);
+        async getProjectJobStatus(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ProjectJobStatus>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProjectJobStatus(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get full blog post by slug
-         * @summary Get full blog post by slug
-         * @param {string} slug 
+         * Get video sampled images
+         * @summary Get video sampled images
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getFullBlogPost(slug: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BlogPost>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getFullBlogPost(slug, options);
+        async getSampledImages(projectId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSampledImages(projectId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get all submissions by user Id
-         * @summary Get all submissions by user Id
-         * @param {string} userId 
+         * Update content
+         * @summary Update content
+         * @param {UpdateProjectContentRequest} updateProjectContentRequest Update content request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getUserSubmissions(userId: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BlogPost>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getUserSubmissions(userId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Increment share count
-         * @summary Increment share count
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async incrementShareCount(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.incrementShareCount(slug, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Like a post
-         * @summary Like a post
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async likePost(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.likePost(slug, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Initiate recipe video processing
-         * @summary Initiate recipe video processing
-         * @param {Array<string>} requestBody Process video request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async processVideoRecipe(requestBody: Array<string>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.processVideoRecipe(requestBody, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Remove an existing bookmark
-         * @summary Remove an existing bookmark
-         * @param {Slug} slug Remove bookmark request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async removeBookmark(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.removeBookmark(slug, options);
+        async updateProjectContent(updateProjectContentRequest: UpdateProjectContentRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.updateProjectContent(updateProjectContentRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
     }
 };
 
 /**
- * BlogApi - factory interface
+ * ProjectApi - factory interface
  * @export
  */
-export const BlogApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = BlogApiFp(configuration)
+export const ProjectApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = ProjectApiFp(configuration)
     return {
         /**
-         * Bookmark a post for a user
-         * @summary Bookmark a post for a user
-         * @param {Slug} slug Create bookmark request
+         * Create a new project and start content processing
+         * @summary Create a new project
+         * @param {CreateProjectRequest} createProjectRequest Create project request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createBookmark(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.createBookmark(slug, options).then((request) => request(axios, basePath));
+        createProject(createProjectRequest: CreateProjectRequest, options?: any): AxiosPromise<CreateProjectResponse> {
+            return localVarFp.createProject(createProjectRequest, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all published posts
-         * @summary Get all published posts
-         * @param {number} pageNumber 
+         * 
+         * @summary Delete a project
+         * @param {string} projectId 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        deleteProject(projectId: string, options?: any): AxiosPromise<GenericResponse> {
+            return localVarFp.deleteProject(projectId, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a list of projects
+         * @summary Get all projects
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllProjects(options?: any): AxiosPromise<PageableResponse> {
+            return localVarFp.getAllProjects(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a list of user projects
+         * @summary Get all user projects
+         * @param {number} page 
          * @param {number} limit 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getAllPublishedPosts(pageNumber: number, limit: number, options?: any): AxiosPromise<PageableResponse> {
-            return localVarFp.getAllPublishedPosts(pageNumber, limit, options).then((request) => request(axios, basePath));
+        getAllUserProjects(page: number, limit: number, options?: any): AxiosPromise<UserProjectsResponse> {
+            return localVarFp.getAllUserProjects(page, limit, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {string} slug 
+         * Get OpenGraph preview of a video or audio link
+         * @summary Get OpenGraph preview of a video or audio link
+         * @param {string} url 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlogIngredients(slug: string, options?: any): AxiosPromise<IngredientContent> {
-            return localVarFp.getBlogIngredients(slug, options).then((request) => request(axios, basePath));
+        getContentPreview(url: string, options?: any): AxiosPromise<ContentPreviewResponse> {
+            return localVarFp.getContentPreview(url, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {string} slug 
+         * Get full media content metadata
+         * @summary Get full media content metadata
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBlogVideoContent(slug: string, options?: any): AxiosPromise<BlogVideoContent> {
-            return localVarFp.getBlogVideoContent(slug, options).then((request) => request(axios, basePath));
+        getMediaContent(projectId: string, options?: any): AxiosPromise<MediaContent> {
+            return localVarFp.getMediaContent(projectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all bookmarked posts
-         * @summary Get all bookmarked posts
-         * @param {string} userId 
+         * Get a project by ID
+         * @summary Get a project by ID
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getBookmarkedPosts(userId: string, options?: any): AxiosPromise<Array<BlogPost>> {
-            return localVarFp.getBookmarkedPosts(userId, options).then((request) => request(axios, basePath));
+        getProjectById(projectId: string, options?: any): AxiosPromise<ProjectDetail> {
+            return localVarFp.getProjectById(projectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all featured posts
-         * @summary Get all featured posts
+         * Get the progress of a pending job
+         * @summary Get the progress of a pending job
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFeaturedPosts(options?: any): AxiosPromise<Array<BlogPost>> {
-            return localVarFp.getFeaturedPosts(options).then((request) => request(axios, basePath));
+        getProjectJobStatus(projectId: string, options?: any): AxiosPromise<ProjectJobStatus> {
+            return localVarFp.getProjectJobStatus(projectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get full blog post by slug
-         * @summary Get full blog post by slug
-         * @param {string} slug 
+         * Get video sampled images
+         * @summary Get video sampled images
+         * @param {string} projectId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getFullBlogPost(slug: string, options?: any): AxiosPromise<BlogPost> {
-            return localVarFp.getFullBlogPost(slug, options).then((request) => request(axios, basePath));
+        getSampledImages(projectId: string, options?: any): AxiosPromise<Array<string>> {
+            return localVarFp.getSampledImages(projectId, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get all submissions by user Id
-         * @summary Get all submissions by user Id
-         * @param {string} userId 
+         * Update content
+         * @summary Update content
+         * @param {UpdateProjectContentRequest} updateProjectContentRequest Update content request
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getUserSubmissions(userId: string, options?: any): AxiosPromise<Array<BlogPost>> {
-            return localVarFp.getUserSubmissions(userId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Increment share count
-         * @summary Increment share count
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        incrementShareCount(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.incrementShareCount(slug, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Like a post
-         * @summary Like a post
-         * @param {Slug} slug Post update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        likePost(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.likePost(slug, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Initiate recipe video processing
-         * @summary Initiate recipe video processing
-         * @param {Array<string>} requestBody Process video request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        processVideoRecipe(requestBody: Array<string>, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.processVideoRecipe(requestBody, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Remove an existing bookmark
-         * @summary Remove an existing bookmark
-         * @param {Slug} slug Remove bookmark request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        removeBookmark(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.removeBookmark(slug, options).then((request) => request(axios, basePath));
+        updateProjectContent(updateProjectContentRequest: UpdateProjectContentRequest, options?: any): AxiosPromise<GenericResponse> {
+            return localVarFp.updateProjectContent(updateProjectContentRequest, options).then((request) => request(axios, basePath));
         },
     };
 };
 
 /**
- * BlogApi - object-oriented interface
+ * ProjectApi - object-oriented interface
  * @export
- * @class BlogApi
+ * @class ProjectApi
  * @extends {BaseAPI}
  */
-export class BlogApi extends BaseAPI {
+export class ProjectApi extends BaseAPI {
     /**
-     * Bookmark a post for a user
-     * @summary Bookmark a post for a user
-     * @param {Slug} slug Create bookmark request
+     * Create a new project and start content processing
+     * @summary Create a new project
+     * @param {CreateProjectRequest} createProjectRequest Create project request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public createBookmark(slug: Slug, options?: any) {
-        return BlogApiFp(this.configuration).createBookmark(slug, options).then((request) => request(this.axios, this.basePath));
+    public createProject(createProjectRequest: CreateProjectRequest, options?: any) {
+        return ProjectApiFp(this.configuration).createProject(createProjectRequest, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get all published posts
-     * @summary Get all published posts
-     * @param {number} pageNumber 
+     * 
+     * @summary Delete a project
+     * @param {string} projectId 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectApi
+     */
+    public deleteProject(projectId: string, options?: any) {
+        return ProjectApiFp(this.configuration).deleteProject(projectId, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a list of projects
+     * @summary Get all projects
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProjectApi
+     */
+    public getAllProjects(options?: any) {
+        return ProjectApiFp(this.configuration).getAllProjects(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get a list of user projects
+     * @summary Get all user projects
+     * @param {number} page 
      * @param {number} limit 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public getAllPublishedPosts(pageNumber: number, limit: number, options?: any) {
-        return BlogApiFp(this.configuration).getAllPublishedPosts(pageNumber, limit, options).then((request) => request(this.axios, this.basePath));
+    public getAllUserProjects(page: number, limit: number, options?: any) {
+        return ProjectApiFp(this.configuration).getAllUserProjects(page, limit, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get ingredients for full blog post
-     * @summary Get ingredients for full blog post
-     * @param {string} slug 
+     * Get OpenGraph preview of a video or audio link
+     * @summary Get OpenGraph preview of a video or audio link
+     * @param {string} url 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public getBlogIngredients(slug: string, options?: any) {
-        return BlogApiFp(this.configuration).getBlogIngredients(slug, options).then((request) => request(this.axios, this.basePath));
+    public getContentPreview(url: string, options?: any) {
+        return ProjectApiFp(this.configuration).getContentPreview(url, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get video content for a full blog post
-     * @summary Get video content for a full blog post
-     * @param {string} slug 
+     * Get full media content metadata
+     * @summary Get full media content metadata
+     * @param {string} projectId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public getBlogVideoContent(slug: string, options?: any) {
-        return BlogApiFp(this.configuration).getBlogVideoContent(slug, options).then((request) => request(this.axios, this.basePath));
+    public getMediaContent(projectId: string, options?: any) {
+        return ProjectApiFp(this.configuration).getMediaContent(projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get all bookmarked posts
-     * @summary Get all bookmarked posts
-     * @param {string} userId 
+     * Get a project by ID
+     * @summary Get a project by ID
+     * @param {string} projectId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public getBookmarkedPosts(userId: string, options?: any) {
-        return BlogApiFp(this.configuration).getBookmarkedPosts(userId, options).then((request) => request(this.axios, this.basePath));
+    public getProjectById(projectId: string, options?: any) {
+        return ProjectApiFp(this.configuration).getProjectById(projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Get all featured posts
-     * @summary Get all featured posts
+     * Get the progress of a pending job
+     * @summary Get the progress of a pending job
+     * @param {string} projectId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof BlogApi
+     * @memberof ProjectApi
      */
-    public getFeaturedPosts(options?: any) {
-        return BlogApiFp(this.configuration).getFeaturedPosts(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get full blog post by slug
-     * @summary Get full blog post by slug
-     * @param {string} slug 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public getFullBlogPost(slug: string, options?: any) {
-        return BlogApiFp(this.configuration).getFullBlogPost(slug, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get all submissions by user Id
-     * @summary Get all submissions by user Id
-     * @param {string} userId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public getUserSubmissions(userId: string, options?: any) {
-        return BlogApiFp(this.configuration).getUserSubmissions(userId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Increment share count
-     * @summary Increment share count
-     * @param {Slug} slug Post update request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public incrementShareCount(slug: Slug, options?: any) {
-        return BlogApiFp(this.configuration).incrementShareCount(slug, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Like a post
-     * @summary Like a post
-     * @param {Slug} slug Post update request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public likePost(slug: Slug, options?: any) {
-        return BlogApiFp(this.configuration).likePost(slug, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Initiate recipe video processing
-     * @summary Initiate recipe video processing
-     * @param {Array<string>} requestBody Process video request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public processVideoRecipe(requestBody: Array<string>, options?: any) {
-        return BlogApiFp(this.configuration).processVideoRecipe(requestBody, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Remove an existing bookmark
-     * @summary Remove an existing bookmark
-     * @param {Slug} slug Remove bookmark request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof BlogApi
-     */
-    public removeBookmark(slug: Slug, options?: any) {
-        return BlogApiFp(this.configuration).removeBookmark(slug, options).then((request) => request(this.axios, this.basePath));
-    }
-}
-
-
-/**
- * CmsApi - axios parameter creator
- * @export
- */
-export const CmsApiAxiosParamCreator = function (configuration?: Configuration) {
-    return {
-        /**
-         * 
-         * @summary Delete a gif
-         * @param {string} body Delete 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteGif: async (body: string, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'body' is not null or undefined
-            assertParamExists('deleteGif', 'body', body)
-            const localVarPath = `/cms/gif/delete`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'DELETE', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(body, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Generate a GIF from a video file
-         * @summary Generate a GIF from a video file
-         * @param {GifRequest} gifRequest Generate GIF request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        generateGif: async (gifRequest: GifRequest, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'gifRequest' is not null or undefined
-            assertParamExists('generateGif', 'gifRequest', gifRequest)
-            const localVarPath = `/cms/gif/generate`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(gifRequest, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get a list of posts
-         * @summary Get list of posts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAllPosts: async (options: any = {}): Promise<RequestArgs> => {
-            const localVarPath = `/cms/posts/all`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCmsVideoContent: async (docId: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'docId' is not null or undefined
-            assertParamExists('getCmsVideoContent', 'docId', docId)
-            const localVarPath = `/cms/post/video-content/{doc_id}`
-                .replace(`{${"doc_id"}}`, encodeURIComponent(String(docId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getIngredients: async (docId: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'docId' is not null or undefined
-            assertParamExists('getIngredients', 'docId', docId)
-            const localVarPath = `/cms/post/ingredients/{doc_id}`
-                .replace(`{${"doc_id"}}`, encodeURIComponent(String(docId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get a post by document slug
-         * @summary Get a post by document slug
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPostById: async (docId: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'docId' is not null or undefined
-            assertParamExists('getPostById', 'docId', docId)
-            const localVarPath = `/cms/posts/{docId}`
-                .replace(`{${"docId"}}`, encodeURIComponent(String(docId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get image content for a full blog post
-         * @summary Get image content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getRecipeContent: async (docId: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'docId' is not null or undefined
-            assertParamExists('getRecipeContent', 'docId', docId)
-            const localVarPath = `/cms/post/recipe-steps/{docId}`
-                .replace(`{${"docId"}}`, encodeURIComponent(String(docId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Get video sampled images
-         * @summary Get video sampled images
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSampledImages: async (docId: number, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'docId' is not null or undefined
-            assertParamExists('getSampledImages', 'docId', docId)
-            const localVarPath = `/cms/post/sampled-images/{doc_id}`
-                .replace(`{${"doc_id"}}`, encodeURIComponent(String(docId)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Publish a post
-         * @summary Publish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        publishBlogPost: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('publishBlogPost', 'slug', slug)
-            const localVarPath = `/cms/post/publish`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Unpublish a post
-         * @summary Unpublish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        unPublishBlogPost: async (slug: Slug, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('unPublishBlogPost', 'slug', slug)
-            const localVarPath = `/cms/post/unpublish`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(slug, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Create or update video data
-         * @summary Create or update video data
-         * @param {CmsVideoContent} cmsVideoContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateCmsVideoContent: async (cmsVideoContent: CmsVideoContent, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'cmsVideoContent' is not null or undefined
-            assertParamExists('updateCmsVideoContent', 'cmsVideoContent', cmsVideoContent)
-            const localVarPath = `/cms/post/video-content`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(cmsVideoContent, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Create or update a post
-         * @summary Create or update a post
-         * @param {BlogPost} blogPost Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertBlogPost: async (blogPost: BlogPost, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'blogPost' is not null or undefined
-            assertParamExists('upsertBlogPost', 'blogPost', blogPost)
-            const localVarPath = `/cms/post`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(blogPost, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Create or update ingredient list
-         * @summary Create or update ingredient list
-         * @param {IngredientContent} ingredientContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertIngredients: async (ingredientContent: IngredientContent, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'ingredientContent' is not null or undefined
-            assertParamExists('upsertIngredients', 'ingredientContent', ingredientContent)
-            const localVarPath = `/cms/post/ingredients`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(ingredientContent, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * Create or update image data
-         * @summary Create or update image data
-         * @param {RecipeContent} recipeContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertRecipeStep: async (recipeContent: RecipeContent, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'recipeContent' is not null or undefined
-            assertParamExists('upsertRecipeStep', 'recipeContent', recipeContent)
-            const localVarPath = `/cms/post/recipe-steps`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-
-    
-            localVarHeaderParameter['Content-Type'] = 'application/json';
-
-            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-            localVarRequestOptions.data = serializeDataIfNeeded(recipeContent, localVarRequestOptions, configuration)
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-    }
-};
-
-/**
- * CmsApi - functional programming interface
- * @export
- */
-export const CmsApiFp = function(configuration?: Configuration) {
-    const localVarAxiosParamCreator = CmsApiAxiosParamCreator(configuration)
-    return {
-        /**
-         * 
-         * @summary Delete a gif
-         * @param {string} body Delete 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async deleteGif(body: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.deleteGif(body, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Generate a GIF from a video file
-         * @summary Generate a GIF from a video file
-         * @param {GifRequest} gifRequest Generate GIF request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async generateGif(gifRequest: GifRequest, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GifResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.generateGif(gifRequest, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get a list of posts
-         * @summary Get list of posts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getAllPosts(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<BlogPost>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllPosts(options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getCmsVideoContent(docId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CmsVideoContent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getCmsVideoContent(docId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getIngredients(docId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<IngredientContent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getIngredients(docId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get a post by document slug
-         * @summary Get a post by document slug
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getPostById(docId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BlogPost>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getPostById(docId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get image content for a full blog post
-         * @summary Get image content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getRecipeContent(docId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecipeContent>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getRecipeContent(docId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Get video sampled images
-         * @summary Get video sampled images
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getSampledImages(docId: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<string>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getSampledImages(docId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Publish a post
-         * @summary Publish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async publishBlogPost(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.publishBlogPost(slug, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Unpublish a post
-         * @summary Unpublish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async unPublishBlogPost(slug: Slug, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.unPublishBlogPost(slug, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Create or update video data
-         * @summary Create or update video data
-         * @param {CmsVideoContent} cmsVideoContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async updateCmsVideoContent(cmsVideoContent: CmsVideoContent, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.updateCmsVideoContent(cmsVideoContent, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Create or update a post
-         * @summary Create or update a post
-         * @param {BlogPost} blogPost Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async upsertBlogPost(blogPost: BlogPost, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<BlogPostResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertBlogPost(blogPost, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Create or update ingredient list
-         * @summary Create or update ingredient list
-         * @param {IngredientContent} ingredientContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async upsertIngredients(ingredientContent: IngredientContent, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertIngredients(ingredientContent, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * Create or update image data
-         * @summary Create or update image data
-         * @param {RecipeContent} recipeContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async upsertRecipeStep(recipeContent: RecipeContent, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<GenericResponse>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.upsertRecipeStep(recipeContent, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-    }
-};
-
-/**
- * CmsApi - factory interface
- * @export
- */
-export const CmsApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
-    const localVarFp = CmsApiFp(configuration)
-    return {
-        /**
-         * 
-         * @summary Delete a gif
-         * @param {string} body Delete 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        deleteGif(body: string, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.deleteGif(body, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Generate a GIF from a video file
-         * @summary Generate a GIF from a video file
-         * @param {GifRequest} gifRequest Generate GIF request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        generateGif(gifRequest: GifRequest, options?: any): AxiosPromise<GifResponse> {
-            return localVarFp.generateGif(gifRequest, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get a list of posts
-         * @summary Get list of posts
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getAllPosts(options?: any): AxiosPromise<Array<BlogPost>> {
-            return localVarFp.getAllPosts(options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get video content for a full blog post
-         * @summary Get video content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getCmsVideoContent(docId: number, options?: any): AxiosPromise<CmsVideoContent> {
-            return localVarFp.getCmsVideoContent(docId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get ingredients for full blog post
-         * @summary Get ingredients for full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getIngredients(docId: number, options?: any): AxiosPromise<IngredientContent> {
-            return localVarFp.getIngredients(docId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get a post by document slug
-         * @summary Get a post by document slug
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getPostById(docId: number, options?: any): AxiosPromise<BlogPost> {
-            return localVarFp.getPostById(docId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get image content for a full blog post
-         * @summary Get image content for a full blog post
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getRecipeContent(docId: number, options?: any): AxiosPromise<RecipeContent> {
-            return localVarFp.getRecipeContent(docId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Get video sampled images
-         * @summary Get video sampled images
-         * @param {number} docId 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getSampledImages(docId: number, options?: any): AxiosPromise<Array<string>> {
-            return localVarFp.getSampledImages(docId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Publish a post
-         * @summary Publish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        publishBlogPost(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.publishBlogPost(slug, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Unpublish a post
-         * @summary Unpublish a post
-         * @param {Slug} slug Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        unPublishBlogPost(slug: Slug, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.unPublishBlogPost(slug, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create or update video data
-         * @summary Create or update video data
-         * @param {CmsVideoContent} cmsVideoContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        updateCmsVideoContent(cmsVideoContent: CmsVideoContent, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.updateCmsVideoContent(cmsVideoContent, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create or update a post
-         * @summary Create or update a post
-         * @param {BlogPost} blogPost Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertBlogPost(blogPost: BlogPost, options?: any): AxiosPromise<BlogPostResponse> {
-            return localVarFp.upsertBlogPost(blogPost, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create or update ingredient list
-         * @summary Create or update ingredient list
-         * @param {IngredientContent} ingredientContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertIngredients(ingredientContent: IngredientContent, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.upsertIngredients(ingredientContent, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * Create or update image data
-         * @summary Create or update image data
-         * @param {RecipeContent} recipeContent Update request
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        upsertRecipeStep(recipeContent: RecipeContent, options?: any): AxiosPromise<GenericResponse> {
-            return localVarFp.upsertRecipeStep(recipeContent, options).then((request) => request(axios, basePath));
-        },
-    };
-};
-
-/**
- * CmsApi - object-oriented interface
- * @export
- * @class CmsApi
- * @extends {BaseAPI}
- */
-export class CmsApi extends BaseAPI {
-    /**
-     * 
-     * @summary Delete a gif
-     * @param {string} body Delete 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public deleteGif(body: string, options?: any) {
-        return CmsApiFp(this.configuration).deleteGif(body, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Generate a GIF from a video file
-     * @summary Generate a GIF from a video file
-     * @param {GifRequest} gifRequest Generate GIF request
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public generateGif(gifRequest: GifRequest, options?: any) {
-        return CmsApiFp(this.configuration).generateGif(gifRequest, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get a list of posts
-     * @summary Get list of posts
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public getAllPosts(options?: any) {
-        return CmsApiFp(this.configuration).getAllPosts(options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get video content for a full blog post
-     * @summary Get video content for a full blog post
-     * @param {number} docId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public getCmsVideoContent(docId: number, options?: any) {
-        return CmsApiFp(this.configuration).getCmsVideoContent(docId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get ingredients for full blog post
-     * @summary Get ingredients for full blog post
-     * @param {number} docId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public getIngredients(docId: number, options?: any) {
-        return CmsApiFp(this.configuration).getIngredients(docId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get a post by document slug
-     * @summary Get a post by document slug
-     * @param {number} docId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public getPostById(docId: number, options?: any) {
-        return CmsApiFp(this.configuration).getPostById(docId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * Get image content for a full blog post
-     * @summary Get image content for a full blog post
-     * @param {number} docId 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof CmsApi
-     */
-    public getRecipeContent(docId: number, options?: any) {
-        return CmsApiFp(this.configuration).getRecipeContent(docId, options).then((request) => request(this.axios, this.basePath));
+    public getProjectJobStatus(projectId: string, options?: any) {
+        return ProjectApiFp(this.configuration).getProjectJobStatus(projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * Get video sampled images
      * @summary Get video sampled images
-     * @param {number} docId 
+     * @param {string} projectId 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof ProjectApi
      */
-    public getSampledImages(docId: number, options?: any) {
-        return CmsApiFp(this.configuration).getSampledImages(docId, options).then((request) => request(this.axios, this.basePath));
+    public getSampledImages(projectId: string, options?: any) {
+        return ProjectApiFp(this.configuration).getSampledImages(projectId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Publish a post
-     * @summary Publish a post
-     * @param {Slug} slug Update request
+     * Update content
+     * @summary Update content
+     * @param {UpdateProjectContentRequest} updateProjectContentRequest Update content request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof ProjectApi
      */
-    public publishBlogPost(slug: Slug, options?: any) {
-        return CmsApiFp(this.configuration).publishBlogPost(slug, options).then((request) => request(this.axios, this.basePath));
+    public updateProjectContent(updateProjectContentRequest: UpdateProjectContentRequest, options?: any) {
+        return ProjectApiFp(this.configuration).updateProjectContent(updateProjectContentRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * RecipeApi - axios parameter creator
+ * @export
+ */
+export const RecipeApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Create a new recipe from a url
+         * @summary Create a new recipe
+         * @param {StringDto} stringDto Create recipe request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createRecipe: async (stringDto: StringDto, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'stringDto' is not null or undefined
+            assertParamExists('createRecipe', 'stringDto', stringDto)
+            const localVarPath = `/recipe/create`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(stringDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get a paginated list of recipes
+         * @summary Get all recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllRecipes: async (page: number, size: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'page' is not null or undefined
+            assertParamExists('getAllRecipes', 'page', page)
+            // verify required parameter 'size' is not null or undefined
+            assertParamExists('getAllRecipes', 'size', size)
+            const localVarPath = `/recipe/all`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get full recipe by slug
+         * @summary Get full recipe
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFullRecipe: async (slug: string, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'slug' is not null or undefined
+            assertParamExists('getFullRecipe', 'slug', slug)
+            const localVarPath = `/recipe/single/{slug}`
+                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get get most recent recipes
+         * @summary Get most recent recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMostRecentRecipes: async (page: number, size: number, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'page' is not null or undefined
+            assertParamExists('getMostRecentRecipes', 'page', page)
+            // verify required parameter 'size' is not null or undefined
+            assertParamExists('getMostRecentRecipes', 'size', size)
+            const localVarPath = `/recipe/most-recent`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (page !== undefined) {
+                localVarQueryParameter['page'] = page;
+            }
+
+            if (size !== undefined) {
+                localVarQueryParameter['size'] = size;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Regenerate a failed recipe
+         * @summary Regenerate a failed recipe
+         * @param {StringDto} stringDto Regenerate Request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateRecipe: async (stringDto: StringDto, options: any = {}): Promise<RequestArgs> => {
+            // verify required parameter 'stringDto' is not null or undefined
+            assertParamExists('regenerateRecipe', 'stringDto', stringDto)
+            const localVarPath = `/recipe/re-generate`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(stringDto, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * RecipeApi - functional programming interface
+ * @export
+ */
+export const RecipeApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = RecipeApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Create a new recipe from a url
+         * @summary Create a new recipe
+         * @param {StringDto} stringDto Create recipe request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createRecipe(stringDto: StringDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateRecipeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createRecipe(stringDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get a paginated list of recipes
+         * @summary Get all recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getAllRecipes(page: number, size: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageableRecipeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getAllRecipes(page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get full recipe by slug
+         * @summary Get full recipe
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getFullRecipe(slug: string, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<RecipeFull>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getFullRecipe(slug, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get get most recent recipes
+         * @summary Get most recent recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getMostRecentRecipes(page: number, size: number, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<PageableRecipeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMostRecentRecipes(page, size, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Regenerate a failed recipe
+         * @summary Regenerate a failed recipe
+         * @param {StringDto} stringDto Regenerate Request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async regenerateRecipe(stringDto: StringDto, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CreateRecipeResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.regenerateRecipe(stringDto, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * RecipeApi - factory interface
+ * @export
+ */
+export const RecipeApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = RecipeApiFp(configuration)
+    return {
+        /**
+         * Create a new recipe from a url
+         * @summary Create a new recipe
+         * @param {StringDto} stringDto Create recipe request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createRecipe(stringDto: StringDto, options?: any): AxiosPromise<CreateRecipeResponse> {
+            return localVarFp.createRecipe(stringDto, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get a paginated list of recipes
+         * @summary Get all recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getAllRecipes(page: number, size: number, options?: any): AxiosPromise<PageableRecipeResponse> {
+            return localVarFp.getAllRecipes(page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get full recipe by slug
+         * @summary Get full recipe
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getFullRecipe(slug: string, options?: any): AxiosPromise<RecipeFull> {
+            return localVarFp.getFullRecipe(slug, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get get most recent recipes
+         * @summary Get most recent recipes
+         * @param {number} page 
+         * @param {number} size 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getMostRecentRecipes(page: number, size: number, options?: any): AxiosPromise<PageableRecipeResponse> {
+            return localVarFp.getMostRecentRecipes(page, size, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Regenerate a failed recipe
+         * @summary Regenerate a failed recipe
+         * @param {StringDto} stringDto Regenerate Request
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        regenerateRecipe(stringDto: StringDto, options?: any): AxiosPromise<CreateRecipeResponse> {
+            return localVarFp.regenerateRecipe(stringDto, options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * RecipeApi - object-oriented interface
+ * @export
+ * @class RecipeApi
+ * @extends {BaseAPI}
+ */
+export class RecipeApi extends BaseAPI {
+    /**
+     * Create a new recipe from a url
+     * @summary Create a new recipe
+     * @param {StringDto} stringDto Create recipe request
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof RecipeApi
+     */
+    public createRecipe(stringDto: StringDto, options?: any) {
+        return RecipeApiFp(this.configuration).createRecipe(stringDto, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Unpublish a post
-     * @summary Unpublish a post
-     * @param {Slug} slug Update request
+     * Get a paginated list of recipes
+     * @summary Get all recipes
+     * @param {number} page 
+     * @param {number} size 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof RecipeApi
      */
-    public unPublishBlogPost(slug: Slug, options?: any) {
-        return CmsApiFp(this.configuration).unPublishBlogPost(slug, options).then((request) => request(this.axios, this.basePath));
+    public getAllRecipes(page: number, size: number, options?: any) {
+        return RecipeApiFp(this.configuration).getAllRecipes(page, size, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Create or update video data
-     * @summary Create or update video data
-     * @param {CmsVideoContent} cmsVideoContent Update request
+     * Get full recipe by slug
+     * @summary Get full recipe
+     * @param {string} slug 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof RecipeApi
      */
-    public updateCmsVideoContent(cmsVideoContent: CmsVideoContent, options?: any) {
-        return CmsApiFp(this.configuration).updateCmsVideoContent(cmsVideoContent, options).then((request) => request(this.axios, this.basePath));
+    public getFullRecipe(slug: string, options?: any) {
+        return RecipeApiFp(this.configuration).getFullRecipe(slug, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Create or update a post
-     * @summary Create or update a post
-     * @param {BlogPost} blogPost Update request
+     * Get get most recent recipes
+     * @summary Get most recent recipes
+     * @param {number} page 
+     * @param {number} size 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof RecipeApi
      */
-    public upsertBlogPost(blogPost: BlogPost, options?: any) {
-        return CmsApiFp(this.configuration).upsertBlogPost(blogPost, options).then((request) => request(this.axios, this.basePath));
+    public getMostRecentRecipes(page: number, size: number, options?: any) {
+        return RecipeApiFp(this.configuration).getMostRecentRecipes(page, size, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
-     * Create or update ingredient list
-     * @summary Create or update ingredient list
-     * @param {IngredientContent} ingredientContent Update request
+     * Regenerate a failed recipe
+     * @summary Regenerate a failed recipe
+     * @param {StringDto} stringDto Regenerate Request
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof RecipeApi
      */
-    public upsertIngredients(ingredientContent: IngredientContent, options?: any) {
-        return CmsApiFp(this.configuration).upsertIngredients(ingredientContent, options).then((request) => request(this.axios, this.basePath));
+    public regenerateRecipe(stringDto: StringDto, options?: any) {
+        return RecipeApiFp(this.configuration).regenerateRecipe(stringDto, options).then((request) => request(this.axios, this.basePath));
     }
+}
 
+
+/**
+ * SeoApi - axios parameter creator
+ * @export
+ */
+export const SeoApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSitemap: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/sitemap`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * SeoApi - functional programming interface
+ * @export
+ */
+export const SeoApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = SeoApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getSitemap(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<string>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getSitemap(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * SeoApi - factory interface
+ * @export
+ */
+export const SeoApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = SeoApiFp(configuration)
+    return {
+        /**
+         * Get full sitemap
+         * @summary Get full sitemap
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getSitemap(options?: any): AxiosPromise<string> {
+            return localVarFp.getSitemap(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * SeoApi - object-oriented interface
+ * @export
+ * @class SeoApi
+ * @extends {BaseAPI}
+ */
+export class SeoApi extends BaseAPI {
     /**
-     * Create or update image data
-     * @summary Create or update image data
-     * @param {RecipeContent} recipeContent Update request
+     * Get full sitemap
+     * @summary Get full sitemap
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
-     * @memberof CmsApi
+     * @memberof SeoApi
      */
-    public upsertRecipeStep(recipeContent: RecipeContent, options?: any) {
-        return CmsApiFp(this.configuration).upsertRecipeStep(recipeContent, options).then((request) => request(this.axios, this.basePath));
+    public getSitemap(options?: any) {
+        return SeoApiFp(this.configuration).getSitemap(options).then((request) => request(this.axios, this.basePath));
     }
 }
 
@@ -2467,7 +2971,7 @@ export class CmsApi extends BaseAPI {
 export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * Get user profile if exists or create one if the user is pre-approved
+         * Get user profile or create one if it doesn\'t exist
          * @summary Get user profile
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2507,7 +3011,7 @@ export const UserApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
     return {
         /**
-         * Get user profile if exists or create one if the user is pre-approved
+         * Get user profile or create one if it doesn\'t exist
          * @summary Get user profile
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2527,7 +3031,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
     const localVarFp = UserApiFp(configuration)
     return {
         /**
-         * Get user profile if exists or create one if the user is pre-approved
+         * Get user profile or create one if it doesn\'t exist
          * @summary Get user profile
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -2546,7 +3050,7 @@ export const UserApiFactory = function (configuration?: Configuration, basePath?
  */
 export class UserApi extends BaseAPI {
     /**
-     * Get user profile if exists or create one if the user is pre-approved
+     * Get user profile or create one if it doesn\'t exist
      * @summary Get user profile
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}

@@ -12,7 +12,7 @@ import CardActions from "@mui/material/CardActions";
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import {auth} from "@/utils/firebase-setup";
-import {BlogApi, BlogPost, CmsApi} from "@/api";
+import {CmsApi, RecipeApi, RecipeLite} from "@/api";
 import {headerConfig} from "@/api/headerConfig";
 import {showMessageBar} from "@/utils/message";
 import {useSnackbar} from "notistack";
@@ -20,40 +20,26 @@ import {useSnackbar} from "notistack";
 const Dashboard = () => {
   const [showVideoUrlCard, setShowVideoUrlCard] = useState<boolean>(false)
   const [submitted, setSubmitted] = useState<boolean>(false)
-  const [documents, setDocuments] = useState<BlogPost[]>([])
-  const [values, setValues] = useState<string>();
+  const [documents, setDocuments] = useState<RecipeLite[]>([])
+  const [url, setUrl] = useState<string>();
   const { enqueueSnackbar } = useSnackbar();
 
-  const getCleanUrls = (): string[] => {
-    return values.split(",")
-    .filter(it => it.length > 0)
-    .map(it => it.trim())
-  }
   const onSubmit = (): void => {
-    if (values) {
-      const urls = getCleanUrls();
-      if (urls && urls.length > 0) {
-        auth.onAuthStateChanged(user => {
-          if (user) {
-            user.getIdTokenResult(false)
-            .then(tokenResult => {
-              new BlogApi(headerConfig(tokenResult.token))
-              .processVideoRecipe(urls)
-              .then(result => {
-                if (result.data) {
-                  const error = result.data.error;
-                  const status = result.data.status;
-                  showMessageBar({
-                    message: error ? error : status,
-                    snack: enqueueSnackbar,
-                    error: !!error
-                  });
-                }
-              }).catch(e => console.log(e))
-            }).catch(e => console.log(e))
-          }
-        })
-      }
+    if (url) {
+      new RecipeApi()
+      .createRecipe({value: url})
+      .then(result => {
+        if (result.data) {
+          const error = result.data.error;
+          const status = result.data.status;
+          showMessageBar({
+            message: error ? error : status,
+            snack: enqueueSnackbar,
+            error: !!error
+          });
+        }
+      })
+      .catch(e => console.log(e))
     }
     setSubmitted(true)
   }
@@ -69,7 +55,7 @@ const Dashboard = () => {
 
   const handleChange = (event: any) => {
     event.preventDefault();
-    setValues(event.target.value)
+    setUrl(event.target.value)
   }
 
   useEffect(() => {
@@ -78,14 +64,14 @@ const Dashboard = () => {
         user.getIdTokenResult(false)
         .then(tokenResult => {
           new CmsApi(headerConfig(tokenResult.token))
-          .getAllPosts()
+          .getAllPosts(0, 9999)
           .then(result => {
             if (result.data) {
-              if (result.data.length > 0) {
-                setDocuments(result.data)
+              if (result.data.records.length > 0) {
+                setDocuments(result.data.records)
               }
               showMessageBar({
-                message: "Received " + result.data.length + " documents",
+                message: "Received " + result.data.records.length + " documents",
                 snack: enqueueSnackbar,
                 error: false
               });

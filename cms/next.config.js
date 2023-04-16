@@ -1,6 +1,6 @@
 module.exports = {
   env: {
-    NEXT_PUBLIC_GOOGLE_ANALYTICS: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS
+    REACT_APP_SERVER_URL: process.env.REACT_APP_SERVER_URL
   },
   typescript: {
     ignoreBuildErrors: true
