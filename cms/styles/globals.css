@@ -1,0 +1,98 @@
+@import "~react-image-gallery/styles/css/image-gallery.css";
+
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Inter', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+
+.tox-tinymce {
+  border-radius: 0 !important;
+  min-height: 50vh !important;
+}
+.image-gallery-thumbnails {
+  overflow-x: scroll;
+}
+.image-gallery-thumbnail {
+  width: inherit;
+}
+.image-gallery-thumbnail-inner {
+  width: 320px;
+}
+
+.image-gallery-slide-wrapper {
+  display: none;
+}
+
+.overview-btn {
+ width: 180px;
+}
+.overview-btn.red {
+  background-color: red;
+}
+
+.overview-btn.green {
+  background-color: green;
+}
+.cms-section-divider {
+  height: 60px;
+}
+
+.video-detail {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.video-detail video {
+  max-width: 320px;
+  border-radius: 30px;
+}
+.video-column {
+  margin-top: 20px;
+  /*background-color: black;*/
+}
+.custom-range-slider {
+  margin: 20px;
+  padding-bottom: 50px;
+}
+
+.generate-gif-button, .discard-gif-button {
+  width: 100%;
+  padding-bottom: 50px;
+  margin: 0 auto;
+  text-align: center;
+}
+.discard-gif-button {
+  margin-top: 70px;
+}
+
+.generated-gif-box {
+  margin-top: -5px;
+  text-align: center;
+}
+.generated-gif-box img {
+  max-width: 310px;
+  border-radius: 30px;
+}
+
