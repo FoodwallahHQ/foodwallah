@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Box, Divider, Grid} from "@mui/material";
 import RestaurantMenuIcon from '@mui/icons-material/RestaurantMenu';
 import SummaryComponent from "@/pages/Recipe/SummaryComponent";
-import {RecipeFull} from "@/api";
+import {Ingredient, RecipeFull} from "@/api";
 import StructuredData from "@/components/StructuredData";
 import {getFormattedDate} from "@/utils/utils";
 
@@ -21,6 +21,12 @@ const DetailView: FC<DetailViewProps> =  (props) => {
     } catch (e) {
       console.log(e)
     }
+  }
+  const buildIngredient = (value: Ingredient): string => {
+    if (value?.amount && value?.units && value?.ingredient) {
+      return `${value.amount} ${value.units} of ${value.ingredient}`
+    }
+    return value?.ingredient
   }
   const prevUrl = "/recipe/" + props.post?.prev?.slug
   const nextUrl = "/recipe/" + props.post?.next?.slug
@@ -61,14 +67,14 @@ const DetailView: FC<DetailViewProps> =  (props) => {
 
         <Box className="recipe-detail-bottom">
           <Box className="summary">
-            <p>{props.post?.recipe_lite?.summary}</p>
+            <p>{props.post?.summary}</p>
           </Box>
           <Box className="ingredients">
             <h3>Ingredients</h3>
             <ul>
               {
                 props.post?.ingredients?.map((it, index) => {
-                  return <li key={"ingredient-" + index}><span>{it}</span></li>
+                  return <li key={"ingredient-" + index}><span>{buildIngredient(it)}</span></li>
                 })
               }
             </ul>
@@ -78,7 +84,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
             <ul>
               {
                 props.post?.instructions?.map((it, index) => {
-                  return <li key={"step-" + index}><span>{it}</span></li>
+                  return <li key={"step-" + index}><span>{it.text}</span></li>
                 })
               }
             </ul>

@@ -21,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
 
+  @Query(value = "SELECT * FROM public.recipe "
+      + "WHERE published = true AND slug = ?1 ",
+      nativeQuery = true)
   Optional<RecipeEntity> findBySlug(String slug);
   Optional<RecipeEntity> findByContentId(String contentId);
 
@@ -29,15 +32,13 @@ public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
   Page<RecipeEntity> cmsFindAllRecipes(Pageable pageable);
 
   @Query(value = "SELECT * FROM public.recipe "
-      + "WHERE processed = true "
-      + "AND failed = false",
+      + "WHERE published = true ",
       nativeQuery = true)
   Page<RecipeEntity> findAllRecipes(Pageable pageable);
 
   @Query(value = "SELECT slug, title, updated_at as updatedAt "
       + "FROM public.recipe "
-      + "WHERE processed = true "
-      + "AND failed = false "
+      + "WHERE published = true "
       + "ORDER BY updated_at ASC",
       nativeQuery = true)
   List<RecipeMetaProjection> findAllSlugs();
@@ -45,8 +46,7 @@ public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
   @Query(value = "SELECT * "
       + "FROM public.recipe WHERE created_at <= ?1 "
       + "AND id != ?2 "
-      + "AND processed = true "
-      + "AND failed = false "
+      + "AND published = true "
       + "ORDER BY created_at DESC "
       + "LIMIT 1",
       nativeQuery = true)
@@ -55,8 +55,7 @@ public interface RecipeRepo extends JpaRepository<RecipeEntity, Long> {
   @Query(value = "SELECT * "
       + "FROM public.recipe WHERE created_at >= ?1 "
       + "AND id != ?2 "
-      + "AND processed = true "
-      + "AND failed = false "
+      + "AND published = true "
       + "ORDER BY created_at ASC "
       + "LIMIT 1",
       nativeQuery = true)
