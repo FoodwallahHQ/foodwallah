@@ -55,7 +55,6 @@
     "@mui/material": "^5.4.3",
     "@mui/x-data-grid": "^5.17.7",
     "@popperjs/core": "^2.11.2",
-    "@tinymce/tinymce-react": "^4.2.0",
     "axios": "^1.2.1",
     "clsx": "^1.1.1",
     "firebase": "^9.15.0",
