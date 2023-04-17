@@ -17,6 +17,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+
 @Slf4j
 @SpringBootTest(classes = ServiceTestConfiguration.class)
 public class YoutubeSubtitlesExtractorTest extends AbstractTestNGSpringContextTests {
