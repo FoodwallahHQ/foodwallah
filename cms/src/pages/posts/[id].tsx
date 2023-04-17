@@ -1,14 +1,24 @@
-import React, {FC, useEffect, useState} from "react";
-import Grid from "@mui/material/Grid";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
-import Divider from "@mui/material/Divider";
 import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import Box from "@mui/material/Box";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import {
+  Avatar,
+  Box,
+  Divider,
+  Grid,
+  styled,
+  Typography,
+} from '@mui/material';
+import CloudUploadTwoToneIcon from '@mui/icons-material/CloudUploadTwoTone';
+import CloseTwoToneIcon from '@mui/icons-material/CloseTwoTone';
+import CheckTwoToneIcon from '@mui/icons-material/CheckTwoTone';
+
 import { CircularProgress} from "@mui/material";
 import IngredientList from "@/@core/document/editor/IngredientList";
 import {Authenticated} from "@/components/auth/Authenticated";
@@ -17,6 +27,7 @@ import {
   RecipeFull,
   RecipeStep
 } from "@/api";
+import {useDropzone} from 'react-dropzone';
 import {auth} from "@/utils/firebase-setup";
 import {headerConfig} from "@/api/headerConfig";
 import {showMessageBar} from "@/utils/message";
@@ -33,6 +44,52 @@ interface TabPanelProps {
   index: number;
   value: number;
 }
+
+const BoxUploadWrapper = styled(Box)(
+    ({ theme }) => `
+    cursor: pointer;
+    height: 220px;
+    max-width: 600px;
+    margin: 0 auto;
+    border-radius: 15px;
+    padding: ${theme.spacing(2)};
+    background: ${theme.palette.grey["50"]};
+    border: 1px dashed ${theme.palette.primary.main};
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: ${theme.transitions.create(['border', 'background'])};
+
+    &:hover {
+      background: ${theme.palette.common.white};
+      border-color: inherit;
+    }
+`
+);
+const AvatarDanger = styled(Avatar)(
+    ({ theme }) => `
+    background: ${theme.palette.error.light};
+    width: ${theme.spacing(7)};
+    height: ${theme.spacing(7)};
+`
+);
+const AvatarWrapper = styled(Avatar)(
+    ({ theme }) => `
+    background: transparent;
+    color: ${theme.palette.primary.main};
+    width: ${theme.spacing(7)};
+`
+);
+
+const AvatarSuccess = styled(Avatar)(
+    ({ theme }) => `
+    background: ${theme.palette.success.light};
+    width: ${theme.spacing(7)};
+    height: ${theme.spacing(7)};
+`
+);
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
@@ -77,12 +134,76 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [showProgress, setShowProgress] = useState<boolean>(false);
   const [blogPost, setBlogPost] = useState<RecipeFull>();
   const [tabIndex, setTabIndex] = React.useState(0);
+  const [file, setFile] = useState('')
+  const [fileExtension, setFileExtension] = useState('')
+  const [fileName, setFileName] = useState('')
+  const [showFileName, setShowFileName] = useState(false)
+  const [uploadedImageUrl, setUploadedImageUrl] = useState('')
   const { enqueueSnackbar } = useSnackbar();
+
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    const conversionFactor = 1024*10
+    setFile('')
+    setFileExtension('')
+    const maxFileSize = 1024*conversionFactor // 10 MB
+    if (acceptedFiles && acceptedFiles.length > 0) {
+      const f = acceptedFiles[0]
+      if (f.size > maxFileSize) {
+        const msg = `File size of ${Math.round(f.size/conversionFactor)} MB is too big. Max allowed is 10MB`
+        showMessageBar({
+          message: msg,
+          snack: enqueueSnackbar,
+          error: true
+        });
+
+      } else {
+        convertBase64(f).then(binaryData => {
+          setFile(binaryData + '')
+          setFileExtension(f.name.split('.').pop())
+          setFileName(f.name)
+          setShowFileName(true)
+        }).catch(e => {
+          showMessageBar({
+            message: e.message,
+            snack: enqueueSnackbar,
+            error: true
+          });
+        })
+      }
+    }
+  }, [])
+
+  const {
+    isDragActive,
+    isDragAccept,
+    isDragReject,
+    getRootProps,
+    getInputProps
+  } = useDropzone({
+    accept: {
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpg', '.jpeg']
+    },
+    multiple: false,
+    onDrop
+  });
+
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file)
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      }
+      fileReader.onerror = (error) => {
+        reject(error);
+      }
+    })
+  }
 
   const handleTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setTabIndex(newValue);
   };
-
 
   const onRecipeStepChange = (items: RecipeStepListData[]): void => {
     const convertToRecipeStep = (item: RecipeStepListData): RecipeStep => {
@@ -125,6 +246,40 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
       blogPost[fieldName] = value
     }
     setBlogPost({...blogPost})
+  }
+  const upload = () => {
+    if (file) {
+      auth.onAuthStateChanged(user => {
+        if (user) {
+          user.getIdTokenResult(false)
+          .then(tokenResult => {
+            new CmsApi(headerConfig(tokenResult.token))
+            .uploadImage({
+              file: file,
+              file_extension: fileExtension
+            })
+            .then(result => {
+              setShowProgress(false)
+              if (result.data) {
+                setUploadedImageUrl(result.data.url)
+                showMessageBar({
+                  message: result.data.url ? 'Image Uploaded' : result.data.error,
+                  snack: enqueueSnackbar,
+                  error: !!result.data.error
+                });
+              }
+            }).catch(e => {
+              console.log(e)
+              showMessageBar({
+                message: e.message,
+                snack: enqueueSnackbar,
+                error: true
+              });
+            })
+          }).catch(e => console.log(e))
+        }
+      })
+    }
   }
   const publish = () => {
     blogPost.recipe_lite.published = true
@@ -189,26 +344,37 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     return  blogPost?.recipe_lite?.published ? "Current status: Published" : "Current status: Draft"
   }
 
-  // const copyToClipboard = (value: string) => {
-  //   if (typeof window !== 'undefined' && navigator.clipboard) {
-  //     navigator.clipboard.writeText(value).then(
-  //         () => {
-  //           showMessageBar({
-  //             message: "Link copied",
-  //             snack: enqueueSnackbar,
-  //             error: false
-  //           });
-  //         },
-  //         () => {
-  //           showMessageBar({
-  //             message: "Failed to copy link :(",
-  //             snack: enqueueSnackbar,
-  //             error: true
-  //           });
-  //         }
-  //     ).catch(e => console.log(e));
-  //   }
-  // }
+  const getVideoId = () => {
+    if (blogPost?.source) {
+      try {
+        const tokens = blogPost.source.split("v=")
+        return tokens[tokens.length - 1]
+      } catch (e) {
+        console.log(e)
+      }
+    }
+  }
+
+  const copyToClipboard = (value: string) => {
+    if (typeof window !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(value).then(
+          () => {
+            showMessageBar({
+              message: "Link copied",
+              snack: enqueueSnackbar,
+              error: false
+            });
+          },
+          () => {
+            showMessageBar({
+              message: "Failed to copy link :(",
+              snack: enqueueSnackbar,
+              error: true
+            });
+          }
+      ).catch(e => console.log(e));
+    }
+  }
 
   useEffect(() => {
     setShowProgress(true)
@@ -246,6 +412,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                 <Tab label="Recipe" {...a11yProps(1)} />
                 <Tab label="Ingredients" {...a11yProps(2)} />
                 <Tab label="Publish" {...a11yProps(3)} />
+                <Tab label="Image Upload Area" {...a11yProps(4)} />
               </Tabs>
             </Box>
             <TabPanel value={tabIndex} index={0}>
@@ -469,6 +636,121 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                 {/*  }*/}
                 {/*</Grid>*/}
               </Grid>
+            </TabPanel>
+            <TabPanel value={tabIndex} index={4}>
+              <Card>
+                <CardHeader title="Upload Images" titleTypographyProps={{ variant: 'h2' }} />
+                <CardContent style={{padding: '0rem', marginLeft: '0rem'}}>
+                  <Grid container spacing={5} sx={{p: 4}}>
+
+                    <Grid
+                        item
+                        xs={12}
+                        sx={{mb: 4}}
+                    >
+                      <Typography
+                          variant='subtitle2'
+                          fontSize={14} textAlign="left">
+                        Upload images for this recipe. You can take screenshots from the video or upload local images. After uploading,
+                        make sure to copy and paste the URL into the correct field in the other tabs.
+                      </Typography>
+                    </Grid>
+                          {
+                              getVideoId() &&  <Grid item sm={12} className="iframe-container">
+                                <iframe height="315"
+                                        src={`https://www.youtube.com/embed/${getVideoId()}`}
+                                        title="YouTube video player"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowFullScreen></iframe>
+                              </Grid>
+                          }
+                          <Grid item xs={12} sx={{mt: 4}}>
+                            <BoxUploadWrapper {...getRootProps()}>
+                              <input {...getInputProps()} />
+                              {isDragAccept && (
+                                  <>
+                                    <AvatarSuccess variant="rounded">
+                                      <CheckTwoToneIcon/>
+                                    </AvatarSuccess>
+                                    <Typography
+                                        sx={{
+                                          mt: 2
+                                        }}
+                                    >
+                                      {('Drop the files to start uploading')}
+                                    </Typography>
+                                  </>
+                              )}
+                              {isDragReject && (
+                                  <>
+                                    <AvatarDanger variant="rounded">
+                                      <CloseTwoToneIcon />
+                                    </AvatarDanger>
+                                    <Typography
+                                        sx={{
+                                          mt: 2
+                                        }}
+                                    >
+                                      {('You cannot upload these file types')}
+                                    </Typography>
+                                  </>
+                              )}
+                              {!isDragActive && (
+                                  <>
+                                    <AvatarWrapper variant="rounded">
+                                      <CloudUploadTwoToneIcon />
+                                    </AvatarWrapper>
+                                    <Typography
+                                        sx={{
+                                          mt: 1
+                                        }}
+                                    >
+                                      {
+                                        showFileName ? `${fileName}` : `Drag & drop files here`
+                                      }
+                                    </Typography>
+                                    <Typography
+                                        sx={{
+                                          fontSize: '10px',
+                                          mb: 2
+                                        }}
+                                        variant='body1'
+                                    >
+                                      {'Supported formats: .png, .jpg, .jpeg. Max 10MB'}
+                                    </Typography>
+                                  </>
+                              )}
+                            </BoxUploadWrapper>
+                          </Grid>
+                          {
+                              uploadedImageUrl && <Grid item xs={12} sx={{mt: 4, textAlign: 'center'}}>
+                                <Button
+                                    sx={{width: '48px', pl: '5px', pr: '0px', mr: '20px', height: '38px', display: 'inline-flex'}}
+                                    onClick={() => copyToClipboard(uploadedImageUrl)}
+                                    variant="contained"
+                                    startIcon={<ContentCopyIcon />}
+                                    className="overview-btn green"/>
+                                <a href={uploadedImageUrl} target="_blank">
+                                  <Typography variant='h6' sx={{ fontWeight: 600, mt: '0.5rem', ml: 2, display: 'inline-flex' }}>
+                                    {uploadedImageUrl}
+                                  </Typography>
+                                </a>
+                              </Grid>
+                          }
+                        </Grid>
+                  <CardActions>
+                    <Button
+                        onClick={upload}
+                        disabled={!(!!file)}
+                        variant="contained"
+                        startIcon={<CloudUploadIcon />}
+                        className="overview-btn orange">
+                      Upload
+                    </Button>
+                  </CardActions>
+                </CardContent>
+              </Card>
             </TabPanel>
           </Box>
         </>

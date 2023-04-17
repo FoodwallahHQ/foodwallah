@@ -53,6 +53,9 @@ code[class*='language-'] {
 .overview-btn.green {
   background-color: green;
 }
+.overview-btn.orange {
+  background-color: orange;
+}
 .cms-section-divider {
   height: 60px;
 }
@@ -96,3 +99,15 @@ code[class*='language-'] {
   border-radius: 30px;
 }
 
+.iframe-container {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.iframe-container iframe {
+  margin: 0 auto;
+  max-width: 560px;
+  width: 100%;
+}

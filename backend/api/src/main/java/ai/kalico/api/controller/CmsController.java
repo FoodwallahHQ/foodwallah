@@ -3,6 +3,8 @@ package ai.kalico.api.controller;
 import ai.kalico.api.CmsApi;
 import ai.kalico.api.service.cms.CmsService;
 import com.kalico.model.GenericResponse;
+import com.kalico.model.ImageUploadRequest;
+import com.kalico.model.ImageUploadResponse;
 import com.kalico.model.PageableRecipeResponse;
 import com.kalico.model.RecipeFull;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +34,10 @@ public class CmsController implements CmsApi {
   @Override
   public ResponseEntity<GenericResponse> updatePost(RecipeFull recipeFull) {
     return ResponseEntity.ok(cmsService.updatePost(recipeFull));
+  }
+
+  @Override
+  public ResponseEntity<ImageUploadResponse> uploadImage(ImageUploadRequest imageUploadRequest) {
+    return ResponseEntity.ok(cmsService.uploadImage(imageUploadRequest));
   }
 }

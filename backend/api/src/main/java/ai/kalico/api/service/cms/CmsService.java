@@ -1,6 +1,8 @@
 package ai.kalico.api.service.cms;
 
 import com.kalico.model.GenericResponse;
+import com.kalico.model.ImageUploadRequest;
+import com.kalico.model.ImageUploadResponse;
 import com.kalico.model.PageableRecipeResponse;
 import com.kalico.model.RecipeFull;
 
@@ -13,4 +15,6 @@ public interface CmsService {
   RecipeFull getPostById(Long id);
 
   GenericResponse updatePost(RecipeFull recipeFull);
+
+  ImageUploadResponse uploadImage(ImageUploadRequest imageUploadRequest);
 }

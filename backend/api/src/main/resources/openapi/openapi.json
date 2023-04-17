@@ -794,6 +794,39 @@
           }
         }
       }
+    },
+    "/cms/post/image-upload": {
+      "post": {
+        "tags": [
+          "cms"
+        ],
+        "summary": "Upload an image",
+        "description":"Upload an image",
+        "operationId": "uploadImage",
+        "requestBody": {
+          "required": true,
+          "description": "Upload image request",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ImageUploadRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Upload image response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ImageUploadResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1584,8 +1617,32 @@
             "$ref": "#/components/schemas/RecipeLite"
           }
         }
+      },
+      "ImageUploadRequest": {
+        "type": "object",
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "base64",
+            "nullable": true
+          },
+          "file_extension": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "ImageUploadResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          }
+        }
       }
-
     }
   }
 }
