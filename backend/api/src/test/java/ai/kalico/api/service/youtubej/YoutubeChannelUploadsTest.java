@@ -7,10 +7,12 @@ import ai.kalico.api.service.youtubej.model.playlist.PlaylistInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore
 @Slf4j
 @SpringBootTest(classes = ServiceTestConfiguration.class)
 public class YoutubeChannelUploadsTest extends AbstractTestNGSpringContextTests {

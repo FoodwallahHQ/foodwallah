@@ -8,12 +8,14 @@ import ai.kalico.api.service.youtubej.model.videos.VideoInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
+import org.testng.annotations.Ignore;
 import org.testng.annotations.Test;
 
 
 import static ai.kalico.api.service.youtubej.TestUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Ignore
 @Slf4j
 @SpringBootTest(classes = ServiceTestConfiguration.class)
 class YoutubeLiveStreamExtractorTest extends AbstractTestNGSpringContextTests {

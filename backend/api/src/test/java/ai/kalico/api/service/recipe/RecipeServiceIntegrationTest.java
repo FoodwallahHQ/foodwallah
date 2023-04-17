@@ -242,6 +242,7 @@ public class RecipeServiceIntegrationTest extends AbstractTestNGSpringContextTes
             entity.setNumIngredients((int) Math.round(Math.random() * 100));
             entity.setNumSteps((int) Math.round(Math.random() * 100));
             entity.setProcessed(true);
+            entity.setPublished(true);
             entity.setSlug("how-to-cook-chicken-well-" + UUID.randomUUID());
             entity.setThumbnail("https://picsum.photos/800/800");
             entity.setIngredients(objectMapper.writeValueAsString(List.of(

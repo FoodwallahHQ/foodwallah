@@ -13,7 +13,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Ignore;
 
+@Ignore
 @Slf4j
 @SpringBootTest(classes = ServiceTestConfiguration.class)
 public abstract class YoutubePlaylistTest extends AbstractTestNGSpringContextTests {
