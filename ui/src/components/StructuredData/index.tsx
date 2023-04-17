@@ -20,11 +20,11 @@ function StructuredData(props: StructuredDataProps) {
       "name": "Foodwallah"
     },
     "datePublished": getFormattedDate(props.post?.recipe_lite?.created_at),
-    "description": props.post?.recipe_lite?.summary,
+    "description": props.post?.recipe_lite?.description,
     // "prepTime": "PT20M",
     // "cookTime": "PT30M",
     // "totalTime": "PT50M",
-    // "keywords": "cake for a party, coffee",
+    "keywords": props.post?.keywords,
     // "recipeYield": "10",
     // "recipeCategory": "Dessert",
     // "recipeCuisine": "American",
@@ -32,7 +32,7 @@ function StructuredData(props: StructuredDataProps) {
     //   "@type": "NutritionInformation",
     //   "calories": "270 calories"
     // },
-    "recipeIngredient": props.post?.ingredients,
+    "recipeIngredient": props.post?.ingredients?.map(it => it.ingredient),
     "recipeInstructions": props.post?.instructions?.map(it => {
       return (
           {
@@ -40,7 +40,7 @@ function StructuredData(props: StructuredDataProps) {
             // "name": "Preheat",
             "text": it,
             // "url": "https://example.com/party-coffee-cake#step1",
-            // "image": "https://example.com/photos/party-coffee-cake/step1.jpg"
+            "image": it.images ? it.images[0] : ''
           }
       )
     }),

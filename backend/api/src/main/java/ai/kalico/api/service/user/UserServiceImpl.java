@@ -1,5 +1,6 @@
 package ai.kalico.api.service.user;
 
+import ai.kalico.api.props.AuthorizedUsersProps;
 import ai.kalico.api.utils.security.firebase.SecurityFilter;
 import com.kalico.model.UserProfile;
 import com.kalico.model.UserProfileResponse;
@@ -17,12 +18,16 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
   private final SecurityFilter securityFilter;
   private final UserServiceHelper userServiceHelper;
+  private final AuthorizedUsersProps authorizedUsersProps;
 
   @Override
   public UserProfileResponse getOrCreateUserprofileAsync() {
     UserProfile userProfile = securityFilter.getUser();
-    userServiceHelper.createDbUserAsync(userProfile);
-    return new UserProfileResponse().profile(userProfile);
+    if (authorizedUsersProps.getEmails().contains(userProfile.getEmail())) {
+      userServiceHelper.createDbUserAsync(userProfile);
+      return new UserProfileResponse().profile(userProfile);
+    }
+    return null;
   }
 
   @Override

@@ -25,12 +25,12 @@ const RecipeDetailIndex: FC<RecipeDetailProps> =  (props) => {
           <meta property="og:title" content={props.post?.recipe_lite?.title} />
           <meta
               name="description"
-              content={props.post?.recipe_lite?.summary}
+              content={props.post?.recipe_lite?.description}
               key="desc"
           />
           <meta
               property="og:description"
-              content={props.post?.recipe_lite?.summary}
+              content={props.post?.recipe_lite?.description}
           />
           <meta
               property="og:image"

@@ -12,7 +12,7 @@ export const getFormattedDate = (date: number) => {
 
 export const truncatedDescription = (text: string) => {
   const MAX_LENGTH = 215
-  if (text.length > 215) {
+  if (text && text.length > 215) {
     return text.slice(0, MAX_LENGTH) + "..."
   }
   return text

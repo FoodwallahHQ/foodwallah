@@ -28,7 +28,8 @@ import org.springframework.context.annotation.Configuration;
     WhisperProps.class,
     UserProps.class,
     IpAddressProps.class,
-    LeadsProps.class
+    LeadsProps.class,
+    AuthorizedUsersProps.class
 })
 public class PropConfiguration {
 }
