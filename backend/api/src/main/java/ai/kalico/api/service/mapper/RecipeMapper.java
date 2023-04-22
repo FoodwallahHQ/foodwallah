@@ -84,7 +84,7 @@ public interface RecipeMapper {
     recipeEntity.setNumIngredients(recipeFull.getRecipeLite().getNumIngredients());
     recipeEntity.setPublished(recipeFull.getRecipeLite().getPublished());
     recipeEntity.setDescription(recipeFull.getRecipeLite().getDescription());
-    recipeEntity.setCookingTimeMinutes(recipeFull.getRecipeLite().getCookingTime());
+    recipeEntity.setAdditionalInfo(recipeFull.getRecipeLite().getAdditionalInfo());
     recipeEntity.setKeywords(recipeFull.getKeywords());
     recipeEntity.setThumbnail(recipeFull.getRecipeLite().getThumbnail());
     recipeEntity.setUpdatedAt(LocalDateTime.now());
@@ -97,7 +97,7 @@ public interface RecipeMapper {
     return new RecipeLite()
         .id(entity.getId())
         .published(entity.getPublished())
-        .cookingTime(entity.getCookingTimeMinutes())
+        .additionalInfo(entity.getAdditionalInfo())
         .description(entity.getDescription())
         .slug(entity.getSlug())
         .numIngredients(entity.getNumIngredients())

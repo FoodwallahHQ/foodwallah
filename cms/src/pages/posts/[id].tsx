@@ -38,6 +38,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PublishIcon from "@mui/icons-material/Publish";
 import DownloadIcon from "@mui/icons-material/Download";
+import RawTranscript from "@/@core/document/editor/RawTranscript";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -118,6 +119,7 @@ function a11yProps(index: number) {
   };
 }
 
+
 export async function getServerSideProps(context) {
   return {
     props: {
@@ -126,6 +128,12 @@ export async function getServerSideProps(context) {
   }
 }
 
+interface AdditionalInfo {
+  cuisine?: string,
+  category?: string,
+  prep_time?: number,
+  cooking_time?: number
+}
 export interface DocumentEditorProps {
   id: number
 }
@@ -140,6 +148,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [showFileName, setShowFileName] = useState(false)
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
   const { enqueueSnackbar } = useSnackbar();
+
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const conversionFactor = 1024*10
@@ -229,15 +238,26 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     setBlogPost({...blogPost})
   }
 
-  const handleBlogPostFieldChange = (fieldName: string, event: any): void => {
+  const getAdditionalInfo = (): AdditionalInfo => {
+    let additionalInfo: AdditionalInfo = {}
+    if (blogPost?.recipe_lite?.additional_info) {
+      additionalInfo = JSON.parse(blogPost?.recipe_lite?.additional_info)
+    }
+    return additionalInfo
+  }
+
+  const handleBlogPostFieldChange = (fieldName: string, event: any, additionalInfo: boolean = false): void => {
     event.preventDefault();
     const value = event.target.value;
-    if ([
+    if (additionalInfo) {
+      const data = getAdditionalInfo()
+      data[fieldName] = value
+      blogPost.recipe_lite.additional_info = JSON.stringify(data)
+    } else if ([
         "title",
         "slug",
         "description",
-        "thumbnail",
-        "cooking_time"
+        "thumbnail"
     ].includes(fieldName)) {
       blogPost.recipe_lite[fieldName] = value
     } else if (["summary", "keywords"].includes(fieldName)) {
@@ -388,6 +408,8 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     })
   }, [])
 
+  const additionalInfo = getAdditionalInfo()
+
   return (
     <Authenticated>
       {showProgress &&
@@ -422,6 +444,24 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                   <Grid container spacing={5}>
                     <Grid item xs={12} >
                       <Grid container spacing={5} sx={{p: 4}}>
+                        <Grid item xs={12}>
+                          <TextField
+                              onChange={(e) => handleBlogPostFieldChange('cuisine', e, true)}
+                              label='Cuisine'
+                              placeholder='Cuisine'
+                              value={additionalInfo.cuisine ? additionalInfo.cuisine : ''}
+                              sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                              width: '25%', ml: 2}}
+                          />
+                          <TextField
+                              onChange={(e) => handleBlogPostFieldChange('category', e, true)}
+                              label='Category'
+                              placeholder='Category'
+                              value={additionalInfo.category ? additionalInfo.category : ''}
+                              sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                                width: '25%', ml: 2}}
+                          />
+                        </Grid>
                         <Grid item xs={12} sm={12}>
                           <TextField
                               onChange={(e) => handleBlogPostFieldChange('title', e)}
@@ -476,7 +516,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                               onChange={(e) => handleBlogPostFieldChange('summary', e)}
                               fullWidth
                               multiline
-                              minRows={3}
+                              minRows={6}
                               label='Body'
                               value={blogPost.summary ? blogPost.summary : ''}
                               placeholder='Blog post body'
@@ -502,17 +542,23 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
             <TabPanel value={tabIndex} index={1}>
               <Card>
                 <CardHeader title="Step-by-Step Recipe" titleTypographyProps={{ variant: 'h6' }} />
-
-                <Divider sx={{ margin: 0 }} />
                 <CardContent>
                   <Grid container spacing={5}>
                     <Grid item xs={12} sm={12}>
+                      <RawTranscript transcript={blogPost?.transcript}/>
                       <TextField
-                          onChange={(e) => handleBlogPostFieldChange('cooking_time', e)}
-                          fullWidth
+                          sx={{width: '300px', mr: 2}}
+                          onChange={(e) => handleBlogPostFieldChange('cooking_time', e, true)}
                           label={"Cooking Time"}
-                          placeholder='Cooking Time (in minutes), e.g. 45'
-                          value={blogPost?.recipe_lite?.cooking_time ? blogPost?.recipe_lite?.cooking_time  : ''}
+                          placeholder='Cooking Time (m)'
+                          value={additionalInfo.cooking_time ? additionalInfo.cooking_time  : ''}
+                      />
+                      <TextField
+                          sx={{width: '300px', ml: 2, mr: 2}}
+                          onChange={(e) => handleBlogPostFieldChange('prep_time', e, true)}
+                          label={"Prep Time"}
+                          placeholder='Prep Time (m)'
+                          value={additionalInfo.prep_time ? additionalInfo.prep_time  : ''}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -541,6 +587,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                 <CardHeader title="Ingredients" titleTypographyProps={{ variant: 'h6' }} />
                 <Divider sx={{ margin: 0 }} />
                 <CardContent>
+                  <RawTranscript transcript={blogPost?.transcript}/>
                   <IngredientList
                       ingredients={blogPost?.ingredients}
                       onIngredientChange={onIngredientChange}
@@ -614,27 +661,6 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
 
                   </CardContent>
                 </Grid>
-                {/*<Grid item xs={12}>*/}
-                {/*  <div className="cms-section-divider"></div>*/}
-                {/*  {blogPost.status === 'published' &&*/}
-                {/*      <Card>*/}
-                {/*        <CardHeader title="Preview Link" titleTypographyProps={{variant: 'h6'}}/>*/}
-                {/*        <Divider sx={{margin: 0}}/>*/}
-                {/*        <CardContent>*/}
-                {/*          <Grid container spacing={5}>*/}
-                {/*            <Grid item xs={12}>*/}
-                {/*              <Typography variant='body2' sx={{fontWeight: 900, fontSize: '2rem'}}>*/}
-                {/*                <a href={blogPost.post_url} target="_blank"*/}
-                {/*                   style={{textDecoration: "none", color: "green"}}>*/}
-                {/*                  {blogPost.post_url}*/}
-                {/*                </a>*/}
-                {/*              </Typography>*/}
-                {/*            </Grid>*/}
-                {/*          </Grid>*/}
-                {/*        </CardContent>*/}
-                {/*      </Card>*/}
-                {/*  }*/}
-                {/*</Grid>*/}
               </Grid>
             </TabPanel>
             <TabPanel value={tabIndex} index={4}>
@@ -655,16 +681,30 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                         make sure to copy and paste the URL into the correct field in the other tabs.
                       </Typography>
                     </Grid>
+                    {blogPost.raw_video_url ?
+                        <Box className="video-container">
+                          <video
+                              width="600"
+                              src={blogPost.raw_video_url}
+                              controls
+                          />
+                          <p>{"Source: " + blogPost.source}</p>
+                        </Box>
+                        :
+                        <>
                           {
-                              getVideoId() &&  <Grid item sm={12} className="iframe-container">
-                                <iframe height="315"
-                                        src={`https://www.youtube.com/embed/${getVideoId()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowFullScreen></iframe>
-                              </Grid>
+                            getVideoId() &&  <Grid item sm={12} className="iframe-container">
+                              <iframe height="315"
+                                      src={`https://www.youtube.com/embed/${getVideoId()}?autoplay=0&showinfo=0&controls=1&rel=0`}
+                                      title="YouTube video player"
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowFullScreen></iframe>
+                            </Grid>
                           }
+                        </>
+                    }
+
                           <Grid item xs={12} sx={{mt: 4}}>
                             <BoxUploadWrapper {...getRootProps()}>
                               <input {...getInputProps()} />

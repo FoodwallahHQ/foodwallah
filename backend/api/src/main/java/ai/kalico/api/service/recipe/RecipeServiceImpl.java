@@ -3,6 +3,7 @@ package ai.kalico.api.service.recipe;
 import ai.kalico.api.data.postgres.entity.RecipeEntity;
 import ai.kalico.api.data.postgres.projection.UserProjectProjection;
 import ai.kalico.api.data.postgres.repo.RecipeRepo;
+import ai.kalico.api.dto.AdditionalInfoDto;
 import ai.kalico.api.dto.VideoInfoDto;
 import ai.kalico.api.props.AWSProps;
 import ai.kalico.api.service.av.AVService;
@@ -89,8 +90,9 @@ public class RecipeServiceImpl implements RecipeService {
         }
       } else {
         ContentPreviewResponse preview = avService.parseContentMetadata(dto);
+        AdditionalInfoDto additionalInfoDto = new AdditionalInfoDto();
+        additionalInfoDto.setCookingTime(preview.getDurationMinutes());
         RecipeEntity entity = new RecipeEntity();
-        entity.setCookingTimeMinutes(preview.getDurationMinutes());
         entity.setContentId(contentId);
         entity.setCanonicalUrl(canonicalUrl);
         entity.setThumbnail(String.format("%s/%s/%s",

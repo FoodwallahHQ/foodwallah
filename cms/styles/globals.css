@@ -111,3 +111,10 @@ code[class*='language-'] {
   max-width: 560px;
   width: 100%;
 }
+.video-container {
+  margin: 0 auto;
+  text-align: center;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
