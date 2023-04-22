@@ -87,6 +87,7 @@ public interface RecipeMapper {
     recipeEntity.setAdditionalInfo(recipeFull.getRecipeLite().getAdditionalInfo());
     recipeEntity.setKeywords(recipeFull.getKeywords());
     recipeEntity.setThumbnail(recipeFull.getRecipeLite().getThumbnail());
+    recipeEntity.setSlug(recipeFull.getRecipeLite().getSlug());
     recipeEntity.setUpdatedAt(LocalDateTime.now());
   }
 

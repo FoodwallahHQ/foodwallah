@@ -39,6 +39,9 @@ import Tab from "@mui/material/Tab";
 import PublishIcon from "@mui/icons-material/Publish";
 import DownloadIcon from "@mui/icons-material/Download";
 import RawTranscript from "@/@core/document/editor/RawTranscript";
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -146,6 +149,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [fileExtension, setFileExtension] = useState('')
   const [fileName, setFileName] = useState('')
   const [showFileName, setShowFileName] = useState(false)
+  const [updateSlug, setUpdateSlug] = useState(false)
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
   const { enqueueSnackbar } = useSnackbar();
 
@@ -255,9 +259,9 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
       blogPost.recipe_lite.additional_info = JSON.stringify(data)
     } else if ([
         "title",
-        "slug",
         "description",
-        "thumbnail"
+        "thumbnail",
+        "slug"
     ].includes(fieldName)) {
       blogPost.recipe_lite[fieldName] = value
     } else if (["summary", "keywords"].includes(fieldName)) {
@@ -490,9 +494,22 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                           />
                         </Grid>
                         <Grid item xs={12}>
+                          <Box sx={{ml: 2, mt: 4, mb: 2}}>
+                            <Typography
+                                variant='subtitle2'
+                                fontSize={12} textAlign="left" color="error">
+                             Updating the slug will break indexed pages on Google. Only do this if this post
+                              hasn't been published before.
+                            </Typography>
+                            <FormGroup>
+                              <FormControlLabel control={<Checkbox />} label="Force Update Slug" onChange={
+                                () => setUpdateSlug(!updateSlug)}/>
+                            </FormGroup>
+                          </Box>
                           <TextField
                               onChange={(e) => handleBlogPostFieldChange('slug', e)}
                               fullWidth
+                              disabled={!updateSlug}
                               label='slug'
                               placeholder='Slug'
                               value={blogPost?.recipe_lite?.slug ? blogPost.recipe_lite.slug : ''}
