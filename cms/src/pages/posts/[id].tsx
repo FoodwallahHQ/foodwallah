@@ -150,6 +150,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [fileName, setFileName] = useState('')
   const [showFileName, setShowFileName] = useState(false)
   const [updateSlug, setUpdateSlug] = useState(false)
+  const [showVideoControls, setShowVideoControls] = useState(false)
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
   const { enqueueSnackbar } = useSnackbar();
 
@@ -701,10 +702,19 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                     {blogPost.raw_video_url ?
                         <Box className="video-container">
                           <video
-                              width="600"
+                              width="1024"
                               src={blogPost.raw_video_url}
-                              controls
+                              controls={showVideoControls}
                           />
+                          <Box>
+                            <Button
+                                sx={{mt: 4}}
+                                onClick={() => setShowVideoControls(!showVideoControls)}
+                                variant="contained"
+                                className="overview-btn orange">
+                              {showVideoControls ? "Hide Controls" : "Show Controls"}
+                            </Button>
+                          </Box>
                           <p>{"Source: " + blogPost.source}</p>
                         </Box>
                         :
