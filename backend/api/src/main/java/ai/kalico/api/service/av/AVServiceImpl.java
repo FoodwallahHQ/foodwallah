@@ -202,7 +202,6 @@ public class AVServiceImpl implements AVService {
       return videoInfoCache.get(url);
     }
       Platform platform = KALUtils.getPlatform(url);
-      log.info("Fetching content metadata for {}", url);
       VideoInfoDto videoInfoDto  = null;
       if (platform == Platform.YOUTUBE) {
            videoInfoDto = getYouTubeVideoInfo(url);
@@ -216,6 +215,7 @@ public class AVServiceImpl implements AVService {
       if (videoInfoDto != null) {
         videoInfoDto.setPermalink(url);
         videoInfoCache.put(url, videoInfoDto);
+        log.info("Fetched video metadata for {}", url);
       }
       return videoInfoDto;
   }
