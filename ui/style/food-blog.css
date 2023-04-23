@@ -169,7 +169,7 @@ input:focus, textarea:focus {
   line-height: 1.2;
 }
 .p-text {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.2;
 }
 
@@ -354,4 +354,8 @@ header {
 }
 .search-bar-container .success {
   color: green;
+}
+.custom-divider {
+  border-bottom: 1px solid #eaeaea;
+  width: 100%;
 }

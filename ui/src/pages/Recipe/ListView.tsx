@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Divider, Grid} from "@mui/material";
+import {Box, Grid} from "@mui/material";
 import Link from "next/link";
 import SummaryComponent from "@/pages/Recipe/SummaryComponent";
 import {RecipeLite} from "@/api";
@@ -52,7 +52,7 @@ const ListView: FC<ListViewProps> =  (props) => {
                           </Link>
                         </Box>
                       </Box>
-                      {index < props.posts.length - 1 && <Divider>{'<>'}</Divider>}
+                      {index < props.posts.length - 1 && <div className="custom-divider"></div>}
                     </Grid>
                   </Grid>
               )

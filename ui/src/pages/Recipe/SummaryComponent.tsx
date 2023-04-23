@@ -18,12 +18,12 @@ const SummaryComponent: FC<SummaryComponentProps> =  (props) => {
             {/*</Box>*/}
             <Box className="recipe-summary-item right-border">
               <span className="value h2-text">{props.cookingTime ? props.cookingTime : "15-20"}</span>
-              <span className="value p-text">(min)</span>
+              <span className="value p-text">mins</span>
               <span className="unit">Cooking Time</span>
             </Box>
             <Box className="recipe-summary-item">
               <span className="value h2-text">{props.prepTime ? props.prepTime : "5-10"}</span>
-              <span className="value p-text">(min)</span>
+              <span className="value p-text">mins</span>
               <span className="unit">Prep Time</span>
             </Box>
           </Box>
