@@ -103,17 +103,17 @@ const DetailView: FC<DetailViewProps> =  (props) => {
               }
             </ul>
           </Box>
-          {props.post?.source &&
-              <Box className="citation">
-                <p>Disclaimer: This recipe was written using automated means. Please let us know if you have comments or concerns.</p>
-                {!videoId && <p>Source: {props.post?.source}</p>}
-              </Box>
-          }
+          {/*{props.post?.source &&*/}
+          {/*    <Box className="citation">*/}
+          {/*      <p>Disclaimer: This recipe was written using automated means. Please let us know if you have comments or concerns.</p>*/}
+          {/*      {!videoId && <p>Source: {props.post?.source}</p>}*/}
+          {/*    </Box>*/}
+          {/*}*/}
         </Box>
 
         {(props.post?.prev || props.post?.next) &&
             <Box className="other-recent-recipes">
-              <h4>Other Recent Recipes</h4>
+              <h3>Recent Recipes</h3>
               <Grid container className="grid-items prev-next" spacing={6}>
                 {props.post?.prev &&
                     <Grid item sm={6}>
