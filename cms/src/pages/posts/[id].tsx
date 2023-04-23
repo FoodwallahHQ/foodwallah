@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useRef, useState} from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -42,6 +42,7 @@ import RawTranscript from "@/@core/document/editor/RawTranscript";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+// import html2canvas from "html2canvas";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -150,8 +151,9 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [fileName, setFileName] = useState('')
   const [showFileName, setShowFileName] = useState(false)
   const [updateSlug, setUpdateSlug] = useState(false)
-  const [showVideoControls, setShowVideoControls] = useState(false)
+  const [showVideoControls, setShowVideoControls] = useState(true)
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
+  const videoRef = useRef<HTMLVideoElement>(null)
   const { enqueueSnackbar } = useSnackbar();
 
 
@@ -365,6 +367,70 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
       });
     })
   }
+
+  // const downloadFrame = async () => {
+  //   if (!videoRef.current) return
+  //   const tmpCanvas = document.createElement('canvas');
+  //   document.body.appendChild(tmpCanvas);
+  //
+  //   html2canvas(tmpCanvas, {useCORS: true, allowTaint: true})
+  //   .then(canvas => {
+  //     canvas.width = 1920;
+  //     canvas.height = 1080;
+  //     document.appendChild(canvas)
+  //     const ctx = canvas.getContext('2d');
+  //     ctx.drawImage( videoRef.current, 0, 0, canvas.width, canvas.height );
+  //     const a = document.createElement('a');
+  //     a.href = canvas.toDataURL('image/png');
+  //     a.download = (new Date()).toISOString();
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   }).catch(e => console.log(e));
+  //
+  //
+  //
+  //
+  //
+  //
+  //   // const ctx = canvas.getContext('2d');
+  //   // ctx.drawImage( videoRef.current, 0, 0, canvas.width, canvas.height );
+  //   // const a = document.createElement('a');
+  //   // a.href = canvas.toDataURL('image/jpeg');
+  //   // a.download = (new Date()).toISOString();
+  //   // html2canvas(a).then(function(canvas) {
+  //   //   document.body.appendChild(canvas);
+  //   //   a.click();
+  //   //   document.body.removeChild(a);
+  //   // });
+  //   // document.body.appendChild(a);
+  //   // a.click();
+  //   // document.body.removeChild(a);
+  // }
+
+  // const videoControl = (e) => {
+  //   const key = e.code;
+  //   if (!videoRef.current) return
+  //   if (key === 'ArrowLeft') {
+  //     videoRef.current.currentTime -= 1;
+  //     if (videoRef.current.currentTime < 0) {
+  //       videoRef.current.pause();
+  //       videoRef.current.currentTime = 0;
+  //     }
+  //   } else if (key === 'ArrowRight') {
+  //     videoRef.current.currentTime += 1;
+  //     if (videoRef.current.currentTime > videoRef.current.duration) {
+  //       videoRef.current.pause();
+  //       videoRef.current.currentTime = 0;
+  //     }
+  //   } else if (key === 'Space') {
+  //     if (videoRef.current.paused || videoRef.current.ended) {
+  //       videoRef.current.play();
+  //     } else {
+  //       videoRef.current.pause();
+  //     }
+  //   }
+  // }
   const getPublicationStatus = (): string => {
     return  blogPost?.recipe_lite?.published ? "Current status: Published" : "Current status: Draft"
   }
@@ -413,6 +479,42 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     })
   }, [])
 
+  // useEffect(() => {
+  //   window.onkeydown = videoControl;
+  // }, [])
+
+  // useEffect(() => {
+  //   const url = blogPost?.raw_video_url
+  //   if (!window.sessionStorage.getItem(blogPost?.source) && url) {
+  //     fetch(url, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'video/mp4',
+  //       },
+  //     })
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       // Create blob link to download
+  //       const url = window.URL.createObjectURL(
+  //           new Blob([blob]),
+  //       );
+  //       const link = document.createElement('a');
+  //       link.href = url;
+  //       link.download = "video"
+  //
+  //       // Append to html link element page
+  //       document.body.appendChild(link);
+  //
+  //       // Start download
+  //       link.click();
+  //
+  //       // Clean up and remove the link
+  //       link.parentNode.removeChild(link);
+  //     });
+  //
+  //   }
+  // }, [blogPost])
+
   const additionalInfo = getAdditionalInfo()
 
   return (
@@ -433,7 +535,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
         blogPost &&
         <>
           <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: '50px' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
               <Tabs value={tabIndex} onChange={handleTabChange} aria-label="recipe-blog-post">
                 <Tab label="Post" {...a11yProps(0)} />
                 <Tab label="Recipe" {...a11yProps(1)} />
@@ -702,18 +804,27 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                     {blogPost.raw_video_url ?
                         <Box className="video-container">
                           <video
+                              ref={videoRef}
+                              id="video"
                               width="1024"
                               src={blogPost.raw_video_url}
                               controls={showVideoControls}
                           />
                           <Box>
                             <Button
-                                sx={{mt: 4}}
+                                sx={{mt: 4, ml: 4, mr: 4}}
                                 onClick={() => setShowVideoControls(!showVideoControls)}
                                 variant="contained"
                                 className="overview-btn orange">
                               {showVideoControls ? "Hide Controls" : "Show Controls"}
                             </Button>
+                            {/*<Button*/}
+                            {/*    sx={{mt: 4, ml: 4, mr: 4, width: '200px;'}}*/}
+                            {/*    onClick={downloadFrame}*/}
+                            {/*    variant="contained"*/}
+                            {/*    className="overview-btn orange">*/}
+                            {/*  Download Frame*/}
+                            {/*</Button>*/}
                           </Box>
                           <p>{"Source: " + blogPost.source}</p>
                         </Box>
