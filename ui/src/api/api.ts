@@ -753,6 +753,24 @@ export interface RecipeFull {
      * @type {string}
      * @memberof RecipeFull
      */
+    transcript?: string;
+    /**
+     * 
+     * @type {number}
+     * @memberof RecipeFull
+     */
+    serving_size?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
+    raw_video_url?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof RecipeFull
+     */
     keywords?: string;
     /**
      * 
@@ -835,10 +853,10 @@ export interface RecipeLite {
     num_steps?: number;
     /**
      * 
-     * @type {number}
+     * @type {string}
      * @memberof RecipeLite
      */
-    cooking_time?: number;
+    additional_info?: string;
 }
 /**
  * 
