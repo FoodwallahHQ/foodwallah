@@ -31,9 +31,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
   }
   const prevUrl = "/recipe/" + props.post?.prev?.slug
   const nextUrl = "/recipe/" + props.post?.next?.slug
-  // console.log(props.post)
   const additionalInfo: AdditionalInfo = JSON.parse(props.post?.recipe_lite?.additional_info ? props.post?.recipe_lite?.additional_info : "{}")
-  console.log(additionalInfo)
   return (
       <>
         <StructuredData post={props.post}/>
