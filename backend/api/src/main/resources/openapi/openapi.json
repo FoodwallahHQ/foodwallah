@@ -1543,9 +1543,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "cooking_time": {
-            "type": "integer",
-            "format": "int32"
+          "additional_info": {
+            "type": "string"
           }
         }
       },
@@ -1602,6 +1601,16 @@
             "type": "string"
           },
           "summary": {
+            "type": "string"
+          },
+          "transcript": {
+            "type": "string"
+          },
+          "serving_size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "raw_video_url": {
             "type": "string"
           },
           "keywords": {

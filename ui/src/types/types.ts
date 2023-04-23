@@ -8,6 +8,13 @@ export interface DocumentMetadata {
   thumbnail?: string
 }
 
+export interface AdditionalInfo {
+  cuisine?: string,
+  category?: string,
+  prep_time?: number,
+  cooking_time?: number
+}
+
 export interface DocumentDetail {
   uid?: string,
   slug?: string,

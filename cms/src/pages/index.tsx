@@ -91,23 +91,20 @@ const Dashboard = () => {
       }}>
 
         {
-          showVideoUrlCard ?  <Card sx={{maxHeight: '300px', minHeight: '300px'}}>
-            <CardHeader title="Video URLs" titleTypographyProps={{ variant: 'h6' }} />
+          showVideoUrlCard ?  <Card sx={{maxHeight: '300px', minHeight: '200px'}}>
+            <CardHeader title="Submit a Recipe Link from YouTube" titleTypographyProps={{ variant: 'h6' }} />
             <CardContent>
               <Grid container spacing={5}>
                 <Grid item xs={12}>
                   {submitted ? (
-                      <Box sx={{minHeight: '150px'}}>
-                        <Typography>Your links have been submitted. After they've been processed, you will see them below as drafts.</Typography>
+                      <Box>
+                        <Typography>Link submitted. Please refresh the page in a few minutes to see the draft.</Typography>
                       </Box>) :
                       <TextField
                           onChange={handleChange}
                           fullWidth
-                          multiline
-                          minRows={3}
-                          rows={5}
-                          label='URLs'
-                          placeholder='A comma-separated list of URLs to process'
+                          label='Submit a Link'
+                          placeholder="https://www.youtube.com/watch?v=mCNH9rn2OS0"
                           sx={{'& .MuiOutlinedInput-root': {alignItems: 'baseline'}}}
                       />
                   }
@@ -115,21 +112,23 @@ const Dashboard = () => {
               </Grid>
             </CardContent>
             <CardActions>
-              <Button
-                  sx={{backgroundColor: '#2fb92f', mr: 2}}
-                  onClick={onSubmit}
-                  size='large'
-                  type='submit'
-                  variant='contained'>
-                Create
-              </Button>
+              {!submitted &&
+                  <Button
+                      sx={{backgroundColor: '#2fb92f', mr: 2}}
+                      onClick={onSubmit}
+                      size='large'
+                      type='submit'
+                      variant='contained'>
+                    Submit
+                  </Button>
+              }
               <Button
                   sx={{backgroundColor: '#e15e5e', mr: 2}}
                   onClick={onCancelCreateNewPost}
                   size='large'
                   type='submit'
                   variant='contained'>
-                Cancel
+                Close
               </Button>
             </CardActions>
           </Card> : <Button

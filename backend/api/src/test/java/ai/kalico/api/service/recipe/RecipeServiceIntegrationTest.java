@@ -16,6 +16,7 @@ import com.kalico.model.RecipeLite;
 import com.kalico.model.StringDto;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -225,7 +226,7 @@ public class RecipeServiceIntegrationTest extends AbstractTestNGSpringContextTes
             assertThat(record.getCreatedAt(), is(notNullValue()));
             assertThat(record.getNumIngredients(), is(greaterThanOrEqualTo(0)));
             assertThat(record.getNumSteps(), is(greaterThanOrEqualTo(0)));
-            assertThat(record.getCookingTime(), is(greaterThanOrEqualTo(0)));
+            assertThat(record.getAdditionalInfo(), is(notNullValue()));
         }
     }
 
@@ -238,7 +239,7 @@ public class RecipeServiceIntegrationTest extends AbstractTestNGSpringContextTes
             entity.setCanonicalUrl("https://www.youtube.com/watch?v=U-0JCdjkREU?a=" + i);
             entity.setContentId("U-0JCdjkREU-" + UUID.randomUUID());
             entity.setSummary("This Ground Beef Stir Fry Recipe is one you’ll add to your dinner rotation over and over! It uses simple ingredients and there are so many ways to customize it! Ground beef and veggies are coated in a delicious sweet…");
-            entity.setCookingTimeMinutes((int) Math.round(Math.random() * 100));
+            entity.setAdditionalInfo(objectMapper.writeValueAsString(new HashMap<>()));
             entity.setNumIngredients((int) Math.round(Math.random() * 100));
             entity.setNumSteps((int) Math.round(Math.random() * 100));
             entity.setProcessed(true);

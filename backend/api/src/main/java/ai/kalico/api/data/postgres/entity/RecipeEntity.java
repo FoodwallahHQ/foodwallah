@@ -75,8 +75,8 @@ public class RecipeEntity {
     private Integer numSteps;
 
     @Basic
-    @Column(name = "cooking_time_minutes")
-    private Integer cookingTimeMinutes;
+    @Column(name = "additional_info")
+    private String additionalInfo;
 
     @Column(name = "ingredients")
     String ingredients;

@@ -2,7 +2,9 @@ package ai.kalico.api.service.cms;
 
 import ai.kalico.api.data.postgres.entity.RecipeEntity;
 import ai.kalico.api.data.postgres.repo.RecipeRepo;
+import ai.kalico.api.dto.VideoInfoDto;
 import ai.kalico.api.props.AWSProps;
+import ai.kalico.api.service.av.AVService;
 import ai.kalico.api.service.aws.S3Service;
 import ai.kalico.api.service.mapper.RecipeMapper;
 import ai.kalico.api.service.utils.KALUtils;
@@ -43,6 +45,7 @@ public class CmsServiceImpl implements CmsService {
   private final ObjectMapper objectMapper;
   private final AWSProps awsProps;
   private final S3Service s3Service;
+  private final AVService avService;
 
   @Override
   public PageableRecipeResponse getAllPosts(Integer page, Integer size) {
@@ -65,7 +68,14 @@ public class CmsServiceImpl implements CmsService {
     Optional<RecipeEntity> entityOpt = recipeRepo.findById(id);
     if (entityOpt.isPresent()) {
       RecipeEntity entity = entityOpt.get();
+      String rawVideoUrl = "";
+      VideoInfoDto dto = avService.getContent(entity.getCanonicalUrl());
+      if (dto != null && dto.getFormat() != null) {
+        rawVideoUrl = dto.getFormat().url();
+      }
       return new RecipeFull()
+          .rawVideoUrl(rawVideoUrl)
+          .transcript(entity.getTranscript())
           .source(entity.getCanonicalUrl())
           .summary(entity.getSummary())
           .keywords(entity.getKeywords())

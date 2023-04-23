@@ -1,4 +1,4 @@
-import React, {FC, useCallback, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useRef, useState} from "react";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardContent from "@mui/material/CardContent";
@@ -38,6 +38,11 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import PublishIcon from "@mui/icons-material/Publish";
 import DownloadIcon from "@mui/icons-material/Download";
+import RawTranscript from "@/@core/document/editor/RawTranscript";
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+// import html2canvas from "html2canvas";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -118,6 +123,7 @@ function a11yProps(index: number) {
   };
 }
 
+
 export async function getServerSideProps(context) {
   return {
     props: {
@@ -126,6 +132,12 @@ export async function getServerSideProps(context) {
   }
 }
 
+interface AdditionalInfo {
+  cuisine?: string,
+  category?: string,
+  prep_time?: number,
+  cooking_time?: number
+}
 export interface DocumentEditorProps {
   id: number
 }
@@ -138,8 +150,12 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
   const [fileExtension, setFileExtension] = useState('')
   const [fileName, setFileName] = useState('')
   const [showFileName, setShowFileName] = useState(false)
+  const [updateSlug, setUpdateSlug] = useState(false)
+  const [showVideoControls, setShowVideoControls] = useState(true)
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
+  const videoRef = useRef<HTMLVideoElement>(null)
   const { enqueueSnackbar } = useSnackbar();
+
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const conversionFactor = 1024*10
@@ -229,15 +245,26 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     setBlogPost({...blogPost})
   }
 
-  const handleBlogPostFieldChange = (fieldName: string, event: any): void => {
+  const getAdditionalInfo = (): AdditionalInfo => {
+    let additionalInfo: AdditionalInfo = {}
+    if (blogPost?.recipe_lite?.additional_info) {
+      additionalInfo = JSON.parse(blogPost?.recipe_lite?.additional_info)
+    }
+    return additionalInfo
+  }
+
+  const handleBlogPostFieldChange = (fieldName: string, event: any, additionalInfo: boolean = false): void => {
     event.preventDefault();
     const value = event.target.value;
-    if ([
+    if (additionalInfo) {
+      const data = getAdditionalInfo()
+      data[fieldName] = value
+      blogPost.recipe_lite.additional_info = JSON.stringify(data)
+    } else if ([
         "title",
-        "slug",
         "description",
         "thumbnail",
-        "cooking_time"
+        "slug"
     ].includes(fieldName)) {
       blogPost.recipe_lite[fieldName] = value
     } else if (["summary", "keywords"].includes(fieldName)) {
@@ -340,6 +367,70 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
       });
     })
   }
+
+  // const downloadFrame = async () => {
+  //   if (!videoRef.current) return
+  //   const tmpCanvas = document.createElement('canvas');
+  //   document.body.appendChild(tmpCanvas);
+  //
+  //   html2canvas(tmpCanvas, {useCORS: true, allowTaint: true})
+  //   .then(canvas => {
+  //     canvas.width = 1920;
+  //     canvas.height = 1080;
+  //     document.appendChild(canvas)
+  //     const ctx = canvas.getContext('2d');
+  //     ctx.drawImage( videoRef.current, 0, 0, canvas.width, canvas.height );
+  //     const a = document.createElement('a');
+  //     a.href = canvas.toDataURL('image/png');
+  //     a.download = (new Date()).toISOString();
+  //     document.body.appendChild(a);
+  //     a.click();
+  //     document.body.removeChild(a);
+  //   }).catch(e => console.log(e));
+  //
+  //
+  //
+  //
+  //
+  //
+  //   // const ctx = canvas.getContext('2d');
+  //   // ctx.drawImage( videoRef.current, 0, 0, canvas.width, canvas.height );
+  //   // const a = document.createElement('a');
+  //   // a.href = canvas.toDataURL('image/jpeg');
+  //   // a.download = (new Date()).toISOString();
+  //   // html2canvas(a).then(function(canvas) {
+  //   //   document.body.appendChild(canvas);
+  //   //   a.click();
+  //   //   document.body.removeChild(a);
+  //   // });
+  //   // document.body.appendChild(a);
+  //   // a.click();
+  //   // document.body.removeChild(a);
+  // }
+
+  // const videoControl = (e) => {
+  //   const key = e.code;
+  //   if (!videoRef.current) return
+  //   if (key === 'ArrowLeft') {
+  //     videoRef.current.currentTime -= 1;
+  //     if (videoRef.current.currentTime < 0) {
+  //       videoRef.current.pause();
+  //       videoRef.current.currentTime = 0;
+  //     }
+  //   } else if (key === 'ArrowRight') {
+  //     videoRef.current.currentTime += 1;
+  //     if (videoRef.current.currentTime > videoRef.current.duration) {
+  //       videoRef.current.pause();
+  //       videoRef.current.currentTime = 0;
+  //     }
+  //   } else if (key === 'Space') {
+  //     if (videoRef.current.paused || videoRef.current.ended) {
+  //       videoRef.current.play();
+  //     } else {
+  //       videoRef.current.pause();
+  //     }
+  //   }
+  // }
   const getPublicationStatus = (): string => {
     return  blogPost?.recipe_lite?.published ? "Current status: Published" : "Current status: Draft"
   }
@@ -388,6 +479,44 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
     })
   }, [])
 
+  // useEffect(() => {
+  //   window.onkeydown = videoControl;
+  // }, [])
+
+  // useEffect(() => {
+  //   const url = blogPost?.raw_video_url
+  //   if (!window.sessionStorage.getItem(blogPost?.source) && url) {
+  //     fetch(url, {
+  //       method: 'GET',
+  //       headers: {
+  //         'Content-Type': 'video/mp4',
+  //       },
+  //     })
+  //     .then((response) => response.blob())
+  //     .then((blob) => {
+  //       // Create blob link to download
+  //       const url = window.URL.createObjectURL(
+  //           new Blob([blob]),
+  //       );
+  //       const link = document.createElement('a');
+  //       link.href = url;
+  //       link.download = "video"
+  //
+  //       // Append to html link element page
+  //       document.body.appendChild(link);
+  //
+  //       // Start download
+  //       link.click();
+  //
+  //       // Clean up and remove the link
+  //       link.parentNode.removeChild(link);
+  //     });
+  //
+  //   }
+  // }, [blogPost])
+
+  const additionalInfo = getAdditionalInfo()
+
   return (
     <Authenticated>
       {showProgress &&
@@ -406,7 +535,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
         blogPost &&
         <>
           <Box sx={{ width: '100%' }}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: '50px' }}>
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 1 }}>
               <Tabs value={tabIndex} onChange={handleTabChange} aria-label="recipe-blog-post">
                 <Tab label="Post" {...a11yProps(0)} />
                 <Tab label="Recipe" {...a11yProps(1)} />
@@ -422,6 +551,24 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                   <Grid container spacing={5}>
                     <Grid item xs={12} >
                       <Grid container spacing={5} sx={{p: 4}}>
+                        <Grid item xs={12}>
+                          <TextField
+                              onChange={(e) => handleBlogPostFieldChange('cuisine', e, true)}
+                              label='Cuisine'
+                              placeholder='Cuisine'
+                              value={additionalInfo.cuisine ? additionalInfo.cuisine : ''}
+                              sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                              width: '25%', ml: 2}}
+                          />
+                          <TextField
+                              onChange={(e) => handleBlogPostFieldChange('category', e, true)}
+                              label='Category'
+                              placeholder='Category'
+                              value={additionalInfo.category ? additionalInfo.category : ''}
+                              sx={{ '& .MuiOutlinedInput-root': { alignItems: 'baseline' },
+                                width: '25%', ml: 2}}
+                          />
+                        </Grid>
                         <Grid item xs={12} sm={12}>
                           <TextField
                               onChange={(e) => handleBlogPostFieldChange('title', e)}
@@ -450,9 +597,22 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                           />
                         </Grid>
                         <Grid item xs={12}>
+                          <Box sx={{ml: 2, mt: 4, mb: 2}}>
+                            <Typography
+                                variant='subtitle2'
+                                fontSize={12} textAlign="left" color="error">
+                             Updating the slug will break indexed pages on Google. Only do this if this post
+                              hasn't been published before.
+                            </Typography>
+                            <FormGroup>
+                              <FormControlLabel control={<Checkbox />} label="Force Update Slug" onChange={
+                                () => setUpdateSlug(!updateSlug)}/>
+                            </FormGroup>
+                          </Box>
                           <TextField
                               onChange={(e) => handleBlogPostFieldChange('slug', e)}
                               fullWidth
+                              disabled={!updateSlug}
                               label='slug'
                               placeholder='Slug'
                               value={blogPost?.recipe_lite?.slug ? blogPost.recipe_lite.slug : ''}
@@ -476,7 +636,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                               onChange={(e) => handleBlogPostFieldChange('summary', e)}
                               fullWidth
                               multiline
-                              minRows={3}
+                              minRows={6}
                               label='Body'
                               value={blogPost.summary ? blogPost.summary : ''}
                               placeholder='Blog post body'
@@ -502,17 +662,23 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
             <TabPanel value={tabIndex} index={1}>
               <Card>
                 <CardHeader title="Step-by-Step Recipe" titleTypographyProps={{ variant: 'h6' }} />
-
-                <Divider sx={{ margin: 0 }} />
                 <CardContent>
                   <Grid container spacing={5}>
                     <Grid item xs={12} sm={12}>
+                      <RawTranscript transcript={blogPost?.transcript}/>
                       <TextField
-                          onChange={(e) => handleBlogPostFieldChange('cooking_time', e)}
-                          fullWidth
+                          sx={{width: '300px', mr: 2}}
+                          onChange={(e) => handleBlogPostFieldChange('cooking_time', e, true)}
                           label={"Cooking Time"}
-                          placeholder='Cooking Time (in minutes), e.g. 45'
-                          value={blogPost?.recipe_lite?.cooking_time ? blogPost?.recipe_lite?.cooking_time  : ''}
+                          placeholder='Cooking Time (m)'
+                          value={additionalInfo.cooking_time ? additionalInfo.cooking_time  : ''}
+                      />
+                      <TextField
+                          sx={{width: '300px', ml: 2, mr: 2}}
+                          onChange={(e) => handleBlogPostFieldChange('prep_time', e, true)}
+                          label={"Prep Time"}
+                          placeholder='Prep Time (m)'
+                          value={additionalInfo.prep_time ? additionalInfo.prep_time  : ''}
                       />
                     </Grid>
                     <Grid item xs={12}>
@@ -541,6 +707,7 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                 <CardHeader title="Ingredients" titleTypographyProps={{ variant: 'h6' }} />
                 <Divider sx={{ margin: 0 }} />
                 <CardContent>
+                  <RawTranscript transcript={blogPost?.transcript}/>
                   <IngredientList
                       ingredients={blogPost?.ingredients}
                       onIngredientChange={onIngredientChange}
@@ -614,27 +781,6 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
 
                   </CardContent>
                 </Grid>
-                {/*<Grid item xs={12}>*/}
-                {/*  <div className="cms-section-divider"></div>*/}
-                {/*  {blogPost.status === 'published' &&*/}
-                {/*      <Card>*/}
-                {/*        <CardHeader title="Preview Link" titleTypographyProps={{variant: 'h6'}}/>*/}
-                {/*        <Divider sx={{margin: 0}}/>*/}
-                {/*        <CardContent>*/}
-                {/*          <Grid container spacing={5}>*/}
-                {/*            <Grid item xs={12}>*/}
-                {/*              <Typography variant='body2' sx={{fontWeight: 900, fontSize: '2rem'}}>*/}
-                {/*                <a href={blogPost.post_url} target="_blank"*/}
-                {/*                   style={{textDecoration: "none", color: "green"}}>*/}
-                {/*                  {blogPost.post_url}*/}
-                {/*                </a>*/}
-                {/*              </Typography>*/}
-                {/*            </Grid>*/}
-                {/*          </Grid>*/}
-                {/*        </CardContent>*/}
-                {/*      </Card>*/}
-                {/*  }*/}
-                {/*</Grid>*/}
               </Grid>
             </TabPanel>
             <TabPanel value={tabIndex} index={4}>
@@ -655,16 +801,48 @@ const DocumentEditor: FC<DocumentEditorProps> = (props) => {
                         make sure to copy and paste the URL into the correct field in the other tabs.
                       </Typography>
                     </Grid>
+                    {blogPost.raw_video_url ?
+                        <Box className="video-container">
+                          <video
+                              ref={videoRef}
+                              id="video"
+                              width="1024"
+                              src={blogPost.raw_video_url}
+                              controls={showVideoControls}
+                          />
+                          <Box>
+                            <Button
+                                sx={{mt: 4, ml: 4, mr: 4}}
+                                onClick={() => setShowVideoControls(!showVideoControls)}
+                                variant="contained"
+                                className="overview-btn orange">
+                              {showVideoControls ? "Hide Controls" : "Show Controls"}
+                            </Button>
+                            {/*<Button*/}
+                            {/*    sx={{mt: 4, ml: 4, mr: 4, width: '200px;'}}*/}
+                            {/*    onClick={downloadFrame}*/}
+                            {/*    variant="contained"*/}
+                            {/*    className="overview-btn orange">*/}
+                            {/*  Download Frame*/}
+                            {/*</Button>*/}
+                          </Box>
+                          <p>{"Source: " + blogPost.source}</p>
+                        </Box>
+                        :
+                        <>
                           {
-                              getVideoId() &&  <Grid item sm={12} className="iframe-container">
-                                <iframe height="315"
-                                        src={`https://www.youtube.com/embed/${getVideoId()}`}
-                                        title="YouTube video player"
-                                        frameBorder="0"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                        allowFullScreen></iframe>
-                              </Grid>
+                            getVideoId() &&  <Grid item sm={12} className="iframe-container">
+                              <iframe height="315"
+                                      src={`https://www.youtube.com/embed/${getVideoId()}?autoplay=0&showinfo=0&controls=1&rel=0`}
+                                      title="YouTube video player"
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowFullScreen></iframe>
+                            </Grid>
                           }
+                        </>
+                    }
+
                           <Grid item xs={12} sx={{mt: 4}}>
                             <BoxUploadWrapper {...getRootProps()}>
                               <input {...getInputProps()} />

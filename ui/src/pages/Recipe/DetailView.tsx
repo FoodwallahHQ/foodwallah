@@ -5,6 +5,7 @@ import SummaryComponent from "@/pages/Recipe/SummaryComponent";
 import {Ingredient, RecipeFull} from "@/api";
 import StructuredData from "@/components/StructuredData";
 import {getFormattedDate} from "@/utils/utils";
+import {AdditionalInfo} from "@/types/types";
 
 
 export interface DetailViewProps {
@@ -30,6 +31,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
   }
   const prevUrl = "/recipe/" + props.post?.prev?.slug
   const nextUrl = "/recipe/" + props.post?.next?.slug
+  const additionalInfo: AdditionalInfo = JSON.parse(props.post?.recipe_lite?.additional_info ? props.post?.recipe_lite?.additional_info : "{}")
   return (
       <>
         <StructuredData post={props.post}/>
@@ -46,7 +48,8 @@ const DetailView: FC<DetailViewProps> =  (props) => {
             </Box>
             <SummaryComponent steps={props.post?.recipe_lite?.num_steps}
                               ingredients={props.post?.recipe_lite?.num_ingredients}
-                              time={props.post?.recipe_lite?.cooking_time}/>
+                              prepTime={additionalInfo.prep_time}
+                              cookingTime={additionalInfo.cooking_time}/>
           </Grid>
         </Grid>
         <Divider><RestaurantMenuIcon/></Divider>
@@ -84,7 +87,18 @@ const DetailView: FC<DetailViewProps> =  (props) => {
             <ul>
               {
                 props.post?.instructions?.map((it, index) => {
-                  return <li key={"step-" + index}><span>{it.text}</span></li>
+                  return (
+                      <li key={"step-" + index}>
+                        {it.images && it.images.map((imageUrl, imageIndex) => {
+                          return (
+                              <Box className="recipe-image" key={index + "-" + imageIndex}>
+                              <img src={imageUrl} alt={it.text}/>
+                            </Box>
+                          )
+                        })}
+                        <span>{it.text}</span>
+                    </li>
+                  )
                 })
               }
             </ul>
