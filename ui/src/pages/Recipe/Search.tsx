@@ -28,7 +28,6 @@ function Search() {
     if (url && url.includes("http")) {
       new ProjectApi().getContentPreview(url)
       .then(response => {
-        console.log("response.data: ", response.data)
         if (response.data.title) {
           let shortTitle = response.data.title.substring(0, 200) + "..."
           setContentTitle(shortTitle)
