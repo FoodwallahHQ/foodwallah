@@ -69,8 +69,12 @@ const DetailView: FC<DetailViewProps> =  (props) => {
         }
 
         <Box className="recipe-detail-bottom">
-          <Box className="summary">
-            <p>{props.post?.summary}</p>
+          <Box>
+            {
+              props.post?.summary?.split("\n")
+              .filter(it => it.trim())
+              .map((text, index) => <div className="recipe-body" ><span key={index}>{text}</span></div>)
+            }
           </Box>
           <Box className="ingredients">
             <h3>Ingredients</h3>
@@ -83,13 +87,14 @@ const DetailView: FC<DetailViewProps> =  (props) => {
             </ul>
           </Box>
           <Box className="instructions">
-            <h3>Instructions</h3>
+            <h3>Steps</h3>
             <ul>
               {
                 props.post?.instructions?.map((it, index) => {
                   return (
                       <li key={"step-" + index}>
-                        {it.images && it.images.map((imageUrl, imageIndex) => {
+                        {it.images && it.images.filter(it => it.trim())
+                        .map((imageUrl, imageIndex) => {
                           return (
                               <Box className="recipe-image" key={index + "-" + imageIndex}>
                               <img src={imageUrl} alt={it.text}/>
@@ -116,7 +121,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
               <h3>Recent Recipes</h3>
               <Grid container className="grid-items prev-next" spacing={6}>
                 {props.post?.prev &&
-                    <Grid item sm={6}>
+                    <Grid item sm={12}>
                       <p>Previous</p>
                       <article
                           className="grid-item-card"
@@ -138,7 +143,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
                     </Grid>
                 }
                 {props.post?.next &&
-                    <Grid item sm={6}>
+                    <Grid item sm={12}>
                       <p>Next</p>
                       <article
                           className="grid-item-card"
@@ -148,7 +153,7 @@ const DetailView: FC<DetailViewProps> =  (props) => {
                                src={props.post?.next?.thumbnail}
                                alt={props.post?.next?.title}/>
                         </a>
-                        <Box className="entry-header">
+                        <Box className="entry-header" sx={{maxWidth: '600px'}}>
                           <span className="entry-meta">
                             <time
                                 className="entry-time">{getFormattedDate(props.post?.next?.created_at)}</time>

@@ -117,6 +117,9 @@ input:focus, textarea:focus {
   margin-top: 30px;
   font-size: 16px;
 }
+.instructions ul {
+  margin-left: 20px;
+}
 .instructions li {
   list-style: decimal;
 }
@@ -207,6 +210,7 @@ input:focus, textarea:focus {
 }
 .other-recent-recipes {
   margin-top: 4rem;
+  max-width: 600px;
 }
 
 .grid-items .entry-title {
@@ -358,4 +362,9 @@ header {
 .custom-divider {
   border-bottom: 1px solid #eaeaea;
   width: 100%;
+}
+.recipe-body {
+  margin-bottom: 20px;
+  line-height: 30px;
+  font-size: 16px;
 }
